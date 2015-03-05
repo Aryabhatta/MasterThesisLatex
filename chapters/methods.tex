@@ -1,0 +1,62 @@
+\chapter{Protein Location Relation Extractor: Materials \& Methods}\label{chapter:methods}
+
+\section{Repplication of Bjorne's work ?}
+
+% where should I put that
+
+\section{Method pipeline}
+
+%- Explain the whole pipeline 
+%- Corpus-->Sentence Segmentation-->Tokenization-->Syntactic & dependency Parsing-->Graph Representation-->  Feature Extraction --> ML Model training -->Classification on Test
+%- Put a nice picture explaining the pipeline
+
+\section{Support Vector Machines}
+
+% Write about some of the theory behind SVM
+ 
+\section{Machine Learning Models}
+% Talk about different models here so that there is no confusion ahead
+
+\subsection{SameSentenceModel}
+
+\subsection{DiffSentenceModel}
+
+\section{Graph representation}
+% Details about graph representation along with nice explanatory picture
+
+\subsection{Graph representation for SameSentenceModel}
+
+\subsection{Graph representation for DiffSentenceModel}
+
+\section{Feature extraction}
+
+\subsection{Feature extraction for SameSentenceModel}
+
+\subsection{Feature extraction for DiffSentenceModel}
+
+\section{Feature Selection}
+
+%Write some of the results found out from in Joachim's paper [Text categorization with SVM]
+%
+%**This is a very important property that has got to be known that in text categorization using SVM, there are only few irrelevant features.
+%
+%When ranked according to Binary information gain, see Figure 1, removal of high ranking features doesnot take away a lot of information. This also means that even features ranked lowest still contain considerable information and are somewhat relevant.
+%
+%TODO: See how to calculate binary information gain for a feature/set of features.***
+
+\section{Training, Cross validation and Classification}
+
+\section{Experiments that worked and that did not work}
+
+\subsection{Experimentation for SameSentModel}
+
+- Removing sentences which had no proteins improved the performance
+- Using different kernels did not work
+
+\subsection{Experimentation for DiffSentModel}
+
+- Using extra information from the document such as shortform longform pairs decreased the performance since it added more FP's (15) than TP's (1). It seems that this rule was nicely followed during annotation
+
+\subsection{Experimentation with different kernels}
+
+\section{Tools used}

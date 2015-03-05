@@ -1,0 +1,30 @@
+\chapter{LocText Corpus}\label{chapter:corpus}
+
+\section{Need for a separate corpus}
+
+As mentioned in the previous chapter, the GENIA event corpus or its subset, the BIONLP shared task corpus is not the best corpus that can be used for training a model to extract protein- subcellular location relations. As pointed out previously, following are some of the issues related to the corpus:
+\begin{enumerate}
+\item Not all the locations found in the GENIA event corpus are subcellular compartments. Some of the locations are the names of cells or tissues in the body.
+\item In some mentions of subcellular compartment, the actual mention contains extraneous words in addition to the mention of subcellular compartment. These extracellular words takes away the preciseness of the mention of subcellular compartment.
+\item Some localization event does not contain an actual mention of subcellular compartment but the context just points out the clue leading to hypothesis that a localization event may have been mentioned.
+\end{enumerate}
+
+To summarize, the GENIA event corpus have some serious concerns and cannot be directly used if we are trying to train a classifier for protein-subcellular compartment relation extraction. There was a need to create a separate corpus dedicated for this task.
+
+\section{LocText}
+
+\section{Corpus annotation process and guidelines}
+
+\section{Inter-annotator agreement}
+
+\section{Important conclusions from the dataset}
+
+% Explain about the results that you published at the BLAH conference
+
+\section{Corpus statistics}
+
+% Put all the numbers with respect to number of entities, relations and their distribution here. Also, put all the nice graphs that you made here
+
+\section{Linked Annotation}
+
+%Write about contribution in BLAH

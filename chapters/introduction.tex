@@ -1,0 +1,285 @@
+\chapter{Introduction}\label{chapter:introduction}
+
+\section{Explosion of Biomedical data}
+
+In recent times, there has been phenomenal rise in the amount of textual information. At the time of writing, the database of Biomedical articles - PubMed boasts of more than 24 million articles. The amount of data available in the Biomedical research community is also increasing due to high throughput experiments. With huge amount of information in Biomedical texts, it has been impossible for researchers to keep track of all developments in the field. The Information Extraction (IE) techniques are helping the researchers to extract relevant information from this gold mine. As a result, there has been tremendous increase in research in the area of natural language processing and text-mining. These techniques when applied to Biomedical text is found to be quite helpful to the researchers who cannot manually scavenge thousands of articles for information.
+
+
+\section{Need for automatic extraction of information}
+
+% TODO: 
+\subsection*{Need for Biomedical research community}
+% 1. Write about why scientists both in biomedical and text-mining domain needs automatic information extractors. Need inputs on how this information
+The biomedical research community is interested in wide variety of problems like protein-protein interaction, protein-ligand interaction, protein-subcellular location, protein mutation, protein structure prediction, protein function prediction etc. All these different cellular activities have a far reaching effect on human health and plays phenomenal role in causing diseases. Since a lot of researchers across the globe are working simultaneously on some of these problems, it is quintessential for an researcher to understand the recent advances and start building from there. 
+
+Conventionally, the best method to keep oneself updated about recent scientific advances is by reading the scientific literature. This remains to be the best way in some areas of science where the scientific throughput is less and harder to achieve. However in some fields like biomedical sciences, due to recent advances in the technology and construction of high throughput machines, it has become possible to do science at a faster rate. Since human health is an issue of paramount importance, the research funding in biomedical sciences has also remained sufficient which added to more amount of research throughput. With huge amount of scientific literature available, it has therefore become very difficult for an researcher to stay updated about recent work being done in his area of interest.
+
+The automatic extractors of information has played a key role in gathering information. The automatic extractors are mainly text-mining methods which can extract useful information from literature with some amount of confidence. These information extractors, therefore, have started playing a key role in biomedical sciences.
+
+
+\section{Protein-subcellular localization extraction}
+
+\subsection*{Why it is important ?}
+
+% Explain about why do we need to know about subcellular localization of proteins
+The subcellular localization of proteins is one of the most studied topics in the field of biomedical sciences. The proteins are a chain of amino acids. The proteins are created in the cytoplasm by a flow of genetic information from DNA to RNA and from RNA to Proteins. This process is also called as central dogma of molecular biology. The genetic information present in the DNA (Deoxyribonucleic acid) is converted to RNA (Ribonucleic acid) by a process called as transcription. Transcription takes places in the nucleus of the cell. The RNA strand so created travels from nucleus to cytoplasm through the nuclear pores. In the cytoplasm, the RNA strands are used to create protein with the help of cellular machinery called as Ribosomes. The process of converting RNA to a chain of amino acids called as proteins is called translation. Therefore, the creation of proteins consists of two main phases viz. transcription and translation. 
+
+Although the proteins are created in the cytoplasm, they either perform their biological functions in the cytoplasm or some cellular organelle or exit from the cell. Therefore, the biological functions of the proteins largely depend on their location and knowledge of the subcellular location of the protein is key to understanding its biological function.
+
+
+\subsection*{Important role in drug research}
+% 2. How automatic extraction of information will help in drug research
+The proteins are called as the building blocks of life and they play a very important role in functioning of cell machinery. Therefore, an abnormality in its functioning can result in adverse effects even leading to a disease. The study of proteins and their subcellular location is important stage in the development of a drug and the ability to predict the subcellular location of a protein is helpful to identify suitable drug, vaccine and diagnostic treatment [CITE:LIU].
+
+
+\subsection*{Current sources of information extraction}
+% Explain about 
+%- Uniprot, Swissprot and Trembl. 
+%- Also talk about the procedure followed by PubMed annotators and how locations are mentioned for each protein
+%- Can also talk about sources where you can extract protein-location relation
+
+Currently, the important sources of extraction of information about protein subcellular location are manual curation from the literature, high-throughput microscopy-based screens and prediction from primary sequence [CITE:COMPARTMENT].
+
+The text-mining methods help in automatic extraction of this information from the literature and these methods have started playing a key role extraction of protein subcellular location extraction.
+
+\section{Existing work}
+
+There hasn't been so much of work done in the area of protein-subcellular localization relation extraction. There has been some projects which have tried to work on the same problem and there are a lot other projects that are working on an allied problem. This section presents an overview of the recent work done in the related area.
+
+
+%Literature Survey
+\subsection*{Using rich syntactic information for relation extraction - Liu.et.al}
+
+Lie et.al [CITE:LIU] proposed a method for extraction of protein-organism (PO) relations and protein-location (PL) relations from the text using sytanctic parse trees. The protein-organism (PO) and protein-location (PL) relations are then merged to predict a ternary protein-organism-location (POL) relation.
+
+The corpus used in this method is composed of MEDLINE titles and abstracts annotated by domain expert biologists and parsed by Charniak-Johnson parser.
+
+The focus of this work is to extract relations present in the same sentence and does not considers the inter-sentence relations. Two models are developed for extraction of relations viz. Semantic Role Labeling based relation extraction (SRL) and Tree kernel based relation extraction (TRK). Both models use features extracted from syntactic parse trees.
+
+The model based on SRL uses manually extracted features from syntactic parse trees. These features are extracted along the path from protein to location/organism. This model is then trained by a Binary SVM using default linear kernel from Joachim’s SVM light [CITE:JOACHIM SVMLIGHT].
+
+The model TRK uses entire parse tree as input for tree kernel. The model is trained by default tree kernel from Moschetti’s SVM-light-TK-1.2 [CITE:MOSCHETTI'S TK].
+
+\begin{figure}[hbtp]
+\includegraphics[scale=1]{Liu_Flow.png}
+\caption{Flow of information in relation extraction models }
+\end{figure}
+
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|l|l|l|l|l|}
+\hline
+\textbf{Relation} & \textbf{Precision} & \textbf{Recall} & \textbf{Fscore} & \textbf{Accuracy} \\ \hline
+\textbf{PL} & 74.9 & 79.4 & 77.1 & 72.8 \\
+PO & 73.9 & 78.1 & 75.9 & 72.6 \\
+POL & 75.3 & 74.5 & 74.9 &  71.8\\ \hline
+\end{tabular}
+\caption{Results of SRL+TRK}\label{tab:Liu}
+\end{table}
+
+Table \ref{tab:Liu} shows the results for combination of both models.
+
+\subsection*{BioNLP shared task and localization events}
+% Explain what BioNLP event is and how localization is one of the 9 events that are meant to be extracted automatically
+The BioNLP shared task [CITE:BIONLP SHARED EVENT] events in 2009 and 2011 focused on the aspects of event extraction from Biomedical literature. The BioNLP events provided an annotated corpus to the the text-mining community and asked for submission of innovative solutions for the tasks. One of the tasks was shared task in which the events present in the text have to be extracted. The data for shared task was a subset of GENIA event corpus [CITE:Genia event corpus]. Although, the original GENIA event corpus consists of 35 events, the shared task event corpus consisted of 9 events. One of the events common to both BioNLP event corpus as well as the main GENIA event corpus is localization event and therefore, the methods employed in these BioNLP events can be an important resource of study for the purpose of protein-subcellular location extraction.
+
+\subsubsection*{Some of the issues with BioNLP corpus}
+
+Although localization task is quite similar to protein-subcellular location extraction task, there are subtle differences which disallows using the same methods as it is for our task of protein-subcellular location extraction. 
+
+One of the issues is that not all the locations found in the GENIA event corpus are subcellular locations. Some of them are even specific cells or tissues in the body. Some localization events were annotated without any mention of actual location but with the presence of a clue which hints that the text contains a localization event. In addition, the location mention contains extraneous words that are a part of the phrase but not absolutely essential for location mention. Owing to all these problems, we decided not to use GENIA event corpus as it is, develop our own corpus and develop a method using it.
+
+\subsubsection*{State of the art in BioNLP'09}
+%Work of Björne et al
+
+The method developed by Björne et.al. [CITE:BJORNE PAPER] registered the state of the art performance in BioNLP Shared Task Event 2009. 
+
+The shared task of event extraction consisted of three stages viz. Trigger detection, argument detection and event extraction. Triggers are the tokens or set of tokens that indicate the presence of the event. Once the triggers are detected, the triggers can be joined to other triggers or proteins as a part of predicate-argument structures. Finally, the triggers and their arguments are suitable combined to form an event.
+
+This method extract events from the same sentence and do not look for inter-sentence event. The method developed by Björne et.al. represents a sentence as a graph where nodes are the tokens of the sentence and dependency relations are the edges between them. Every entity (Protein/DNA/RNA) forms a node in the graph as well. The event triggers are recognized and they also form a node in the graph. The edge between the trigger and argument is classified mainly as theme, cause,  negation etc. The model is trained by rich set of features extracted from the graph. For every stage of event extraction, somewhat different set of features are used. 
+
+The sentences are tokenized and parsed before processing. The task of event extraction is accomplished in 3 steps:
+
+\begin{enumerate}
+\item \textbf{Trigger Recognition}: Each token is passed into multi-class SVM which predicts the event class depending on feature set. Each event class recognized forms a node in the final graph.
+
+\item \textbf{Argument/Edge detection}: Every edge between event-event nodes and event-entity nodes is classified into theme, cause or negation.
+
+\item \textbf{Semantic post-processing}: It is a rule based step to remove irrelevant connections. 
+\end{enumerate}
+
+The method uses BioNLP event corpus as the dataset and Joachim's SVM Light [CITE: JOACHIM MULTICLASS] for multiclass classification. Different multiclass classifier are built for classifying triggers and edges between triggers and arguments.
+
+Following are the results of the method developed by Björne et.al.:
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|l|l|l|l|l|}
+\hline
+\textbf{Event Class} & \textbf{\# Events} & \textbf{Recall} & \textbf{Precision} & \textbf{Fscore} \\ \hline
+\textbf{Localization} & 174 & 49.43 & 81.90 & 61.65 \\
+Total & 3182 & 46.73 & 58.48 & 51.95\\ \hline
+\end{tabular}
+\caption{Results of Graph based event processing}
+\end{table}
+
+\subsubsection*{Using MLN for event extraction (Yashikawa et.al)}
+
+Extending the results of Björne et.al., Yashikawa et.al. [CITE:YASHIKAWA] used coreference resolution to extract relations that span over multiple sentences in 
+addition to extracting relations from same sentence. 
+
+Yashikawa et.al.uses GENIA event corpus instead of BioNLP'09 corpus since GENIA corpus provides proper cross-sentence coreference. They show that the SVM multiclass method proposed by Bj{\"o}rne et.al. gives better results if it makes use of coreference annotation. In addition, they also developed a new model based on joint Markov Logic Network (MLN) which improved the results significantly.
+
+The property of transitivity is used such that if there is a relation between event trigger \& entity and the entity has antecedent which can be resolved through anaphora/coreference resolution, then there is a relation between event \& antecedent.
+
+%TODO: Write in formulation
+
+The MLN model achieves a F1 score of 53.8 with naive coreference resolver and 56.7 with gold coreference annotation. 
+
+\subsubsection*{COMPARTMENTS}
+
+%Write about compartments 
+%- Imai K etal. compartment reference 19
+%- BacelLo compartment reference 20
+
+Binder et.al. [CITE:COMPARTMENT] designed the COMPARTMENTS resource which integrates protein-subcellular location relations from different sources such as databases and prediction tools. To create a uniform representation of the information, the proteins and localizations are mapped to common protein identifiers and GO Ontology terms. Confidence scores are assigned to the localization evidence to enable comparison of different types and sources of evidence. The unified location evidence for a protein is then visualized on a schematic cell to  provide a simple overview.
+
+There are different channels or sources from which the information is collected. The first channel is a \textit{knowledge} channel which contributes information based on annotation from databases like UniProtKB, MGI, SGD, FlyBase and WormBase. The second channel of information called \textit{experiments} is based on HPA - ongoing effort to experimentally validate  the tissue expression and subcellular localization for entire set of human proteins. The third channel which is of particular interest to us is \textit{automatic text mining} and the fourth channel of information is \textit{predictions} which depend on prediction of subcellular location depending on protein sequence.
+
+The automatic text mining channel contributes information extracted by a text-mining method. The text-mining method which extracts information from MEDLINE abstracts works on the fact that more the protein and cellular compartment are co-mentioned, the more likely the protein is localized to that compartment. This leads to calculation of a score that determines the probability/confidence of localization of a protein to a cellular compartment. This text-mining method can be useful for comparing the performance with our method.
+
+\section{Need for a dedicated method}
+%
+%- Explain about how localization event extraction tasks differ from our task
+%- Explain about how coreference resolution takes a lot of time and isn't really accurate
+%- Explain how many of the PL relations can exist outside same sentence
+
+As mentioned previously, the GENIA event corpus or the BIONLP shared task corpus cannot be directly used for extracting protein-subcellular location relations. Therefore, there is a need to have a dedicated corpus designed for the purpose of training the text-mining method.
+
+In addition, using the nuances of the new corpus, the new method can be trained on the corpus annotated and can produce better results.
+
+Although, the model developed by Yashikawa et.al. extracts relations spanning over multiple sentences, extracting coreference information from the text at run-time is pretty slow. The method of Yashikawa et.al could work since their intention was not to create a runtime relation extraction.
+
+We had decided to develop a dedicated text-mining method to extract protein location relations present in the corpus. We did not focused just on the same sentence relations but also on difference sentence relations in which the participating entities are in different sentences. In our annotated corpus, we also found out that 40\% of total relations cross sentence boundaries and therefore, developing a method that would consider different sentence relations would help us to extract more relations from the data.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%The relation between PROTEIN and LOCALIZATION tells about the location where the protein may lie. The location can be a subcellular location as well as it can be an extracellular location. The location of PROTEIN is closely associated with its biological function and an ability to predict its location will be helpful to identify suitable drug, vaccine and diagnostic treatment ~\parencite{liu2007exploiting}. \citep{liu2007exploiting}. The prediction of protein location can also be extrapolated to some proteins for which localization is not known but it holds structural similarity with proteins for which localization are known. Therefore, in context of natural language processing, the problem of relation extraction between a protein and localization can be put simply as: recognizing whether a "protein" lies in the "location" if the words "protein" and "location" are found in the biomedical text that is being processed.
+%
+%The key problem while developing text mining tools on biomedical texts is the availability of annotated corpus. However, the advent of GENIA corpus\citep{kim2003genia} have facilitated the development of text mining methods. With the availability of GENIA event corpus \citep{kim2008corpus} and introduction of BioNLP'09 shared task data\citep{kim2009overview}, research in the area of event extraction has intensified. One of the events addressed in the areas of event extraction is localization. However, localization event extraction techniques concentrate mainly on events that change the location of biological entities such as protein. They do not focus so much on the existing state of localization of protein. Therefore, the problem of relation extraction that we are trying to address is not similar to event extraction proposed in BioNLP'09 Shared Task.
+%
+%There has been some research in the areas of relation extraction with respect to protein localization \citep{liu2007exploiting}. However, they do not take into account cross sentence relations. There have also been some research as a sub problem addressed in event extraction techniques \citep{bjorne2009extracting} \citep{yoshikawa2011coreference}. However, they do not focus solely on relation extraction and have developed their method to be able to address event extraction as a whole. Therefore, there is need to develop a text mining approach which addresses the problem of relation extraction for protein localization while considering inter-sentence as well as intra-sentence relations.
+
+
+%\section{Section}
+%Citation test~\parencite{latex}.
+
+%\subsection{Subsection}
+%See~\autoref{fig:sample}.
+%
+%\begin{figure}[htsb]
+%  \centering
+%  \includegraphics{logos/tum}
+%  \caption[Example figure]{An example for a figure.}\label{fig:sample}
+%\end{figure}
+%
+%\section{Section}
+%
+%See~\autoref{tab:sample}, \autoref{fig:sample-drawing}, \autoref{fig:sample-plot}, \autoref{fig:sample-listing}.
+%
+%\begin{table}[htsb]
+%  \caption[Example table]{An example for a simple table.}\label{tab:sample}
+%  \centering
+%  \begin{tabular}{l l l l}
+%    \toprule
+%      A & B & C & D \\
+%    \midrule
+%      1 & 2 & 1 & 2 \\
+%      2 & 3 & 2 & 3 \\
+%    \bottomrule
+%  \end{tabular}
+%\end{table}
+%
+%\begin{figure}[htsb]
+%  \centering
+%  % This should probably go into a file in figures/
+%  \begin{tikzpicture}[node distance=3cm]
+%    \node (R0) {$R_1$};
+%    \node (R1) [right of=R0] {$R_2$};
+%    \node (R2) [below of=R1] {$R_4$};
+%    \node (R3) [below of=R0] {$R_3$};
+%    \node (R4) [right of=R1] {$R_5$};
+%
+%    \path[every node]
+%      (R0) edge (R1)
+%      (R0) edge (R3)
+%      (R3) edge (R2)
+%      (R2) edge (R1)
+%      (R1) edge (R4);
+%  \end{tikzpicture}
+%  \caption[Example drawing]{An example for a simple drawing.}\label{fig:sample-drawing}
+%\end{figure}
+%
+%\begin{figure}[htsb]
+%  \centering
+%
+%  \pgfplotstableset{col sep=&, row sep=\\}
+%  % This should probably go into a file in data/
+%  \pgfplotstableread{
+%    a & b    \\
+%    1 & 1000 \\
+%    2 & 1500 \\
+%    3 & 1600 \\
+%  }\exampleA
+%  \pgfplotstableread{
+%    a & b    \\
+%    1 & 1200 \\
+%    2 & 800 \\
+%    3 & 1400 \\
+%  }\exampleB
+%  % This should probably go into a file in figures/
+%  \begin{tikzpicture}
+%    \begin{axis}[
+%        ymin=0,
+%        legend style={legend pos=south east},
+%        grid,
+%        thick,
+%        ylabel=Y,
+%        xlabel=X
+%      ]
+%      \addplot table[x=a, y=b]{\exampleA};
+%      \addlegendentry{Example A};
+%      \addplot table[x=a, y=b]{\exampleB};
+%      \addlegendentry{Example B};
+%    \end{axis}
+%  \end{tikzpicture}
+%  \caption[Example plot]{An example for a simple plot.}\label{fig:sample-plot}
+%\end{figure}
+%
+%\begin{figure}[htsb]
+%  \centering
+%  \begin{tabular}{c}
+%  \begin{lstlisting}[language=SQL]
+%    SELECT * FROM tbl WHERE tbl.str = "str"
+%  \end{lstlisting}
+%  \end{tabular}
+%  \caption[Example listing]{An example for a source code listing.}\label{fig:sample-listing}
+%\end{figure}

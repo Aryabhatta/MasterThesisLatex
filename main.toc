@@ -1,0 +1,101 @@
+\boolfalse {citerequest}\boolfalse {citetracker}\boolfalse {pagetracker}\boolfalse {backtracker}\relax 
+\defcounter {refsection}{0}\relax 
+\select@language {american}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{Acknowledgments}{iv}{section*.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{Abstract}{v}{chapter*.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {1}Introduction}{1}{chapter.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {1.1}Explosion of Biomedical data}{1}{section.1.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {1.2}Need for automatic extraction of information}{1}{section.1.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {1.3}Protein-subcellular localization extraction}{2}{section.1.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {1.4}Existing work}{3}{section.1.4}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {1.5}Need for a dedicated method}{7}{section.1.5}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {2}LocText Corpus}{8}{chapter.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {2.1}Need for a separate corpus}{8}{section.2.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {2.2}LocText}{9}{section.2.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {2.3}Corpus annotation process and guidelines}{9}{section.2.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {2.4}Inter-annotator agreement}{9}{section.2.4}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {2.5}Important conclusions from the dataset}{9}{section.2.5}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {2.6}Corpus statistics}{9}{section.2.6}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {2.7}Linked Annotation}{9}{section.2.7}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {3}Protein Location Relation Extractor: Materials \& Methods}{10}{chapter.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {3.1}Repplication of Bjorne's work ?}{11}{section.3.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {3.2}Method pipeline}{11}{section.3.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {3.3}Support Vector Machines}{11}{section.3.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {3.4}Machine Learning Models}{11}{section.3.4}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {3.4.1}SameSentenceModel}{11}{subsection.3.4.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {3.4.2}DiffSentenceModel}{11}{subsection.3.4.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {3.5}Graph representation}{11}{section.3.5}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {3.5.1}Graph representation for SameSentenceModel}{11}{subsection.3.5.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {3.5.2}Graph representation for DiffSentenceModel}{11}{subsection.3.5.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {3.6}Feature extraction}{11}{section.3.6}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {3.6.1}Feature extraction for SameSentenceModel}{11}{subsection.3.6.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {3.6.2}Feature extraction for DiffSentenceModel}{11}{subsection.3.6.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {3.7}Feature Selection}{11}{section.3.7}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {3.8}Training, Cross validation and Classification}{11}{section.3.8}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {3.9}Experiments that worked and that did not work}{11}{section.3.9}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {3.9.1}Experimentation for SameSentModel}{11}{subsection.3.9.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {3.9.2}Experimentation for DiffSentModel}{12}{subsection.3.9.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {3.9.3}Experimentation with different kernels}{12}{subsection.3.9.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {3.10}Tools used}{12}{section.3.10}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {4}Results}{13}{chapter.4}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {4.1}Evaluation Criteria}{13}{section.4.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {4.2}Results for SameSentenceModel}{13}{section.4.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {4.3}Results for DiffSentenceModel}{13}{section.4.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {4.4}Results for CombinedModel}{13}{section.4.4}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {4.5}Assessment of Performance evaluation results}{13}{section.4.5}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {5}Conclusion}{14}{chapter.5}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {5.1}Conclusions from results}{14}{section.5.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {5.2}Future work and directions}{14}{section.5.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {5.2.1}Use of coreference}{14}{subsection.5.2.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {5.2.2}Use of different methods like MLN}{14}{subsection.5.2.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{List of Figures}{15}{appendix*.17}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{List of Tables}{16}{appendix*.18}
