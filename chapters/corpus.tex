@@ -50,7 +50,7 @@ Out of 100 abstracts, we used 46 abstracts to develop our annotation guidelines.
 
 \begin{figure}[hbtp]
 \includegraphics[scale=0.4]{figures/tagtog_screenshot.png}
-\caption{Screenshot of an abstract from tagtog annotation tool}\label{tagtogScreenshot}
+\caption{Screenshot of an abstract from tagtog annotation tool}\label{fig:tagtogScreenshot}
 \end{figure}
 
 Figure \ref{tagtogScreenshot} shows an example abstract annotated in tagtog annotation tool. The proteins, localizations and organisms are highlighted in yellow, green and magenta respectively. The entities which participates in either protein-organism or protein location relation, has a double arrow as an additional marking.
@@ -80,13 +80,13 @@ The IAA for two annotators was F1 score of 80\% for protein-location relations.
 \section{Important insights from the corpus and Publication}
 
 % Explain about the results that you published at the BLAH conference
-After annotating the corpus, we could derive some important insights from the corpus. We found out that the database annotations in database such as UniprotKB aren't complete and there is a room for improvement in the annotations in such database.
+After annotating the corpus, we could derive some important insights from the corpus. We found out that the database annotations in database such as UniprotKB aren't complete and there is a room for improvement in the annotations in such databases.
 
 We published the results [CITE:GOLDBERG ET.AL.] in the symposium at Biomedical Linked Annotation Hackathon (BLAH) [CITE:BLAH]. Since the Biomedical Research Community and Natural Language Processing (NLP) community both undertake the annotations of text with different objectives in mind, we envisioned that creating linked annotations compromising of contributions from both communities would be immensely helpful. 
 
-We started with the annotation of corpus from scratch without actually referring to the annotations present in knowledge-bases like UniProtKB, we found out that we have more annotations for the same set of documents in our corpus compared with UniProtKB.
+We started with the annotation of corpus from scratch without actually referring to the annotations present in knowledge-bases like UniProtKB. When we compared the protein-location relations present in our corpus with the information already present in the knowledge bases, we found out that we have more annotations for the same set of documents in our corpus compared with UniProtKB.
 
-We compared the protein-location relations present in our corpus with the information already present in the knowledge bases. We divided our annotations in three categories viz. existing, more detailed and novel. Existing annotations are the ones that are present in knowledge-bases already. We define some annotations as more detailed if they provide more information than what is present in the knowledge-bases. In the same way, we define annotations as novel annotations if they are not present in the knowledge bases. The annotations are further subdivided based on whether or not the relationships involve UniprotKB proteins that cite the abstract.
+We divided our annotations in three categories viz. existing, more detailed and novel. Existing annotations are the ones that are present in knowledge-bases already. We define annotations as more detailed if they provide more information than what is present in the knowledge-bases. In the same way, we define annotations as novel annotations if they are not present in the knowledge bases. The annotations are further subdivided based on whether or not the relationships involve UniprotKB proteins that cite the abstract.
 
 \begin{table}
 \centering
@@ -111,10 +111,105 @@ and in UniProtKB}\label{tab:novelAnnotation}
 \end{table}
 
 % Write about observations from table here
+As shown in the fig. \ref{tab:novelAnnotation}, we found out that we could find novel or more detailed annotations for 84 out of 201 (42\%) proteins in 34 abstracts. For example, as seen in fig \ref{fig:tagtogScreenshot}, we find that the Arabidopsis protein RabF2a is localized to endosomes which at the time of writing was not recorded in UniProtKB entry RAF2A\_ARATH.
+
+From these results, we can easily conclude that manually annotated corpora can contribute novel information about proteins compared to the information already present in knowledge bases. Therefore, we presented a case which proves that the creation of linked annotation resource would add more annotations in addition to creating a synergy between Biomedical research community and natural language processing community.
+
 \section{Corpus statistics}
 
 % Put all the numbers with respect to number of entities, relations and their distribution here. Also, put all the nice graphs that you made here
 
+\subsection*{Entities and Relations}
+
+\begin{figure}
+\centering
+\begin{minipage}{.5\textwidth}
+  \centering
+  \includegraphics[width=.95\textwidth]{figures/ProtLocOrg_Distribution.png}
+  \caption{Entities in LocText corpus}
+  \label{fig:LocText_Entities}
+\end{minipage}%
+\begin{minipage}{.5\textwidth}
+  \centering
+  \includegraphics[width=.95\textwidth]{figures/AllRelationsPie.png}
+  \caption{Relations in LocText Corpus}
+  \label{fig:LocText_Relations}
+\end{minipage}
+\end{figure}
+
+Fig. \ref{fig:LocText_Entities} and \ref{fig:LocText_Relations} shows the count of entities and relations present in 100 abstracts of LocText corpus. As shown in fig \ref{fig:LocText_Entities}, there are 1393 proteins, 560 locations and 277 organism annotations in the corpus. Similarly, fig. \ref{fig:LocText_Relations} shows that there are a total of 1395 relations in the corpus, 550 of which are Protein-Location relations and 795 are Protein-Organism relations. Protein-organism relation contributes nearly 60\% of total relations whereas protein-location relations makes up for remaining 40\%.
+
+\subsection*{Relation Analysis}
+
+\begin{figure}
+\centering
+\begin{minipage}{.5\textwidth}
+  \centering
+  \includegraphics[width=.95\textwidth]{figures/Rel_Title_Abs_Distribution.png}
+  \caption{Distribution in corpus}
+  \label{fig:Rel_Title_Abs}
+\end{minipage}%
+\begin{minipage}{.5\textwidth}
+  \centering
+  \includegraphics[width=.95\textwidth]{figures/AbsRel_PO_PL_Distribution.png}
+  \caption{Distribution in abstract}
+  \label{fig:Rel_Abs_PO_PL}
+\end{minipage}
+\end{figure}
+
+As seen in the fig. \ref{fig:Rel_Title_Abs}, only a minor fraction (5\%) of relations are present in the title while remaining 95\% relations are present in the abstract. Morever, this also implies that the 5\% relations that are present in the title are all same sentence relations i.e. both the entities participating in the relations are present in the same sentence.
+
+Fig. \ref{fig:Rel_Abs_PO_PL} shows the distribution of relations in abstract according to its category. Of the total relations present in the abstracts, about 40\% are protein-location relations and about 60\% are protein-organism relations. Note that this share distribution follows the distribution present in the corpus as a whole and illustrated in fig. \ref{fig:LocText_Relations}.
+
+\begin{figure}
+\centering
+\begin{minipage}{.5\textwidth}
+  \centering
+  \includegraphics[width=.95\textwidth]{figures/AbsPORels_sent_Distribution.png}
+  \caption{Abstract PO Relations}
+  \label{fig:Abs_PO_Rel}
+\end{minipage}%
+\begin{minipage}{.5\textwidth}
+  \centering
+  \includegraphics[width=.95\textwidth]{figures/AbsPLRels_sent_Distribution.png}
+  \caption{Abstract PL Relations}
+  \label{fig:Abs_PL_Rel}
+\end{minipage}
+\end{figure}
+
+We categorize the relations in two key categories viz. same sentence relations and  different sentence relations. Same sentence relations are those relations in which both participating entities lie in the same sentence and different sentence relations are those relations in which either of the participating entities is in different sentence. Same sentence relations can also be defined as intra sentence relations and different sentence relations can be defined as inter sentence relations.
+
+The corpus is made by annotating abstracts and there are two parts of an abstract viz. the title of the abstract and all other text except the title. From here, we distinguish these two parts as title part and abstract part. Therefore, whenever we are talking about abstract, we mean the part of the text excluding the title. The relations that are present in title are all same sentence relations since in 100 documents, we do not have a document where title spans more than one sentence.
+
+Fig. \ref{fig:Abs_PO_Rel} and \ref{fig:Abs_PL_Rel} shows the distribution of Protein-Organism (PO) and Protein-Location(PL) relations into same sentence relations and different sentence relations. As shown in fig. \ref{fig:Abs_PO_Rel}, about 35\% of PO relations are same sentence relations and 65\% are different sentence relations. While in terms of PL relations, \ref{fig:Abs_PL_Rel} shows that about 61.4\% of the PL relations are same sentence relations and 38.6\% are different sentence relations.
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.7]{figures/SentenceDistance_PLRel.png}
+\caption{Sentence distance for PL Relations}\label{fig:SentDistancePL}
+\end{figure}
+
+The relations that are of prime interest to us are Protein-Location Relations. From previous figures, we already know that around 60\% of the PL relations in the abstract can be found in the same sentence. Fig. \ref{fig:SentDistancePL} shows how the PL relations which are different sentence relations are distributed according to sentence distance. The different sentence relations in which the participating entities are in neighboring sentences is said to have a sentence distance of 1. In other words, sentence distance of 1 indicates that the entities in relations are 1 sentences apart. 
+
+As seen in the fig. \ref{fig:SentDistancePL}, we could even find the relations with sentence distance of 9 which means that the participating entities are 9 sentences apart. However, most of the different sentence relations have lower sentence distance. For example, about 95 out of 199 (47.74\%) different sentence relations are 1 sentences apart.
+
+%TODO need a figure for distribution of PO PL in title as well.
+
+Therefore, we come to the conclusion that 316/515 abstract PL relations (fig. \ref{fig:Abs_PL_Rel}) and 35 title PL relations are same sentence relations which also mean 351/550 (63.81\%) PL relations are same sentence relations. As seen from  fig. \ref{fig:SentDistancePL}, 95/199 (47.74\%) different sentence relations are at the distance of 1. Therefore, a total of 446/550 (81.09\%) PL relations are either same sentence relations or have a sentence distance of 1. This also implies that for about 81\% PL relations the participating entities are either in the same sentence or they are in neighboring sentences. Hence, even if we could extract these 81\% relations with high accuracy, we would be able to extract a significant amount of information from the text.
+
+
 \section{Linked Annotation}
 
 %Write about contribution in BLAH
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.25]{figures/TextAE_Vis.png}
+\caption{Visualization of annotations in TextAE}\label{fig:TextAEVis}
+\end{figure}
+
+As a part of efforts to create a linked annotation resource \hyperref[BLAH]{http://http://2015.linkedannotation.org/background}, we also participated in the event and the symposium. We released our corpus under Common Creative License. 
+
+The tagtog annotation web interface stores the annotation in a different format than what was required for the hackathon. At the hackathon, the data was to be used in PubAnnotation format. PubAnnotation [CITE:PUBANNOTATION] is a repository of text annotations and it has its own format to represent the annotation for any article. It also uses a visualization tool TextAE [CITE:TextAE] for visualizing the annotations. Therefore, the data in tagtog json format was converted to PubAnnotation json format. The annotations which are shown in fig \ref{fig:tagtogScreenshot} are represented as fig. \ref{fig:TextAEVis} in the TextAE visualization tool. 
+
+Our corpus LocText is available for download under Creative Common Licence in \hyperref[tagtog]{https://www.tagtog.net/-corpora/loctext} format and \hyperref[PubAnnotation]{http://pubannotation.org/projects/LocText} format.
