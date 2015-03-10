@@ -1,36 +1,148 @@
-\chapter{Protein Location Relation Extractor: Materials \& Methods}\label{chapter:methods}
+\chapter{Protein Location Relation Extraction: Materials \& Methods}\label{chapter:methods}
+\newcommand*{\xml}[1]{\texttt{<#1>}}
+\section{Task Definition}
 
-\section{Replication of Bjorne's work ?}
+This chapter explains the method developed to extract Protein-Location relations from Biomedical Text. This task of relation extraction comes under the broad category of Natural Language Processing as explained in the section \ref{sec:RE}. The task of extraction of Protein-Location relations can be formally described as follows:
+
+Given a piece of text that contains two entity mentions i.e. Protein and Location, the task of relation extraction method is to decide if the text contains enough evidence for semantic relationship between these two entities. Formally, let $r=(t,arg_1,arg_2)$ denote a relationship instance where $t$ is a piece of text, $arg_1$ \& $arg_2$  are entity mentions contained in text $t$ and $arg_1$ precedes $arg_2$ in the text. Given a set of relations $\left\lbrace r_i \right\rbrace$ such that every relation instance has label $l \in \left\lbrace-1,1\right\rbrace$, our task is to learn a function that can predict the label $l$ for new relation instances whose label are not known. Note that $t$ can simply be a piece of text or it may also contain structured information such as parse tree and dependency graphs. For entity mentions $arg_1$ and $arg_2$, either of them can represent a protein or a location entity.
+ 
+
+\section{State of the art in BioNLP'09}
 
 % where should I put that
+Liu et.al. have worked on similar problem confined to protein-location relation extraction from a single sentence. Other than this work, nobody has worked on the exact same problem. The closest work that this task can relate with is the task of event extraction. After GENIA event corpus was released, several meetings were arranged in the form of BioNLP in 2009, 2011 and 2013. As a part of these meeting, the research teams across the world were invited to submit a method on different set of tasks. One of the task in BioNLP 2009 was the task of event extraction, also known as BioNLP shared task. The model developed by Bj{\"o}ne et.al. registers the state of the art performance for the shared task in 2009. We tried to replicate the result of Björne et.al. to get started with our model.
 
-\section{Method pipeline}
+\subsection{Event extraction}
+
+\begin{figure}
+\includegraphics[scale=0.4]{figures/EventExample.png}
+\caption{Example of a event in Biomedical Text}\label{fig:eventExample}
+\end{figure}
+
+Figure \ref{fig:eventExample} shows an example event from Biomedical text. The task of event extraction on Biomedical text can be broken down into following subtasks:
+
+\begin{enumerate}
+
+\item \textbf{Trigger extraction:} This task involves extracting trigger words from the text and classifying them into appropriate event category. The trigger words are the tokens or set of tokens in the text that gives a clue about presence of an event in the text. For example, in the fig. \ref{fig:eventExample}, word "detected" and "overexpressed" are event triggers. The word "detected" is an event trigger for events \textit{Positive\_regulation} and \textit{Gene\_expression} whereas the word "overexpressed" is an event trigger for event \textit{Positive\_regulation}.
+
+\item \textbf{Argument extraction: } This step involves extracting the arguments for trigger tokens. The arguments can be a named entity such as proteins or it can be another event trigger. In this step, all other event triggers or named entities in the vicinity of an event trigger are considered as potential arguments and the relationship between original event trigger and potential argument is classified into one of the possible relation categories, i.e., $\left\lbrace Theme, Cause, NIL \right\rbrace$ where $NIL$ implies no relationship.
+
+For example, in the fig. \ref{fig:eventExample}, trigger word "detected" has two theme arguments to token "I(kappa)B(alpha)" and "detected" itself, and one cause argument to token "overexpressed". Similarly, the trigger word "overexpressed" has one theme argument to token "I(kappa)B(alpha)".
+
+\item \textbf{Event construction: }  The last subtask in the process of event extraction is to construct proper events from the event trigger words and their arguments. The construction of events is controlled by event rules which are specific to an event. Some \textit{Regulation} events such as \textit{Positive\_regulation} and \textit{Negative\_Regulation} can have two arguments, a theme and a cause whereas events like \textit{Gene\_expression} and \textit{Transcription} strictly have only one theme argument which must be a named entity.
+
+Figure \ref{fig:eventExample} shows 3 events: 2 \textit{Positive\_regulation} events and a \textit{Gene\_expression} event. The word "detected" is a trigger word for event \textit{Gene\_expression} and it has a theme argument "I(kappa)B(alpha)" (named entity). This event is denoted by E5 in the figure. For event \textit{Positive\_regulation}, denoted by E4 in the figure, the trigger word is "detected", theme is event E5 trigger word "detected" and cause is event E6 trigger word "overexpressed". The last event, denoted by E6 in the figure, has trigger word "overexpressed" and theme "I(kappa)B(alpha)".
+
+\end{enumerate}
+
+
+\subsection{Method developed by Björne et.al.}
+
+The state of the art method in BioNLP 2009, developed by Björne et.al. [CITE:JARI], extracts events present in the same sentence and discards any events that are inter-sentence events. As per their claim, about 95\% of the events are fully contained in the single sentence and therefore, it is sufficient \& relatively simpler to extract the events from a sentence only.
+
+The entire model heavily uses the dependency graphs [CITE:Dependency Grammer]. They represent the sentence as a graph where the text tokens in the sentence are the nodes of the graph and dependencies among the tokens are edges in the graph. 
+
+The entire method consists of following three steps:
+
+\begin{enumerate}
+\item Trigger recognition
+\item Argument detection
+\item Semantic post-processing
+\end{enumerate}
+
+Two support vector machine (SVM) models are trained, each for the step of trigger recognition and argument detection. The SVM models are trained with somewhat different set of features as explained in [CITE:JARI]. In the step of trigger recognition, first SVM model classifies the tokens in the sentence into one of the event categories or none whereas in the step of argument detection, second SVM model classifies relationships between trigger tokens and their potential arguments. The semantic post-processing step reconstructs the events and converts it into the BioNLP 2009 format. The selection of features in our model is heavily influenced by features from the model of Björne et.al.
+
+\section{Method for Protein-Location Relation Extraction}
+
+I will describe the method that I developed for extraction of protein-location relations in subsequent sections. Here is the overview of sections in this chapter: Section \ref{sec:ssModeldsModel} explains the motivation behind creating more than 1 machine learning model. Section \ref{sec:pipeline} outlines the flow of information in this process. Section \ref{sec:models} introduces the machine learning models developed for the task of relationship extraction. Section \ref{sec:graphRep} explains the actual representation of data in the model. The process of feature extraction and feature selection is explained in section \ref{sec:featExp} and \ref{sec:featSel} respectively.
+
+The training methodologies and procedures are explained in section \ref{sec:training}. Section \ref{sec:experiments} talks about all different experiments tried and their effect on the overall method and section \ref{sec:tools} concludes the explanation about the method.
+
+\section{Same sentence model \& different sentence model}\label{sec:ssModeldsModel}
+
+The protein-location relation is a relation between a protein entity and a location entity present in the text. Both protein and location entity may reside in the single sentence or it might happen that these entities are in different sentences. In the case of LocText corpus, as pointed out in section \ref{sec:corpusStats}, around 60\% of the protein-location relations are same sentence relations i.e., both protein entity and location entity are present in a single sentence. However, a large portion of protein location relations (nearly 40\%) are different sentence relations in which the participating entities are not present in a single sentence. This is the motivation that we decided to build a relation extraction method which can extract relations from single sentence as well as from different sentences. The semantic relationship between protein and location in the case of different sentence relations with large sentence distance might be difficult to extract and hence, I tried to focus only on those different sentence relations which have a sentence distance of 1 i.e., the protein and location entities are not present in the same sentence but are found in neighboring sentence.
+
+Therefore, we decided to build two models viz. same sentence model (abbreviated as SSModel hereafter) and different sentence model (abbreviated as DSModel hereafter). SSModel tries to extract the relations present in a single sentence whereas DSModel tries to extract different sentence relations.
+
+\section{Method pipeline}\label{sec:pipeline}
 
 %- Explain the whole pipeline 
 %- Corpus-->Sentence Segmentation-->Tokenization-->Syntactic & dependency Parsing-->Graph Representation-->  Feature Extraction --> ML Model training -->Classification on Test
 %- Put a nice picture explaining the pipeline
- 
-\section{Machine Learning Models}
+
+
+
+The overall relation extraction method consists of following major stages:
+
+\begin{enumerate}
+
+\item \textbf{Data collection \& Corpus creation}
+
+For LocText corpus, the annotated data is present in JSON files that can be downloaded through the web-interface. However, the JSON files contain only annotations and not the actual text. The actual text is present in separate set of HTML files. Every JSON or HTML file corresponds to particular PubMedID. In every HTML file, the data is divided into title and abstract. To avoid reading from plain files repeatedly, I decided to create a XML file containing all corpus data along with annotations and structural details like parse tree, dependency graphs etc.
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.4]{figures/Corpus_Creation.png}
+\caption{The process of creating a XML corpus file}\label{fig:corpusCreation}
+\end{figure}
+
+Figure \ref{fig:corpusCreation} outlines the process  of corpus creation. The data read from HTML files is parsed using Stanford CoreNLP pipeline [CITE:STANFORD CORENLP]. The text from HTML files which consist of title and abstract is initially segmented into sentences. Every sentences is then split into tokens (tokenization). The part of speech tag for every token is also computed. Finally, the dependency relations between tokens are computed.
+
+All the unstructured (plain text) and structured (sentences, tokens, POS tags, dependencies) information is then combined with annotations present in JSON files and written to the XML corpus file.
+
+The coarse XML schema of the corpus XML file can be shown as follows:
+
+\xml{Corpora}
+
+\hspace{5 mm}\xml{document d1}
+
+\hspace{10 mm}\xml{title}
+
+\hspace{15 mm}\xml{DATA REPRESENTATION}
+
+\hspace{10 mm}\xml{/title}
+
+\hspace{10 mm}\xml{abstract}
+
+\hspace{15 mm}\xml{DATA REPRESENTATION}
+
+\hspace{10 mm}\xml{/abstract}
+  
+\hspace{5 mm}\xml{/document d1}
+  
+\hspace{5 mm}\xml{document d2..dN}
+  
+\xml{/Corpora}
+
+The "DATA REPRESENTATION" is common for both title and abstract and its sub XML schema can be shown as follows:
+
+
+\item \textbf{Training \& evaluating same sentence model}
+\item \textbf{Training \& evaluating different sentence model}
+\item \textbf{Combined evaluation}
+\end{enumerate}
+
+\section{Machine Learning Models}\label{sec:models}
 % Talk about different models here so that there is no confusion ahead
 
 \subsection{SameSentenceModel}
 
 \subsection{DiffSentenceModel}
 
-\section{Graph representation}
+\section{Graph representation} \label{sec:graphRep}
 % Details about graph representation along with nice explanatory picture
 
 \subsection{Graph representation for SameSentenceModel}
 
 \subsection{Graph representation for DiffSentenceModel}
 
-\section{Feature extraction}
+\section{Feature extraction}\label{sec:featExp}
 
 \subsection{Feature extraction for SameSentenceModel}
 
 \subsection{Feature extraction for DiffSentenceModel}
 
-\section{Feature Selection}
+\section{Feature Selection}\label{sec:featSel}
 
 %Write some of the results found out from in Joachim's paper [Text categorization with SVM]
 %
@@ -40,9 +152,9 @@
 %
 %TODO: See how to calculate binary information gain for a feature/set of features.***
 
-\section{Training, Cross validation and Classification}
+\section{Training, Cross validation and Classification}\label{sec:training}
 
-\section{Experiments that worked and that did not work}
+\section{Experiments that worked and that did not work}\label{sec:experiments}
 
 \subsection{Experimentation for SameSentModel}
 
@@ -55,4 +167,4 @@
 
 \subsection{Experimentation with different kernels}
 
-\section{Tools used}
+\section{Tools used}\label{sec:tools}
