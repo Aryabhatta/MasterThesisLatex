@@ -1,0 +1,160 @@
+% $ biblatex auxiliary file $
+% $ biblatex version 1.7 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated as
+% required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+\entry{cohen2005survey}{article}{}
+  \name{author}{2}{}{%
+    {{}%
+     {Cohen}{C.}%
+     {Aaron~M}{A.~M.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Hersh}{H.}%
+     {William~R}{W.~R.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {Oxford Univ Press}%
+  }
+  \strng{namehash}{CAMHWR1}
+  \strng{fullhash}{CAMHWR1}
+  \field{sortinit}{C}
+  \field{number}{1}
+  \field{pages}{57\bibrangedash 71}
+  \field{title}{A survey of current work in biomedical text mining}
+  \field{volume}{6}
+  \field{journaltitle}{Briefings in bioinformatics}
+  \field{year}{2005}
+\endentry
+
+\entry{goldberg2015linked}{article}{}
+  \name{author}{5}{}{%
+    {{}%
+     {Goldberg}{G.}%
+     {Tatyana}{T.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Vinchurkar}{V.}%
+     {Shrikant}{S.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Cejuela}{C.}%
+     {Juan~Miguel}{J.~M.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Jensen}{J.}%
+     {Lars~Juhl}{L.~J.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Rost}{R.}%
+     {Burkhard}{B.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {Cold Spring Harbor Labs Journals}%
+  }
+  \strng{namehash}{GTVSCJM+1}
+  \strng{fullhash}{GTVSCJMJLJRB1}
+  \field{sortinit}{G}
+  \field{pages}{014274}
+  \field{title}{Linked annotations: a middle ground for manual curation of
+  biomedical databases and text corpora}
+  \field{journaltitle}{bioRxiv}
+  \field{year}{2015}
+\endentry
+
+\entry{liu2007exploiting}{inproceedings}{}
+  \name{author}{3}{}{%
+    {{}%
+     {Liu}{L.}%
+     {Yudong}{Y.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Shi}{S.}%
+     {Zhongmin}{Z.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Sarkar}{S.}%
+     {Anoop}{A.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{organization}{1}{%
+    {Association for Computational Linguistics}%
+  }
+  \strng{namehash}{LYSZSA1}
+  \strng{fullhash}{LYSZSA1}
+  \field{sortinit}{L}
+  \field{booktitle}{Human Language Technologies 2007: The Conference of the
+  North American Chapter of the Association for Computational Linguistics;
+  Companion Volume, Short Papers}
+  \field{pages}{97\bibrangedash 100}
+  \field{title}{Exploiting rich syntactic information for relation extraction
+  from biomedical articles}
+  \field{year}{2007}
+\endentry
+
+\entry{magrane2011uniprot}{article}{}
+  \true{moreauthor}
+  \name{author}{2}{}{%
+    {{}%
+     {Magrane}{M.}%
+     {Michele}{M.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Consortium}{C.}%
+     {UniProt}{U.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {Oxford University Press}%
+  }
+  \strng{namehash}{MMCU+1}
+  \strng{fullhash}{MMCU+1}
+  \field{sortinit}{M}
+  \field{pages}{bar009}
+  \field{title}{UniProt Knowledgebase: a hub of integrated protein data}
+  \field{volume}{2011}
+  \field{journaltitle}{Database}
+  \field{year}{2011}
+\endentry
+
+\entry{pubmed}{misc}{}
+  \field{sortinit}{P}
+  \field{note}{[Online; accessed 11-March-2015]}
+  \field{title}{PubMed}
+  \verb{url}
+  \verb http://www.ncbi.nlm.nih.gov/pubmed
+  \endverb
+  \field{year}{2015}
+\endentry
+
+\lossort
+\endlossort
+
+\endinput

@@ -90,32 +90,19 @@ Figure \ref{fig:corpusCreation} outlines the process  of corpus creation. The da
 
 All the unstructured (plain text) and structured (sentences, tokens, POS tags, dependencies) information is then combined with annotations present in JSON files and written to the XML corpus file.
 
-The coarse XML schema of the corpus XML file can be shown as follows:
+\begin{figure}
+\centering
+\includegraphics[scale=0.4]{figures/XMLSchema1.png}
+\caption{Coarse XML schema}\label{fig:XMLSchema1}
+\end{figure}
 
-\xml{Corpora}
+The coarse XML schema of the corpus XML file can be shown in the fig. \ref{fig:XMLSchema1}.The "DATA FORMAT" which is common to both title and abstract node can be elaborated as in fig. \ref{fig:XMLSchema2}.
 
-\hspace{5 mm}\xml{document d1}
-
-\hspace{10 mm}\xml{title}
-
-\hspace{15 mm}\xml{DATA REPRESENTATION}
-
-\hspace{10 mm}\xml{/title}
-
-\hspace{10 mm}\xml{abstract}
-
-\hspace{15 mm}\xml{DATA REPRESENTATION}
-
-\hspace{10 mm}\xml{/abstract}
-  
-\hspace{5 mm}\xml{/document d1}
-  
-\hspace{5 mm}\xml{document d2..dN}
-  
-\xml{/Corpora}
-
-The "DATA REPRESENTATION" is common for both title and abstract and its sub XML schema can be shown as follows:
-
+\begin{figure}
+\centering
+\includegraphics[scale=0.4]{figures/XMLSchema2.png}
+\caption{Data format common to title and abstract node}\label{fig:XMLSchema2}
+\end{figure}
 
 \item \textbf{Training \& evaluating same sentence model}
 \item \textbf{Training \& evaluating different sentence model}

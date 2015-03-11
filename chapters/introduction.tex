@@ -1,48 +1,61 @@
 \chapter{Introduction}\label{chapter:introduction}
 
-\section{Explosion of Biomedical data}
+\section{Explosion of biomedical data}
 
-In recent times, there has been phenomenal rise in the amount of textual information. At the time of writing, the database of Biomedical articles - PubMed boasts of more than 24 million articles. The amount of data available in the Biomedical research community is also increasing due to high throughput experiments. With huge amount of information in Biomedical texts, it has been impossible for researchers to keep track of all developments in the field. The Information Extraction (IE) techniques are helping the researchers to extract relevant information from this gold mine. As a result, there has been tremendous increase in research in the area of natural language processing and text-mining. These techniques when applied to Biomedical text is found to be quite helpful to the researchers who cannot manually scavenge thousands of articles for information.
-
+In recent times, there has been a phenomenal rise in the amount of information available in the world. Since scientific articles remains the preferred way of publishing scientific research, there also has been a huge increase in the amount of scientific literature, particularly in the area of biomedical sciences. Pubmed \cite{pubmed}, the database of biomedical articles, boasts of more than 24 million scientific articles and is growing rapidly. In 2014 alone, PubMed have added more than a million articles. Figure \ref{fig:PubMedTimeLine} shows the growth of PubMed database in recent years.
 
 \section{Need for automatic extraction of information}
 
+With huge amount of information available in the biomedical literature, it has become impossible for researchers to keep track of all the developments in the field. Given the textual nature of this scientific literature, text-mining techniques are helping the researchers to extract relevant information from this gold mine without having to read each and every article. As a result, there has been tremendous increase in research in the area of text-mining biomedical literature. These techniques are intended to help researchers who cannot manually scavenge thousands of articles for information.
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.4]{figures/PubMedTimeLine.png}
+\caption{Growth of PubMed in recent years}\label{fig:PubMedTimeLine}
+\end{figure}
+
 % TODO: 
-\subsection*{Need for Biomedical research community}
+\subsection*{Need for biomedical research community}
 % 1. Write about why scientists both in biomedical and text-mining domain needs automatic information extractors. Need inputs on how this information
-The biomedical research community is interested in wide variety of problems like protein-protein interaction, protein-ligand interaction, protein-subcellular location, protein mutation, protein structure prediction, protein function prediction etc. All these different cellular activities have a far reaching effect on human health and plays phenomenal role in causing diseases. Since a lot of researchers across the globe are working simultaneously on some of these problems, it is quintessential for an researcher to understand the recent advances and start building from there. 
 
-Conventionally, the best method to keep oneself updated about recent scientific advances is by reading the scientific literature. This remains to be the best way in some areas of science where the scientific throughput is less and harder to achieve. However in some fields like biomedical sciences, due to recent advances in the technology and construction of high throughput machines, it has become possible to do science at a faster rate. Since human health is an issue of paramount importance, the research funding in biomedical sciences has also remained sufficient which added to more amount of research throughput. With huge amount of scientific literature available, it has therefore become very difficult for an researcher to stay updated about recent work being done in his area of interest.
+"Biomedical research" is an umbrella term used for research in various disciplines like biochemistry, immunology, microbiology, cytology, etc. To give an example, some of the problems studied in the area of biochemistry are protein-protein interaction, protein-ligand interaction, protein-subcellular localization, etc. All of these different biochemical processes play a vital role in proper functioning of the body and any impairment in these processes can have far reaching effect on human health, usually blowing into a full-fledged disease. It is no wonder that many researchers across the globe are working simultaneously on some of these problems and therefore, it becomes essential for such researchers to keep track of the recent advances and start building from there. 
 
-The automatic extractors of information has played a key role in gathering information. The automatic extractors are mainly text-mining methods which can extract useful information from literature with some amount of confidence. These information extractors, therefore, have started playing a key role in biomedical sciences.
+Conventionally, the best method to keep oneself updated about recent scientific advances is by reading the scientific literature. This remains to be the best way in some areas of science where the scientific throughput is less and harder to achieve. However in some fields like biomedical sciences, due to huge volume of scientific literature, it has become very difficult for a researcher to stay updated about recent work being done in his area of interest. As pointed out by Cohen et.al. in \cite{cohen2005survey}, the knowledge discovery requires extracting information from research articles and there is no individual in a position to go through the extraordinarily large volume of information.
 
+Therefore, the text-mining methods have a large role to play in assisting researchers to extract relevant information from the information trove, although with certain degree of confidence.
 
-\section{Protein-subcellular localization extraction}
-
-\subsection*{Why it is important ?}
+\section{Subcellular localization of Proteins}
 
 % Explain about why do we need to know about subcellular localization of proteins
-The subcellular localization of proteins is one of the most studied topics in the field of biomedical sciences. The proteins are a chain of amino acids. The proteins are created in the cytoplasm by a flow of genetic information from DNA to RNA and from RNA to Proteins. This process is also called as central dogma of molecular biology. The genetic information present in the DNA (Deoxyribonucleic acid) is converted to RNA (Ribonucleic acid) by a process called as transcription. Transcription takes places in the nucleus of the cell. The RNA strand so created travels from nucleus to cytoplasm through the nuclear pores. In the cytoplasm, the RNA strands are used to create protein with the help of cellular machinery called as Ribosomes. The process of converting RNA to a chain of amino acids called as proteins is called translation. Therefore, the creation of proteins consists of two main phases viz. transcription and translation. 
+The subcellular localization of proteins is one of the most studied biochemical processes. The proteins play an important role in the functioning of cell machinery and are therefore called "building blocks of life". The creation of proteins consists of two main phases, viz. transcription and translation. The proteins are created in the cytoplasm by flow of genetic information from DNA (Deoxyribonucleic acid) to RNA (Ribonucleic acid) and from RNA to Proteins. The genetic information present in the DNA is converted to RNA by a process known as transcription. Transcription takes place in the nucleus of the cell. The RNA strand so created travels from nucleus to cytoplasm through the nuclear pores. In the cytoplasm, RNA strand is used to create a protein with the help of cellular machinery called as ribosomes. The process of converting RNA to a chain of amino acids called proteins is called translation. 
 
-Although the proteins are created in the cytoplasm, they either perform their biological functions in the cytoplasm or some cellular organelle or exit from the cell. Therefore, the biological functions of the proteins largely depend on their location and knowledge of the subcellular location of the protein is key to understanding its biological function.
-
+Although the proteins are created in the cytoplasm, they do not necessarily perform their biological functions in the cytoplasm. A protein can perform its function anywhere in the cell (cytoplasm or cellular organelle) or outside the  cell. Therefore, the biological function of the proteins largely depend on their location and knowledge of the subcellular location of the protein is key to understanding its biological function. The subcellular location is a generic term used to indicate the location, even if the protein exits from cell and perform its  function outside the cell.
 
 \subsection*{Important role in drug research}
 % 2. How automatic extraction of information will help in drug research
-The proteins are called as the building blocks of life and they play a very important role in functioning of cell machinery. Therefore, an abnormality in its functioning can result in adverse effects even leading to a disease. The study of proteins and their subcellular location is important stage in the development of a drug and the ability to predict the subcellular location of a protein is helpful to identify suitable drug, vaccine and diagnostic treatment [CITE:LIU].
+
+The proteins play a very important role in proper functioning of cell machinery and hence, an abnormality in their functioning can result in adverse effects, even leading to a disease. The study of proteins and their subcellular location is an important stage in the development of a drug. Drug researchers study the subcellular location of proteins which can help them identify suitable drug, vaccine or diagnostic treatment \cite{liu2007exploiting}. 
 
 
-\subsection*{Current sources of information extraction}
+\subsection*{Current sources of information}
 % Explain about 
 %- Uniprot, Swissprot and Trembl. 
 %- Also talk about the procedure followed by PubMed annotators and how locations are mentioned for each protein
 %- Can also talk about sources where you can extract protein-location relation
 
-Currently, the important sources of extraction of information about protein subcellular location are manual curation from the literature, high-throughput microscopy-based screens and prediction from primary sequence [CITE:COMPARTMENT].
+Currently, the important sources of information about subcellular location of proteins are knowledge bases like UniProtKB \cite{magrane2011uniprot}, manual curation from the literature, high-throughput microscopy-based screens and prediction from primary sequence.
 
-The text-mining methods help in automatic extraction of this information from the literature and these methods have started playing a key role extraction of protein subcellular location extraction.
+\subsection*{Need of automatic extraction}
 
-\section{Existing work}
+Although the knowledge bases like UniProtKB \cite{magrane2011uniprot} has considerable amount of information about proteins, including their subcellular location, it is not complete and can be supplemented \cite{goldberg2015linked}. UniProtKB consists of two sections, viz. Swiss-Prot and TrEMBL. TrEMBL contains automatically annotated information about a protein whereas Swiss-Prot contains the information which is manually reviewed by a curator. Every curator is in charge of certain proteins and he/she extracts the information manually by reading the literature. Obviously, this process is cumbersome and time-consuming. In addition, owing to the large amount of articles being published daily, it is impossible for these curators to update the information in the database constantly. This often results in some lag between the information present in knowledge bases and information in most recent literature.
+
+Automatic text-mining methods can help the manual curators as well as the researchers to keep them updated about the information that is not present in knowledge bases. The extraction of information about subcellular locations of proteins can also help experimental biologists to verify this information experimentally. The information might also be useful to predict the location of other proteins which have considerable sequence similarity with the protein whose information is extracted by text-mining.
+
+I have developed a method to extract the subcellular locations of proteins, automatically from the literature using text-mining techniques. This involves extracting the semantic relationship between the entities, protein and subcellular location present in the text. Hence, this process is also called as relationship extraction. Henceforth, the relationship between protein and subcellular location will be shortened as protein-location throughout the rest of this document.
+
+Section \ref{sec:existingWork} describes the related work done in this area. Chapter \ref{chapter:corpus} describes the process of data set annotation and the insights obtained during manual annotation. Chapter \ref{chapter:theory} explains the theoretical background of the methods described in chapter \ref{chapter:methods}. The results of the method are explained in chapter \ref{chapter:results}.
+
+\section{Existing related work}\label{sec:existingWork}
 
 There hasn't been so much of work done in the area of protein-subcellular localization relation extraction. There has been some projects which have tried to work on the same problem and there are a lot other projects that are working on an allied problem. This section presents an overview of the recent work done in the related area.
 
