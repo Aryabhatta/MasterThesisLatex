@@ -6,51 +6,11 @@ This chapter explains the method developed to extract Protein-Location relations
 
 Given a piece of text that contains two entity mentions i.e. Protein and Location, the task of relation extraction method is to decide if the text contains enough evidence for semantic relationship between these two entities. Formally, let $r=(t,arg_1,arg_2)$ denote a relationship instance where $t$ is a piece of text, $arg_1$ \& $arg_2$  are entity mentions contained in text $t$ and $arg_1$ precedes $arg_2$ in the text. Given a set of relations $\left\lbrace r_i \right\rbrace$ such that every relation instance has label $l \in \left\lbrace-1,1\right\rbrace$, our task is to learn a function that can predict the label $l$ for new relation instances whose label are not known. Note that $t$ can simply be a piece of text or it may also contain structured information such as parse tree and dependency graphs. For entity mentions $arg_1$ and $arg_2$, either of them can represent a protein or a location entity.
  
-
+% Following section to be deleted, to be shifted to introduction
 \section{State of the art in BioNLP'09}
 
 % where should I put that
-Liu et.al. have worked on similar problem confined to protein-location relation extraction from a single sentence. Other than this work, nobody has worked on the exact same problem. The closest work that this task can relate with is the task of event extraction. After GENIA event corpus was released, several meetings were arranged in the form of BioNLP in 2009, 2011 and 2013. As a part of these meeting, the research teams across the world were invited to submit a method on different set of tasks. One of the task in BioNLP 2009 was the task of event extraction, also known as BioNLP shared task. The model developed by Bj{\"o}ne et.al. registers the state of the art performance for the shared task in 2009. We tried to replicate the result of Björne et.al. to get started with our model.
-
-\subsection{Event extraction}
-
-\begin{figure}
-\includegraphics[scale=0.4]{figures/EventExample.png}
-\caption{Example of a event in Biomedical Text}\label{fig:eventExample}
-\end{figure}
-
-Figure \ref{fig:eventExample} shows an example event from Biomedical text. The task of event extraction on Biomedical text can be broken down into following subtasks:
-
-\begin{enumerate}
-
-\item \textbf{Trigger extraction:} This task involves extracting trigger words from the text and classifying them into appropriate event category. The trigger words are the tokens or set of tokens in the text that gives a clue about presence of an event in the text. For example, in the fig. \ref{fig:eventExample}, word "detected" and "overexpressed" are event triggers. The word "detected" is an event trigger for events \textit{Positive\_regulation} and \textit{Gene\_expression} whereas the word "overexpressed" is an event trigger for event \textit{Positive\_regulation}.
-
-\item \textbf{Argument extraction: } This step involves extracting the arguments for trigger tokens. The arguments can be a named entity such as proteins or it can be another event trigger. In this step, all other event triggers or named entities in the vicinity of an event trigger are considered as potential arguments and the relationship between original event trigger and potential argument is classified into one of the possible relation categories, i.e., $\left\lbrace Theme, Cause, NIL \right\rbrace$ where $NIL$ implies no relationship.
-
-For example, in the fig. \ref{fig:eventExample}, trigger word "detected" has two theme arguments to token "I(kappa)B(alpha)" and "detected" itself, and one cause argument to token "overexpressed". Similarly, the trigger word "overexpressed" has one theme argument to token "I(kappa)B(alpha)".
-
-\item \textbf{Event construction: }  The last subtask in the process of event extraction is to construct proper events from the event trigger words and their arguments. The construction of events is controlled by event rules which are specific to an event. Some \textit{Regulation} events such as \textit{Positive\_regulation} and \textit{Negative\_Regulation} can have two arguments, a theme and a cause whereas events like \textit{Gene\_expression} and \textit{Transcription} strictly have only one theme argument which must be a named entity.
-
-Figure \ref{fig:eventExample} shows 3 events: 2 \textit{Positive\_regulation} events and a \textit{Gene\_expression} event. The word "detected" is a trigger word for event \textit{Gene\_expression} and it has a theme argument "I(kappa)B(alpha)" (named entity). This event is denoted by E5 in the figure. For event \textit{Positive\_regulation}, denoted by E4 in the figure, the trigger word is "detected", theme is event E5 trigger word "detected" and cause is event E6 trigger word "overexpressed". The last event, denoted by E6 in the figure, has trigger word "overexpressed" and theme "I(kappa)B(alpha)".
-
-\end{enumerate}
-
-
-\subsection{Method developed by Björne et.al.}
-
-The state of the art method in BioNLP 2009, developed by Björne et.al. [CITE:JARI], extracts events present in the same sentence and discards any events that are inter-sentence events. As per their claim, about 95\% of the events are fully contained in the single sentence and therefore, it is sufficient \& relatively simpler to extract the events from a sentence only.
-
-The entire model heavily uses the dependency graphs [CITE:Dependency Grammer]. They represent the sentence as a graph where the text tokens in the sentence are the nodes of the graph and dependencies among the tokens are edges in the graph. 
-
-The entire method consists of following three steps:
-
-\begin{enumerate}
-\item Trigger recognition
-\item Argument detection
-\item Semantic post-processing
-\end{enumerate}
-
-Two support vector machine (SVM) models are trained, each for the step of trigger recognition and argument detection. The SVM models are trained with somewhat different set of features as explained in [CITE:JARI]. In the step of trigger recognition, first SVM model classifies the tokens in the sentence into one of the event categories or none whereas in the step of argument detection, second SVM model classifies relationships between trigger tokens and their potential arguments. The semantic post-processing step reconstructs the events and converts it into the BioNLP 2009 format. The selection of features in our model is heavily influenced by features from the model of Björne et.al.
+We tried to replicate the result of Björne et.al. to get started with our model.The selection of features in our model is heavily influenced by features from the model of Björne et.al.
 
 \section{Method for Protein-Location Relation Extraction}
 
