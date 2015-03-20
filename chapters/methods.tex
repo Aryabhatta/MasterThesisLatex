@@ -32,14 +32,6 @@ Furthermore, the semantic relationship between protein and location in the case 
 
 The same sentence model designed for extracting same sentence relations would be  abbreviated as \textit{SSModel} hereafter for the purpose of brevity. The different sentence model designed for extracting different sentence relations would be abbreviated as \textit{DSModel} for the same purpose.
 
-\section{Graph representation} \label{sec:graphRep}
-% Details about graph representation along with nice explanatory picture
-
-\subsection{Graph representation for \textit{SSModel}}\label{sec:graphSSModel}
-
-\subsection{Graph representation for \textit{DSModel}}\label{sec:graphDSModel}
-
-
 \section{Method pipeline}\label{sec:pipeline}
 
 %- Explain the whole pipeline 
@@ -52,7 +44,7 @@ The overall relation extraction method consists of following major stages:
 
 \item \textbf{Data collection \& Corpus creation}
 
-For LocText corpus, the annotated data is present in the JSON files that can be downloaded through the tagtog web-interface \cite{cejuela2014tagtog}. However, the JSON files only contains the text of the annotations. The whole document text is present in a separate set of HTML files. Every JSON or HTML file corresponds to particular MEDLINE \cite{medline} document. To avoid reading from plain files repeatedly, I decided to create a XML file containing all the corpus data along with annotations and structural details like parse tree, dependency graphs etc.
+For LocText corpus, the annotated data is present in the JSON files that can be downloaded through the tagtog web-interface \cite{cejuela2014tagtog}. However, the JSON files only contains the text of the annotations. The whole document text is present in a separate set of HTML files. Every JSON or HTML file corresponds to a particular MEDLINE \cite{medline} document. To avoid reading from the plain files repeatedly, I decided to create a XML file containing all the corpus data along with annotations and structural details like parse tree, dependency graphs, etc.
 
 \begin{figure}
 \centering
@@ -60,7 +52,7 @@ For LocText corpus, the annotated data is present in the JSON files that can be 
 \caption{The process of creating a XML corpus file}\label{fig:corpusCreation}
 \end{figure}
 
-Figure \ref{fig:corpusCreation} outlines the process  of corpus creation. The data read from HTML files is parsed using Stanford CoreNLP pipeline \cite{manning2014stanford}. In every HTML file, the data is divided into title and abstract. The text from HTML files which consists of title and abstract is initially segmented into sentences (\textit{Sentence Splitting}). Every sentences is then split into tokens (\textit{Tokenization}). Part of the speech tags are found out for every token (\textit{POS Tagging}). Finally, the dependency relations between the tokens in the sentence are computed (\textit{Dependency Parsing}). These stages of processing are explained in detail in the section \ref{sec:NLPPipeline}.
+Figure \ref{fig:corpusCreation} outlines the process  of corpus creation. The data read from the HTML files is parsed using Stanford CoreNLP pipeline \cite{manning2014stanford}. In every HTML file, the data is divided into title and abstract. The text from HTML files which consists of title and abstract is initially segmented into sentences (\textit{Sentence Splitting}). Every sentences is then split into tokens (\textit{Tokenization}). Part of the speech tags are found out for every token (\textit{POS Tagging}). Finally, the dependency relations between the tokens in the sentence are computed (\textit{Dependency Parsing}). These stages of processing are explained in detail in the section \ref{sec:NLPPipeline}.
 
 All the unstructured (plain text) and structured (sentences, tokens, POS tags, dependencies) information is then combined with annotations present in JSON files and written to the XML corpus file.
 
@@ -70,7 +62,7 @@ All the unstructured (plain text) and structured (sentences, tokens, POS tags, d
 \caption{Coarse XML schema}\label{fig:XMLSchema1}
 \end{figure}
 
-The coarse XML schema of the corpus XML file can be shown in the fig. \ref{fig:XMLSchema1}. Every document (corresponds to a MEDLINE document) has two sections, viz. title and abstract. Both sections have similar structure of internal data representation denoted by "DATA FORMAT". The data representation format "DATA FORMAT" is elaborated in fig. \ref{fig:XMLSchema2}.
+The coarse XML schema of the corpus XML file can be shown in the fig. \ref{fig:XMLSchema1}. Every document (corresponds to a MEDLINE document) has two sections, viz. title and abstract. Both sections have similar structure of internal data representation denoted by \texttt{DATA FORMAT}. The data representation format \texttt{DATA FORMAT} is elaborated in fig. \ref{fig:XMLSchema2}.
 
 \begin{figure}
 \centering
@@ -78,9 +70,9 @@ The coarse XML schema of the corpus XML file can be shown in the fig. \ref{fig:X
 \caption{Data format common to title and abstract node}\label{fig:XMLSchema2}
 \end{figure}
 
-The "DATA FORMAT" shown in fig. \ref{fig:XMLSchema2} represents the XML format used to store the data inside the title and abstract node. The nested nodes are displayed with a tab indentation. The figure is representative and does not repeat the structures of nodes for similar parent nodes. For example, even though only the node \texttt{sentence s1} shows the structure of internal nodes like tokens, essentially all the sentence nodes \texttt{sentence s2..sN} have same structure of the internal nodes.
+The \texttt{DATA FORMAT} shown in fig. \ref{fig:XMLSchema2} represents the XML format used to store the data inside the title and abstract node. The nested nodes are displayed with a tab indentation. The figure is representative and does not repeat the structures of nodes for similar parent nodes. For example, even though only the node \texttt{sentence s1} shows the structure of internal nodes like tokens, essentially all the sentence nodes \texttt{sentence s2..sN} have same structure of the internal nodes.
 
-The nodes in the "DATA FORMAT" can be explained as follows:
+The nodes in the \texttt{DATA FORMAT} can be explained as follows:
 
 \begin{itemize}
 \item \texttt{sentences}: This node represents collection of sentences.
@@ -89,7 +81,7 @@ The nodes in the "DATA FORMAT" can be explained as follows:
     \begin{itemize}
 	\item \texttt{tokens}: collection of tokens
 	  \begin{itemize}	  
-	  \item \texttt{token}	: a basic token unit containing information such as text of token, starting offset, end offset, POS tag, etc.		
+	  \item \texttt{token}	: a basic token unit containing information such as text of token, start offset, end offset, POS tag, etc.		
 	  \end{itemize}
 	\item \texttt{parse}: a syntactic parse tree of the sentence
 	\item \texttt{dependencies}: collection of dependencies between the tokens	  
@@ -103,7 +95,7 @@ The nodes in the "DATA FORMAT" can be explained as follows:
     \begin{itemize}
     \item \texttt{coreference}: a collection of coreferent mentions
     \begin{itemize}
-      \item \texttt{mention}: it contains information about text of the coreferent mention, start token in the sentence, end token and whether this is a representative mention or not.
+      \item \texttt{mention}: it contains information about the text of the coreferent mention, start token in the sentence, end token and whether this is a representative mention or not.
     \end{itemize}
     \end{itemize}
 
@@ -116,22 +108,81 @@ The nodes in the "DATA FORMAT" can be explained as follows:
 
 \item \textbf{Training \& evaluating \textit{SSModel}}
 
-This is the second step in relation extraction method. This step focuses solely on extracting same sentence protein-location relations from the text. The data is read from the corpus XML file. 
+This is the second step in the relation extraction method. This step focuses solely on extracting same sentence protein-location relations from the text. 
 
-Every document is processed one by one. From every documents, the sentences and the allied information is loaded into data strucutres.
+The data is read from the corpus XML file and stored in internal data structures in the main memory. The data structures used are explained in the section \ref{sec:dataStructure}. Reading the file once also saves unnecessary I/O time and improves the execution time by a small margin. 
+
+Since this step tries to extract the protein-location relations present in the same sentence only, every sentence in the document is analyzed one by one. In every sentence, potential protein-location relations are found out and the features are written for each one of them along with the target label. A relation is considered a potential relation if both the protein entity and the location entity are present in the same sentence. The potential relations that are present in the manual annotations are considered true relations and are denoted by target label $1$. Similarly, the potential relations that are not found in the manual annotations are considered negative relations and are denoted by target label $-1$. The support vector machine library $SVM^{light}$ \cite{joachims1999making} is used for the purpose of training and classification. Every relation is written as a feature vector. The data representation for $SVM^{light}$ is discussed in more detail in the section \ref{sec:training}.
+
+A feature file is created each for training set, development set and test set. These files are then used by $SVM^{light}$ to train the classifiers. A model is learned from the training data. This model classifies the examples in the development set and test set. The development set is used for the tuning of the hyperparameters and the data in the test set is then finally classified. The process of training and cross-validation is explained in detail in the section \ref{sec:training}. 
+
+The results of the classification are then evaluated. Various evaluation criteria used for the evaluation of results are discussed in section \ref{sec:evaluationCriteria}. The results of the \textit{SSModel} are also cached to be used during \textit{DSModel} evaluation and combined evaluation.
 
 \item \textbf{Training \& evaluating different sentence model}
 
+This step aims to extract the different sentence relations. As discussed in the section \ref{sec:ssModeldsModel}, the model is trained for extracting the different sentence relations only with the sentence distance of 1, i.e., the protein and the location entities are in the neighboring sentences. As done during the training and evaluation of \textit{SSModel}, the data is read from the corpus XML file once and stored in the internal data structures.
+
+For every document, the sentences are processed in pairs and every pair consists of neighboring sentences. The potential different sentence protein-location relations are found out and the relations are written to the SVM feature file. A potential protein-location relation is the one which has participating entities in  neighboring sentences. For example, if sentences \texttt{s1} and \texttt{s2} are being processed, then the protein entities in \texttt{s1} can have a potential PL relationship with location entities in \texttt{s2} and vice versa.
+
+Features are extracted for all potential relations and are written to the feature file along with the target label. Some of the features are also extracted based on the predictions of \texttt{SSModel}. As done in the training and evaluation of \texttt{SSModel}, a feature file is created each for the training set, development set and test set. 
+
+The results of the classification are evaluated using various evaluation criteria discussed in section \ref{sec:evaluationCriteria} and the results are also cached for combined evaluation.
+
 \item \textbf{Combined evaluation}
+
+This is the last step in the pipeline of relation extraction method. This step primarily combines the predictions of \texttt{SSModel} and \texttt{DSModel}. The  combined predictions are uniquely evaluated with original target labels and the result of unique evaluation is calculated.
 
 \end{enumerate}
 
-\section{Machine Learning Models}\label{sec:models}
-% Talk about different models here so that there is no confusion ahead
+\section{Graph representation} \label{sec:graphRep}
+% Details about graph representation along with nice explanatory picture
 
-\subsection{SameSentenceModel}
+Although the data read from the corpus XML file is stored in the internal data structures, the data is also used in the form of a graph for the purpose of feature extraction. A sentence is the most basic unit of the data which is represented as a graph. The tokens in the sentence form the nodes of the graph and the dependency relations between the tokens form the edges in the graph. The models \textit{SSModel} and \textit{DSModel} uses different representation of graphs which is explained in the following subsections.
 
-\subsection{DiffSentenceModel}
+\subsection{Graph representation for \textit{SSModel}}\label{sec:graphSSModel}
+
+%TODO change figure
+\begin{figure}
+\centering
+\includegraphics[scale=0.3]{figures/SameSentenceGraph.png}
+\caption{Graph representation of a sentence in \textit{SSModel}}\label{fig:SSGraph}
+\end{figure}
+
+The representation of a sentence as a graph is shown the fig. \ref{fig:SSGraph}. The sentence "Discrete domains mediate the light-responsive nuclear and cytoplasmic localization of Arabidopsis COP1." is tokenized and every token forms a node in the graph. The node has two rows, first row contains the text of the token and the second row has its part of the speech(POS) tag and the token number joined by a hyphen. The tokens that are part of a protein entity have a green background, the tokens that are part of a location entity have a magenta background and the tokens that are part of organism entity have a yellow  background. As shown in the graph, \textit{COP1} is a protein entity, \textit{Arabidopsis} is an organism name and \textit{nuclear} and \textit{cytoplasmic} are the locations mentioned in the sentence. The nodes in the graph are connected by edges which are the dependency
+ relations between the tokens. The type of the edges are represented using colored boxes. For example, there is a dependency edge of the type \textit{amod} from the token \textit{domains}  to  the token \textit{Discrete}. Since the dependency relations between the tokens are directed, this graph representation is a directed graph. 
+
+Also shown are the dashed edges which represents the protein-location relations. Obviously, these dashed edges are just shown for representation and do not form the edges in the actual graph.
+
+\subsection{Graph representation for \textit{DSModel}}\label{sec:graphDSModel}
+
+%TODO add figure for multi sentences
+
+For \textit{DSModel}, the graph representation is bit different compared with that in \textit{SSModel}. In \textit{DSModel}, pair of sentences are considered where every pair consists of neighboring sentences. Similar to the graph representation in \textit{SSModel}, the sentence is tokenized and every token forms a node in the graph. The tokens part of protein entity are in green, those part of organism entity are in yellow and the tokens that are part of a location entity are in magenta. Since two sentences are considered at a time, the graphs of these sentences are concatenated together as shown in the fig. \ref{fig:DSGraph}. 
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.25]{figures/DiffSentenceGraph.png}
+\caption{Graph representation of a sentence in \textit{DSModel}}\label{fig:DSGraph}
+\end{figure}
+
+
+The edges in the graph are primarily dependency edges between the tokens in two sentences. In addition to the dependency edges, the graph is augmented with several other edges. They are described as follows:
+
+\begin{itemize}
+
+\item \textbf{Root to root connection}: the root of the first sentence is connected with root of the second sentence. This connection helps in finding the path from a entity in one sentence to an entity in another sentence. This connection is bidirectional.
+
+\item \textbf{Connections between same words}: If some of the tokens in both sentences are nouns and have similar text, then these tokens are connected by edges. These edges are directed from tokens in the first sentence to the tokens in the second sentence.
+
+\item \textbf{Connections between protein entity and "protein" word}: These are special connections which try to gauge the coreferent mentions in the most naive manner. If one of the sentence contains a word "protein" and does not contain any other protein entity, then it is likely that the "protein" word in this sentence may actually be referring to the protein entities in another sentence. Therefore, a connection is made from word "protein" to the protein entities in other sentences with the expectation that if this is a case of coreferent mentions, then it will be easier to extract the path. 
+
+\item \textbf{Connections between location entity and "location" word}: With the similar assumption as mentioned in the previous point, it is assumed that if a sentence has a word "localize" or "location" and it does not have a location entity, then it might be the case that this word is a coreferent mention of the location entity mentioned in the other sentence. Therefore, an extra edge is added between the words containing text "location" or "localize" to the location entity. This is a directional edge from the word to the entity.
+
+\end{itemize}
+
+Figure \ref{fig:DSGraph} is a representational figure. In the figure, the entity \textit{Stp22p} present in the first sentence has a PL relationship with location entities \textit{vacuole} and \textit{vacuolar} present in the second sentence. These edges are denoted by dashed lines. As mentioned previously, the dashed edges are just for the purpose of illustration and do not form true edges in the graph used for feature extraction. In this way, \textit{DSModel} considers the combination of two neighboring sentences as a single sentence unit and extracts the features from such a combined sentence.
+
+\section{Data Structures} \label{sec:dataStructure}
 
 
 \section{Feature extraction}\label{sec:featExp}
