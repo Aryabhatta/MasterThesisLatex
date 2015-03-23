@@ -209,7 +209,13 @@ A dependency chain length of 3 is considered for the dependency context. Incomin
 
 \subsection*{Dependency features}
 
-A lot of features are extracted depending on the dependency graph. Using Floyd-Warshall algorithm, shortest path between the protein entity and the location entity in a potential PL relation is calculated. Most of the dependency based features depend on this shortest path. The length of the path contributes an integer valued feature in addition to binary feature for each length.
+\begin{figure}
+\centering
+\includegraphics[scale=0.3]{figures/ShortestPath.png}
+\caption{Shortest Path from protein entity \textit{COP1} to location entity \textit{cytoplasmic}}\label{fig:shortPath}
+\end{figure}
+
+A lot of features are extracted depending on the dependency graph. Using Floyd-Warshall algorithm, shortest path between the protein entity and the location entity in a potential PL relation is calculated. For the purpose of extracting shortest path, an undirected graph of dependencies is considered. Figure \ref{fig:shortPath} shows the shortest path from protein entity \textit{COP1} to location entity \textit{cytoplasmic}. The path is shown in bold. Note that undirected graph is considered only for the purpose of extracting shortest path.  Most of the dependency based features depend on this shortest path. While extracting features, the original direction of edges in the shortest path is also taken into consideration. The length of the path contributes an integer valued feature in addition to binary feature for each length.
 
 Token features are extracted for terminal features of the shortest path which are head tokens of the entities. Some of the other path related features include token features of the internal tokens in the path, features for every edge in the path, features for internal edges in the path, etc.
 
@@ -229,17 +235,58 @@ Some features are very specific to the \textit{DSModel} since it involves proces
 
 \section{Feature Selection}\label{sec:featSel}
 
+
+Feature selection is the process of selecting appropriate features from a large set of possible available features. There are several motivations for feature selection, one of which is to avoid overfitting and improve generalization accuracy. Therefore, the task of feature selection can also be described as the task of removing irrelevant features.
+
 %Write some of the results found out from in Joachim's paper [Text categorization with SVM]
 %
 %**This is a very important property that has got to be known that in text categorization using SVM, there are only few irrelevant features.
 %
 %When ranked according to Binary information gain, see Figure 1, removal of high ranking features does not take away a lot of information. This also means that even features ranked lowest still contain considerable information and are somewhat relevant.
 %
-%TODO: See how to calculate binary information gain for a feature/set of features.***
+
+As observed by authors in \cite{joachims1998text}, for the task of text categorization, there are very few irrelevant features. The authors calculated binary information gain for all the features and found out that even the features that are ranked lowest still contain considerable information and are somewhat relevant. In the task of text categorization, the documents are classified into one of the several predefined categories depending on the words present in that document. Therefore, the words/terms present in the document are the features for the task of text categorization and it is easier to discard the words/terms if that particular feature is found irrelevant. 
+
+However, for my task of relation extraction, the features are very complex and discarding individual features is not an option. The features are extracted with the purpose of extracting some characteristic (e.g. binary test of capitalization in the case of token features) and the entire feature generating mechanism (e.g.  feature generating function in our case) can be commented if those features are found ineffective.
+
+Several approaches for the task of feature selection are used and they are explained as below:
+
+\subsection{Leave one out feature generator}
+
+For the task of protein-location relation extraction, the feature generators are the functions that extract certain characteristics. Such feature generators are commented in a leave one out fashion such that the features extracted by that function are discarded and other features are kept as it is. The performance of the method is then calculated. This process is repeated for all feature generators to find out which feature generator produces irrelevant features. The feature generators, which upon commenting boosts the performance of the model, can be then removed from the final set of feature generators.
+
+This approach results in some performance improvement but the biggest drawback of this approach is the independence assumption. This approach assumes that the features $\left\lbrace {fg_1}_i \right\rbrace$ generated by a feature generator $fg_1$ is independent of the features $\left\lbrace {fg_2}_i \right\rbrace$ generated by feature generator $fg_2$. However, these features in set $\left\lbrace {fg_1}_i \right\rbrace$ and $\left\lbrace {fg_2}_i \right\rbrace$ are not strictly independent. Therefore, it may happen that commenting either $\left\lbrace {fg_1}_i \right\rbrace$ or $\left\lbrace {fg_2}_i \right\rbrace$ may not improve any performance but commenting both can. The leave one out feature generator approach does not care about combining the feature sets of individual feature generators and therefore, it does not results in the optimal selection of feature subset.
+
+\subsection{Using information gain}
+
+One of the widely used feature selection technique is to calculate the information gain of the features \cite{yang1997comparative}. The information gain is used to calculate the goodness of the features. The features with higher goodness can be kept and others can be discarded. The information gain for the feature $f$ can be calculated as:
+
+\begin{align}
+\begin{aligned}
+ G \left( f \right) = & -  \sum^m_{i=1} P_r(c_i) \text{ log } P_r(c_i) \\ 
+  & + P_r(f) \sum^m_{i=1} P_r(c_i|f) \text{ log } P_r(c_i|f)\\ 
+  & +  P_r(\overline{f}) \sum^m_{i=1} P_r(c_i|\overline{f}) \text{ log } P_r(c_i|\overline{f})  
+\end{aligned}  
+\end{align}
+
+where $c_i$ is the set of target relations which is $\left\lbrace +1, -1 \right\rbrace$. $f$ indicates the presence of the feature and $\overline{f}$ indicates the absence of it.
+
+\subsection{Using feature weights}
+
+One of the other relevant approach used for feature selection is normal-based feature selection \cite{brank2002feature}. As discussed in the section \ref{sec:SVM}, the support vector machine predictor uses a hyperplane to separate the positive instances from the negative ones. For a linear kernel, the prediction for certain example $x$ can be written as 
+
+$$
+prediction(x) = sgn \left[ b + \mathbf{w}^T\mathbf{x} \right]
+$$
+
+where $\mathbf{w}$ is the vector of weights. Geometrically, $\mathbf{w}$ is the normal to the hyperplane that is used by the predictor and \cite{brank2002feature} shows that the weights of individual features individually influences the hyperplane and margin. Therefore, the most significant features are the ones which have higher feature weights.
+
+This approach can be used to extract highest weighted features and discard others.
+
 
 \section{Training, Cross validation and Classification}\label{sec:training}
 
-All experiments are performed on LocText \cite{loctext} corpus. As mentioned previously, the LocText corpus consists of 100 abstracts.
+All experiments are performed on LocText \cite{loctext} corpus.
 
 \subsection{Representation of examples in $SVM^{light}$ }
 
@@ -259,22 +306,35 @@ $SVM^{light}$ \cite{joachims1999making} have a specific way of representing the 
 
 \subsection{Cross validation}
 
-%TODO A figure for cross validation
-A 5-fold cross validation is used where every fold consists of 20 documents. 60\% of the total data is used for training, 20\% for development and 20\% for test. The training data is used to train the model using $SVM^{light}$. The development data is used for tuning the hyperparameters. For both \textit{SSModel} and \textit{DSModel}, regularization parameter $\mathbf{C}$ is the only hyperparameter to be tuned.  Finally, unseen test data is used for calculating results. The final performance of the model is the average of the performance for all 5-folds.
+\begin{figure}
+\centering
+\includegraphics[scale=0.6]{figures/CrossValidation.png}
+\caption{5-fold cross validation}\label{fig:crossVal}
+\end{figure}
 
+A 5-fold cross validation is used where every fold consists of 20 documents. In every round, 60\% of the total data is used for training, 20\% for development and 20\% for test. The training data is used to train the model using $SVM^{light}$. The development data is used for tuning the hyperparameters. For both \textit{SSModel} and \textit{DSModel}, regularization parameter $\mathbf{C}$ is the only hyperparameter to be tuned.  Finally, unseen test data is used for calculating results. The final performance of the model is the average of the performance for all 5 rounds. Figure \ref{fig:crossVal} illustrates the process of cross validation.
 
+%TODO Add more details about other experimentation
+\section{Additional experimentation}\label{sec:experiments}
 
-\section{Experiments that worked and that did not work}\label{sec:experiments}
+A lot of experiments were designed and their effect was observed on the performance of the models. All of these experiments were based on some or the other intuition. This section describes the effects of all such experiments. This section initially describes the experimentation common to \textit{SSModel} and \textit{DSModel}. The experiments specific to \textit{SSModel} and \textit{DSModel} are discussed later as a subsection.
 
-\subsection{Experimentation for SameSentModel}
+\subsubsection*{Experimentation with different kernels}
 
-- Removing sentences which had no proteins improved the performance
-- Using different kernels did not work
+$SVM_{light}$ provides an ability to use several kernels for the purpose of training a model. The default kernel is the linear kernel and other kernels are polynomial, RBF (Radial Basis Function) and sigmoid kernels. Using kernels other than default kernel reduces the performance of the method. Even \cite{joachims1998text} shows that the linear kernel is the best kernel that can be used for text processing.
 
-\subsection{Experimentation for DiffSentModel}
+\subsection{Experimentation specific to \textit{SSModel}}
+%TODO
 
-- Using extra information from the document such as shortform longform pairs decreased the performance since it added more FP's (15) than TP's (1). It seems that this rule was nicely followed during annotation
+\subsection{Experimentation specific to \textit{DSModel}}
 
-\subsection{Experimentation with different kernels}
+\subsubsection*{Using additional information}
+
+Efforts were made to increase the performance of \textit{DSModel} using additional information extracted from the document. One instance of such additional information is shortform-longform pairs extracted from the document. The intuition was that if either of shortform or longform of a protein is predicted to be in PL relationship with a location entity, then the corresponding longform or shortform should also be in a PL relationship with that entity. Shortform and longform pairs were extracted using a simple algorithm \cite{hearst2003simple}.
+
+However, adding such information actually decreased the performance of \textit{DSModel} since more number of false positives were added than true positives. It was decided, therefore, not to use this augmentation of information.
+
 
 \section{Tools used}\label{sec:tools}
+
+Stanford corenlp pipeline \cite{manning2014stanford} is used for the process of sentence segmentation, tokenization, syntactic parsing, dependency parsing and coreference resolution. The support vector machine library $SVM^{light}$ \cite{joachims1999making} is used for training and classification.
