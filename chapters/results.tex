@@ -141,14 +141,14 @@ The Feature Weight Ranking approach, discussed in detail in the subsection \ref{
 \begin{minipage}{.5\textwidth}
   \centering
   \includegraphics[width=.95\textwidth]{figures/FWRPerformance.png}
-  \caption{Comparison of FWR Performance}
+  \caption{FWR Performance comparison}
   \label{fig:FWRPerfComp}
 \end{minipage}
 \end{figure} 
 
 For each round of cross-validation, a model is learned and therefore, the feature weights can be extracted for every round. Figure \ref{fig:FWRWeightDist} shows the distribution of weights for features of round 1. The distribution of feature weights in other folds follow similar distribution. As shown in the figure, there are very less features with higher weights and most of the features have comparatively lower weights. In addition, none of the features have a drastically low weight which implies that every feature has some or other information.
 
-Figure \ref{fig:FWRPerfComp} shows the comparison of performance of various FWR models with initial model. Only average \textit{F scores} are shown for comparison. The model \textit{1\_1000} implies that 1000 highest weighted features are selected from every round of cross validation and the model is trained using only those features. Similar terminology applies for rest of the FWR models shown in the figure. None of the FWR models have a higher performance than the initial model. The performance of FWR model with first 1000 features (\textit{1\_1000}) is lower than FWR model with first 5000 features (\textit{1\_5000}). It is also seen that the performance drops for first 20000 features and then again increases for first 30000 features. This trend invalidates the intuition that higher weighted features should result in higher performance and addition of lower weighted features should decrease the performance. In our case, addition of features ranked 20000 to 30000 have actually increased the performance. The FWR model consisiting of lowest 2000 features in every round (\textit{28000\_30000}) also has considerable performance and cannot be discarded as useless. Owing to all these problems, this approach was not carried forward.
+Figure \ref{fig:FWRPerfComp} shows the comparison of performance of various FWR models with initial model. Only average \textit{F scores} are shown for comparison. The model \textit{1\_1k} implies that 1000 highest weighted features are selected from every round of cross validation and the model is trained using only those features. Similar terminology applies for rest of the FWR models shown in the figure. None of the FWR models have a higher performance than the initial model. The performance of FWR model with first 1000 features (\textit{1\_1k}) is lower than FWR model with first 5000 features (\textit{1\_5k}). It is also seen that the performance drops for first 20000 features and then again increases for first 30000 features. This trend invalidates the intuition that higher weighted features should result in higher performance and addition of lower weighted features should decrease the performance. In our case, addition of features ranked 20000 to 30000 have actually increased the performance. The FWR model consisiting of lowest 2000 features in every round (\textit{28k\_30k}) also has considerable performance and cannot be discarded as useless. Owing to all these problems, this approach was not carried forward.
  
 \subsection{Results after Information Gain Analysis}
 
@@ -216,13 +216,13 @@ Using these 5 statistics, an exhaustive search was conducted to select the best 
 \begin{minipage}{.5\textwidth}
   \centering
   \includegraphics[width=.95\textwidth]{figures/AvgIGAnalysis.png}
-  \caption{Experiment using average IG}
+  \caption{Average IG experiments}
   \label{fig:AvgIG}
 \end{minipage}%
 \begin{minipage}{.5\textwidth}
   \centering
   \includegraphics[width=.95\textwidth]{figures/MinIGAnalysis.png}
-  \caption{Experiments using minimum IG}
+  \caption{Minimum IG experiments}
   \label{fig:MinIG}
 \end{minipage}
 \end{figure} 
@@ -240,15 +240,13 @@ As shown in the fig. \ref{fig:6ModelsComp}, Avg\_55 has near to best performance
 
 \subsection{Hyperparameter search results}
 
-Exhaustive hyperparameter search was conducted for the selected model Avg\_55. The hyperparameter for support vector machine model is the regularization parameter $\mathbf{C}$ which determines the trade-off between training error and margin as explained in the section \ref{subsec:RegPar}. Experiments were conducted for finding the best regularization parameter by varying $\mathbf{C}$ from 0.000 to 2.000 with the steps of 0.005. A value of XXX was found to be the best hyperparameter value which results in increase in performance of YY.YY points with respect to non unique evaluation mode and ZZ.ZZ with respect to unique evaluation mode.
+Exhaustive hyperparameter search was conducted for the selected model Avg\_55. The hyperparameter for support vector machine model is the regularization parameter $\mathbf{C}$ which determines the trade-off between training error and margin as explained in the section \ref{subsec:RegPar}. Experiments were conducted for finding the best regularization parameter by varying $\mathbf{C}$ from 0.0000 to 2.0000 with the steps of 0.0005. A value of 0.0005 was found to be the best hyperparameter value which results in increase in performance of 1.76 with respect to unique evaluation mode. The hyperparameter search was done to  maximize the performance with respect to unique evaluation mode.
 
 \begin{figure}
 \centering
 \includegraphics[scale=0.6]{figures/SSModelRegPar.png}
 \caption{Results before and after hyperparameter search}\label{fig:SSModelRegPar}
 \end{figure}
-
-
 
 \subsection{Final Results}\label{subsec:SSFinalRes}
 
