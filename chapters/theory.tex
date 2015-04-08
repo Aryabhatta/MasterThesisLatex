@@ -1,44 +1,44 @@
 \chapter{Theory}\label{chapter:theory}
 
-This chapter explains the theoretical background for understanding the construction of machine learning models mentioned in the next chapter. This chapter is broken down into two parts. First part explains the concepts used in Natural Language Processing (NLP) and second part explains the concepts of Support Vector Machines (SVM).
+This chapter explains the theoretical concepts needed for understanding the NLP system described in the next chapter. This chapter is broken down into two parts. First part of the chapter explains the terms and terminologies used in Natural Language Processing (NLP) and second part of the chapter explains the concepts  used in Support Vector Machines (SVM).
 
 \section{Natural Language Processing (NLP)}
 
-Natural Language Processing (NLP) is an area of research and application that explores how computers can be used to understand and manipulate natural language text or speech to do useful things \cite{chowdhury2003natural}. The foundations of NLP lie in a number of disciplines, viz., computer and information sciences, formal language theory, linguistics, artificial intelligence, psycho-linguistics,  etc.
+Natural Language Processing (NLP) is an area of research and application that explores how computers can be used to understand and manipulate natural language text or speech to do useful things \cite{chowdhury2003natural}. The foundations of NLP lie in a number of disciplines, viz. computer and information sciences, formal language theory, linguistics, artificial intelligence, psycho-linguistics,  etc.
 
 \subsection{NLP Basics}\label{sec:NLPPipeline}
 
-The NLP systems works on a chunk of text as an input. Almost all NLP systems preprocess the data in order to work with structured input data. There are two types of tasks in NLP, viz., syntactic tasks and semantic tasks \cite{nlpcourse}. All NLP systems works on many of these tasks in order to achieve a certain objective.  
+NLP systems work on a chunk of text as an input. However, plain text data is unstructured data and all NLP systems preprocess the data in order to convert it into structured representation. There are two types of tasks in NLP, viz. syntactic tasks and semantic tasks \cite{nlpcourse}. All NLP systems work on many of these tasks in order to achieve a certain objective.  
 
-Syntax concerns with proper ordering of the words and its effect on the meaning while semantic deals with literal meaning of wiki:sentSeg,the words, phrases and sentences. This section presents an overview of syntactic tasks. Most of the NLP systems use syntactic tasks for preprocessing the data.
+Syntax concerns with proper ordering of the words and its effect on the meaning while semantics deals with literal meaning of the words, phrases and sentences \cite{wiki:sentSeg}. This section presents an overview of syntactic tasks. Most of the NLP systems use syntactic tasks for preprocessing the data.
 
 \subsubsection{Sentence segmentation}
 
-Sentence segmentation is the process of dividing a chunk of text into component sentences \cite{wiki:sentSeg}. In English and some other languages, using fullstop ('.') is a reasonable approximation for end of the sentence and can be used to parse the text into sentences. However, the problem is not so trivial due to the use of abbreviations such as "Mr.", "Dr.", etc. For example in the sentence \textit{"Mr.Smith went to the shops in Jones Street."}, the sentence actually ends after the word \textit{"Street"} and not after abbreviation \textit{"Mr."}. In some languages, the task may become complex since they do not have a proper punctuation character that can be used for approximating sentence boundary.
+\textit{Sentence segmentation} is the process of dividing a chunk of text into component sentences \cite{wiki:sentSeg}. In English and some other languages, using fullstop ('.') is a reasonable approximation for end of the sentence and can be used to parse the text into sentences. However, the problem is not so trivial due to the use of abbreviations such as "Mr.", "Dr.", etc. For example, in the sentence \textit{"Mr.Smith went to the shops in Jones Street."}, the sentence actually ends after the word \textit{"Street"} and not after abbreviation \textit{"Mr."}. In some languages, the task may become complex since they do not have a proper punctuation character that can be used for approximating sentence boundary.
 
 \subsubsection{Word segmentation}
 
-Word segmentation is the process of dividing the text into constituent words \cite{wiki:sentSeg}. Usually, white spaces can be used to parse the text into words in English. Although the white spaces are a very good approximation for breaking the text into words, sometimes they are not present. For example, the word \textit{couldn't} consists of two words \textit{could} and \textit{not} which cannot be split using a white space. In some other languages like Chinese, words are not separated by spaces.
+\textit{Word segmentation} is the process of dividing the text into constituent words \cite{wiki:sentSeg}. Usually, white spaces can be used to parse the text into words in English. Although white spaces are a good approximation for breaking the text into words, sometimes they are not present. For example, the word \textit{couldn't} consists of two words \textit{could} and \textit{not} which cannot be split using a white space. In some other languages like Chinese, words are not separated by spaces.
 
 \subsubsection{Tokenization}
 
-A token is a basic processing unit in NLP systems. In most of the cases, a token is a word. However, in some of the NLP systems, a token can also be a sentence or a paragraph depending on the objective to be achieved.
+A token is a basic processing unit in NLP system. In most of the cases, a token is a word. However, in some NLP systems, a token can also be a sentence or a paragraph depending on the objective to be achieved.
 
 \subsubsection{Stemming and Lemmatization}
 
-Stemming and lemmatization are the process to reduce a word to a base form. Such reductions are very useful for NLP systems. However, there is a difference between stemming and lemmatization. \textit{Stemming} refers to the crude heuristic process of chopping off the ends of the words in hope of finding the base word \cite{stemminglemmatization}. This works most of the time. For example, the stem of words \textit{running} and \textit{runs} is \textit{run}. \textit{Lemmatization} usually extracts the base word properly with the use of vocabulary and morphological analysis of the words \cite{stemminglemmatization}. For example, the base of \textit{is}, \textit{am} and \textit{are} is \textit{be} which can only be extracted by lemmatization and not by stemming.
+\textit{Stemming} and \textit{lemmatization} are the processes used for reducing a word to a base form. Such reductions are useful for NLP systems. However, there is a difference between \textit{stemming} and \textit{lemmatization}. \textit{Stemming} refers to the crude heuristic process of chopping off the ends of the words in hope of finding the base word \cite{stemminglemmatization}. This works most of the time. For example, the stem of words \textit{running} and \textit{runs} is \textit{run}. \textit{Lemmatization} usually extracts the base word properly with the use of vocabulary and morphological analysis of the words \cite{stemminglemmatization}. For example, the base of \textit{is}, \textit{am} and \textit{are} is \textit{be} which can only be extracted by lemmatization and not by stemming.
 
 \subsubsection{Part of the speech (POS) tagging}
 
-Part of the speech (POS) tagging is the process of annotating each word in the sentence with part of the speech tag. This is an important step and is useful for subsequent syntactic parsing and word sense disambiguation \cite{nlpcourse}. 
+\textit{Part of the speech (POS) tagging} is the process of annotating each word in the sentence with part of the speech tag. This is an important step and is useful for subsequent syntactic parsing and word sense disambiguation \cite{nlpcourse}. 
 
-\subsubsection{Syntactic parsing}
+\subsubsection{Parsing}
 
 There are two views of linguistic structure in NLP, viz., constituency (phrase structure) and dependency structure \cite{parsing}. Both structures are represented as trees. The process of producing these structures correctly is called parsing. There are two types of parsing:
 
 \begin{figure}
 \centering
-\includegraphics[scale=0.6]{figures/SyntacticParse.png}
+\includegraphics[scale=0.5]{figures/SyntacticParse.png}
 \caption{An example of syntactic parsing}\label{fig:SynParse}
 \end{figure}
 
@@ -51,15 +51,15 @@ There are two views of linguistic structure in NLP, viz., constituency (phrase s
 
 \begin{itemize}
 
-\item \textit{Syntactic parsing:} The process of producing a constituency structure from a sentence is called syntactic parsing. In constituency structure, the words are organized into phrases which are further organized into a phrase or a sentence. Fig. \ref{fig:SynParse} shows the syntactic parse of sentence \textit{"XXXX"}.
+\item \textit{Syntactic parsing:} The process of producing a constituency structure from a sentence is called syntactic parsing. In constituency structure, the words are organized into phrases which are further organized into a phrase or a sentence. Fig. \ref{fig:SynParse} shows the syntactic parse of sentence \textit{"Fed raises interest rates."}.
 
-\item \textit{Dependency parsing:} The process of producing a dependency parse/structure from a sentence is called dependency parsing. In dependency parsing, the binary relations among the words are represented as a tree. In a dependency tree, the words in the sentence act as nodes and the dependency relations between them act as edges. Fig. \ref{fig:DepParse} shows the dependency parse of sentence \textit{"XXXX"}.
+\item \textit{Dependency parsing:} The process of producing a dependency parse/structure from a sentence is called dependency parsing. In dependency parsing, the binary relations among the words are used to create a dependency parse tree. In a dependency tree, the words in the sentence act as nodes and the dependency relations between them act as edges. Fig. \ref{fig:DepParse} shows the dependency parse of sentence \textit{"The boy put the tortoise on the rug."}.
 
 \end{itemize}
 
 \subsection{NLP Pipeline}
 
-Most of the NLP systems are actually a complex pipeline of tasks. For any processing to be done, it is necessary to break down the input unstructured text into structured units that can be processed. Most of the syntactic tasks mentioned in the previous sections are used for preprocessing the text. The usual pipeline for any NLP system looks like as shown in the figure
+Most of the NLP systems are actually a complex pipeline of tasks. For any processing to be done, it is necessary to break down the input unstructured text into structured units. Most of the syntactic tasks mentioned in the previous section are used for preprocessing the text. The usual pipeline for any NLP system looks like as shown in the Fig. \ref{fig:NLPPipe}.
 
 \begin{figure}
 \centering
@@ -69,26 +69,26 @@ Most of the NLP systems are actually a complex pipeline of tasks. For any proces
 
 \subsection{NLP Semantic tasks}
 
-Semantic tasks in NLP deals with extracting meaningful information from the text. Following are different types of semantic tasks:
+Semantic tasks in NLP deal with extracting meaningful information from the text. Following are different types of semantic tasks:
 
 \subsubsection{Named Entity Recognition (NER)}
 
-Named entities are atomic elements in the text belonging to predefined categories \cite{ner1} such as the names of the persons, organizations, locations, etc. In simple words, it is the task of taking unannotated block of text such as \textit{"Jim bought 300 shares of Acme Corp. in 2006."} and converting it into an annotated block like \textit{"$[Jim]_{Person}$ bought 300 shares of $[Acme Corp.]_{Organization}$ in $[2006]_{Time}$."} \cite{wiki:ner}.
+Named entities are atomic elements in the text belonging to predefined categories \cite{ner1} such as the names of the persons, organizations, locations, etc. In simple words, \textit{Named Entity Recognition} is the task of taking unannotated block of text such as \textit{"Jim bought 300 shares of Acme Corp. in 2006."} and converting it into an annotated block like \textit{"$[Jim]_{Person}$ bought 300 shares of $[Acme Corp.]_{Organization}$ in $[2006]_{Time}$."} \cite{wiki:ner}.
 
 \subsubsection{Machine translation}
 % Search Engines
 % Helping the human translators
 
-Machine translation is the process of translating text or speech from one language to another automatically without human intervention.
+\textit{Machine translation} is the process of translating text or speech from one language to another automatically without human intervention.
 
-\subsubsection{Relationship Extraction}
+\subsubsection{Relationship Extraction}\label{sec:RE}
 % task of extracting information from emails
 
-Relationship extraction is the process of identifying relationship between different named entities present in the sentence. For example, in the sentence \textit{"$TUM_{university}$ is located in $Munich_{location}$"}, \textit{TUM} is a named entity of type \textit{university}, \textit{Munich} is a named entity of type \textit{location} and \textit{TUM} and \textit{Munich} are related by a relation \textit{located-in(TUM,Munich)}.
+\textit{Relationship extraction} is the process of identifying relationship between different named entities present in the sentence. For example, in the sentence \textit{"$TUM_{university}$ is located in $Munich_{location}$"}, \textit{TUM} is a named entity of type \textit{university}, \textit{Munich} is a named entity of type \textit{location} and \textit{TUM} and \textit{Munich} are related by a relation \textit{located-in(TUM,Munich)}.
 
 \subsubsection{Coreference resolution}
 
-Coreference resolution is the task of finding all expressions that refer to the same entity in the text. For example, in the sentence \textit{"Sally arrived, but nobody saw her."}, \textit{her} refers to \textit{Sally} in the sentence.
+\textit{Coreference resolution} is the task of finding all expressions that refer to the same entity in the text. For example, in the sentence \textit{"Sally arrived, but nobody saw her."}, \textit{her} refers to \textit{Sally} in the sentence.
 
 \subsubsection{Other semantic tasks}
 % Other tasks: 
@@ -113,9 +113,9 @@ There are a plethora of other semantic tasks in NLP such as sentiment analysis, 
 \section{Support Vector Machines}\label{sec:SVM}
 % Write about some of the theory behind SVM
 
-Machine Learning algorithms are a set of algorithms that can learn from data. Machine learning tasks are broadly classified into supervised learning and unsupervised learning. In supervised learning, the algorithms are given a set of data along with their labels and the goal for algorithms is to learn the rule that maps the input data to their labels. In unsupervised learning, the data is given without labels and the goal for algorithms is to find hidden patterns.
+Machine Learning algorithms are a set of algorithms that can learn from data. Machine learning tasks are broadly classified into supervised learning and unsupervised learning. In supervised learning, the algorithms are given a set of data along with their labels and the goal for algorithms is to learn the rule that maps the input data to their labels. In unsupervised learning, the data is given without labels and the goal for algorithms is to find the hidden pattern.
 
-Support vector machines (SVM) are supervised learning models that can be used for the task of classification and regression. SVM is widely used for the task of classification, i.e., classifying the data into one of the predefined labels.
+Support vector machines (SVM) are supervised learning models that can be used for the task of classification and regression. SVM is widely used for the task of classification, i.e., classifying the data into one of the predefined classes/labels.
 
 \subsection{Mathematical formulation}
 \begin{figure}
@@ -147,7 +147,7 @@ Support vector machines (SVM) are supervised learning models that can be used fo
 %\end{figure}
 
 
-SVM tries to build a hyperplane that separates the data points belonging to different categories. For example, as shown in the fig. \ref{fig:SVM1}, the hyperplane separating blue points and green points is given by:
+SVM tries to build a hyperplane that separates the data points belonging to different categories. For example, as shown in Fig. \ref{fig:SVM1}, the hyperplane separating blue points and green points is given by:
 
 $$
 \mathbf{w}^{T}\mathbf{x} + b = 0
@@ -157,11 +157,15 @@ where $\mathbf{w}$ is a vector normal to the hyperplane and $\mathbf{x}$ are the
 
 For a point $\mathbf{x}_1$ having projection length greater than $\frac{b}{|\mathbf{w}|}$, $\mathbf{w}^{T}\mathbf{x}_1 + b > 0$ and the point is classified as a blue point. Similarly, for a point $\mathbf{x}_2$ having projection length less than $\frac{b}{|\mathbf{w}|}$, $\mathbf{w}^{T}\mathbf{x}_2 + b < 0$ and the point is classified as a green point. Therefore, the class of a new point $\mathbf{x}$ is given by:
 
-$$
+\begin{align}
+\begin{aligned}
+%$$
 h(\mathbf{x}) = sgn(\mathbf{w}^{T}\mathbf{x} + b) \label{eq:sgn}
-$$
+%$$
+\end{aligned}
+\end{align}
 
-Intuitively, the greater the distance of the points on each side of the hyperplane, the better the classification. Therefore, efforts are made to construct a maximum margin classifier.  Such a classifier will make it more likely to classify a new point on the right side of the dividing hyperplane. Hence, the problem of constructing a hyperplane is refined to constructing a hyperplane that separated both classes and has maximum margin.
+Intuitively, the greater the distance of the points on each side of the hyperplane, the better the classification. Therefore, efforts are made to construct a maximum margin classifier.  Such a classifier will make it more likely to classify a new point on the right side of the dividing hyperplane. Hence, the problem of constructing a hyperplane is refined to constructing a hyperplane that separates both classes and has maximum margin.
 
 Figure \ref{fig:SVM2} shows an maximum margin classifier such that the size of the margin is given by:
 
@@ -171,13 +175,12 @@ $$
 
 For such a classifier, if the target classes for data point $x_i$ are given by $y_i \in \left\lbrace -1, +1 \right\rbrace$, then the constraints
 
-$$
-\mathbf{w}^{T}\mathbf{x}_i + b \geq +1 \quad \text{for} \quad y_i = +1
-$$
-
-$$
+\begin{align}
+\begin{aligned}
+\mathbf{w}^{T}\mathbf{x}_i + b \geq +1 \quad \text{for} \quad y_i = +1 \\
 \mathbf{w}^{T}\mathbf{x}_i + b \leq -1 \quad \text{for} \quad y_i = -1
-$$
+\end{aligned}
+\end{align}
 
 can be condensed into 
 
@@ -187,13 +190,12 @@ $$
 
 Therefore, the problem of finding a maximum margin classifier can be formulated in the form of constrained convex optimization problem as follows:
 
-$$
-\text{minimize} \quad f_0(\mathbf{w},b) = \frac{1}{2} \mathbf{w}^{T} \mathbf{w} 
-$$
-
-$$
-\text{subject to} \quad f_i(\mathbf{w},b) = y_i (\mathbf{w}^{T}\mathbf{x}_i + b) -1 \geq 0 \quad \text{for} \quad i = 1,...,m
-$$
+\begin{align}
+\begin{aligned}
+\text{minimize} \quad f_0(\mathbf{w},b) &= \frac{1}{2} \mathbf{w}^{T} \mathbf{w} \\
+\text{subject to} \quad f_i(\mathbf{w},b) &= y_i (\mathbf{w}^{T}\mathbf{x}_i + b) -1 \geq 0 \quad \text{for} \quad i = 1,...,m
+\end{aligned}
+\end{align}
 
 Upon solving the optimization problem, the weights are found to be linear combination of training samples:
 

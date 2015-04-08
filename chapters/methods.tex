@@ -3,7 +3,7 @@
 \section{Task Definition}
 
 %TODO Refer to the actual section of relatione extraction
-This chapter explains the method developed to extract protein-location relations from biomedical text. This task of relation extraction comes under the broad category of natural language processing (NLP) as explained in the section \ref{sec:RE}. The task of extraction of Protein-Location relations can be formally described as follows:
+This chapter explains the method developed to extract protein-location relations from biomedical text. This task of relation extraction is one of the semantic tasks in the area of natural language processing (NLP), as explained in the section \ref{sec:RE}. The task of protein-location relation extraction can be formally described as follows:
 
 Given a piece of text that contains two entity mentions, viz. protein and location, the task of relation extraction method is to decide if the text contains enough evidence for semantic relationship between these two entities. Formally, let $r=(t,arg_1,arg_2)$ denote a relationship instance where $t$ is a piece of text, $arg_1$ and $arg_2$  are entity mentions contained in text $t$, and $arg_1$ precedes $arg_2$ in the text. Given a set of relations $\left\lbrace r_i \right\rbrace$ such that every relation instance has label $l \in \left\lbrace-1,1\right\rbrace$, our task is to learn a function that can predict the label $l$ for new relation instance whose label is not known. Note that $t$ can simply be a piece of text or it may also contain structured information such as parse tree and dependency graphs. For entity mentions $arg_1$ and $arg_2$, either of them can represent a protein or a location entity.
  
