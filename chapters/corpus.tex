@@ -137,7 +137,7 @@ Therefore, these findings indicate that the annotations in databases such as Uni
 
 % s: Put all the numbers with respect to number of entities, relations and their distribution here. Also, put all the nice graphs that you made here
 
-As stated earlier, the LocText corpus is made by annotating 100 MEDLINE abstracts. Although collectively called as abstracts, the corpus is made by annotating 100 documents and every document has a title part and an abstract part. This section presents an analysis of the annotations from various perspectives, viz. whether the annotation is present in the title or the abstract, the type (protein-location/protein-organism) in case of relation annotations, etc.
+As stated earlier, the LocText corpus is composed of 100 MEDLINE abstracts (to be exact, 100 documents containing both title an abstract). This section presents an analysis of the annotations from various perspectives, viz. whether the annotation is present in the title or the abstract, the annotation relation type (protein-location/protein-organism), etc.
 
 \subsection*{Count of entities and relations}
 
@@ -146,18 +146,18 @@ As stated earlier, the LocText corpus is made by annotating 100 MEDLINE abstract
 \begin{minipage}{.5\textwidth}
   \centering
   \includegraphics[width=.95\textwidth]{figures/ProtLocOrg_Distribution.png}
-  \caption{Entities in LocText corpus}
+  \caption{Entities in LocText corpus.}
   \label{fig:LocText_Entities}
 \end{minipage}%
 \begin{minipage}{.5\textwidth}
   \centering
   \includegraphics[width=.95\textwidth]{figures/AllRelationsPie.png}
-  \caption{Relations in LocText Corpus}
+  \caption{Relations in LocText Corpus.}
   \label{fig:LocText_Relations}
 \end{minipage}
 \end{figure}
 
-Fig. \ref{fig:LocText_Entities} and \ref{fig:LocText_Relations} shows the count of entities and relations present in 100 documents of the LocText corpus. As shown in  Fig. \ref{fig:LocText_Entities}, there are 1393 protein, 560 location and 277 organism annotations in the corpus. Similarly, Fig. \ref{fig:LocText_Relations} shows that there are a total of 1395 relations in the corpus, 550 of which are protein-location relations and 795 are protein-organism relations. Protein-organism relations contribute nearly 60\% of the total relations whereas protein-location relations make up remaining 40\%.
+Figures \ref{fig:LocText_Entities} and \ref{fig:LocText_Relations} show the number of entities and relations present in LocText corpus. As shown in  Fig. \ref{fig:LocText_Entities}, there are 1393 protein, 560 location and 277 organism annotations in the corpus. Similarly, Fig. \ref{fig:LocText_Relations} shows that there are a total of 1395 relations in the corpus, 550 of which are protein-location relations and 795 are protein-organism relations. Protein-organism relations contribute nearly a 60\% of the total relations whereas protein-location relations make up the remaining 40\%.
 
 \subsection*{Analysis of relations}
 
@@ -177,9 +177,9 @@ Fig. \ref{fig:LocText_Entities} and \ref{fig:LocText_Relations} shows the count 
 \end{minipage}
 \end{figure}
 
-The relations are categorized in two key categories, viz. same-sentence relations and  different-sentence relations. Same-sentence relations are those relations in which both the participating entities lie in the same sentence and different-sentence relations are those relations in which either of the participating entities is in a different sentence. Same-sentence relations can also be defined as intra sentence relations and different-sentence relations can be defined as inter sentence relations.
+The relations are categorized in two key categories, viz. \emph{same-sentence relations} and \emph{different-sentence relations}. Same-sentence relations are those relations in which both the participating entities lie in the same sentence and different-sentence relations are those relations in which either of the participating entities is in a different sentence. Same-sentence relations can also be denoted as \emph{intra-sentence relations} and different-sentence relations as \emph{inter-sentence relations}.
 
-As seen in the Fig. \ref{fig:Rel_Title_Abs}, only a minor fraction (5\%) of the relations are present in the title while remaining 95\% relations are present in the abstract. The relations that are present in the title are all same-sentence relations since there isn't a single document in the corpus where the title spans more than one sentence. Therefore, the 5\% relations that are present in the title are all same-sentence relations.
+As seen in Fig. \ref{fig:Rel_Title_Abs}, only a minor fraction (5\%) of the relations are present in the title while the remaining 95\% are present in the abstract. The relations that are present in the title are all same-sentence relations since there is not a single document in the corpus where the title spans more than one sentence. Therefore, the 5\% relations that are present in the title are all same-sentence relations.
 
 Fig. \ref{fig:Rel_Abs_PO_PL} shows the distribution of relations in the abstract according to its type. Of the total relations present in the abstracts, about 40\% are protein-location relations and about 60\% are protein-organism relations. Note that this distribution of protein-location and protein-organism relations is consistent with the distribution in the corpus as a whole (illustrated in Fig. \ref{fig:LocText_Relations}).
 
@@ -200,7 +200,7 @@ Fig. \ref{fig:Rel_Abs_PO_PL} shows the distribution of relations in the abstract
 \end{figure}
 
 
-Fig. \ref{fig:Abs_PO_Rel} and \ref{fig:Abs_PL_Rel} shows the distribution of protein-organism (PO) and protein-location(PL) relations into same-sentence relations and different-sentence relations. As shown in Fig. \ref{fig:Abs_PO_Rel}, about 35\% of the PO relations are same-sentence relations and 65\% are different-sentence relations. While in terms of PL relations, \ref{fig:Abs_PL_Rel} shows that about 61.4\% of the PL relations are same-sentence relations and 38.6\% are different-sentence relations.
+Figures \ref{fig:Abs_PO_Rel} and \ref{fig:Abs_PL_Rel} show the distribution of protein-organism (PO) and protein-location(PL) relations into same-sentence relations and different-sentence relations. As shown in Fig. \ref{fig:Abs_PO_Rel}, about 35\% of the PO relations are same-sentence relations and 65\% are different-sentence relations. While in terms of PL relations, Fig. \ref{fig:Abs_PL_Rel} shows that about 61.4\% of the PL relations are same-sentence relations and 38.6\% are different-sentence relations.
 
 \begin{figure}
 \centering
@@ -208,13 +208,13 @@ Fig. \ref{fig:Abs_PO_Rel} and \ref{fig:Abs_PL_Rel} shows the distribution of pro
 \caption{Sentence distance for PL Relations}\label{fig:SentDistancePL}
 \end{figure}
 
-The relations that are of prime interest are protein-location relations. From previous figures, it is already known that around 60\% of the PL relations in the abstract can be found in the same sentence. Fig. \ref{fig:SentDistancePL} shows how different-sentence PL relations are distributed according to the sentence distance. The different-sentence relations in which the participating entities are in neighboring sentences is said to have a sentence distance of 1. In other words, the sentence distance of 1 indicates that the entities participating in the relation are 1 sentences apart.
+The relations that are of prime interest are protein-location relations. From previous figures, it is already known that around 60\% of the PL relations in the abstract can be found in the same sentence. Fig. \ref{fig:SentDistancePL} shows how different-sentence PL relations are distributed according to the sentence distance. The different-sentence relations in which the participating entities are in neighboring sentences is said to have a sentence distance of 1. In other words, the sentence distance of 1 indicates that the entities participating in the relation are 1 sentence apart.
 
-As seen in the Fig. \ref{fig:SentDistancePL}, it is also possible to find the relations with sentence distance 9 which means that the participating entities are 9 sentences apart. However, most of the different sentence relations have lower sentence distance. For example, about 95 out of 199 (47.74\%) different sentence relations are 1 sentences apart.
+As seen in Fig. \ref{fig:SentDistancePL}, it is also possible to find relations with sentence distance 9, which means that the participating entities are 9 sentences apart. However, most of the different sentence relations have lower sentence distance. For example, about 95 out of 199 (47.74\%) different sentence relations are 1 sentences apart.
 
-%TODO need a figure for distribution of PO PL in title as well.
+% s: TODO need a figure for distribution of PO PL in title as well.
 
-Therefore to summarize the discussion, it can be concluded that 316/515 abstract PL relations (Fig. \ref{fig:Abs_PL_Rel}) and 35 title PL relations are same-sentence relations, which mean that about 351/550 (63.81\%) of total PL relations are same-sentence relations. As seen from  Fig. \ref{fig:SentDistancePL}, 95/199 (47.74\%) different-sentence relations are at the distance of 1. Therefore, a total of 446/550 (81.09\%) PL relations are either same-sentence relations or have a sentence distance of 1. In other words, for about 81\% PL relations, the participating entities are either in the same sentence or in the neighboring sentences. Hence, even if these 81\% relations could be extracted with high accuracy, it would be possible to extract a significant amount of information from the text.
+Therefore to summarize the discussion, 316/515 abstract PL relations (Fig. \ref{fig:Abs_PL_Rel}) and 35 title PL relations are same-sentence relations, which mean that about 351/550 (63.81\%) of total PL relations are same-sentence relations. As seen from  Fig. \ref{fig:SentDistancePL}, 95/199 (47.74\%) different-sentence relations are at distance 1. Therefore, a total of 446/550 (81.09\%) PL relations are either same-sentence relations or have a sentence distance of 1. In other words, for about 81\% PL relations, the participating entities are either in the same sentence or in the neighboring sentences. Hence, even if these 81\% relations could be extracted with high accuracy, it would be possible to extract a significant amount of information from the text. % j: this last sentence does not make sense
 
 \section{Linked annotation}
 
@@ -226,8 +226,8 @@ Therefore to summarize the discussion, it can be concluded that 316/515 abstract
 \caption{Visualization of annotations in TextAE}\label{fig:TextAEVis}
 \end{figure}
 
-As a part of the efforts to create a \hyperref[http://2015.linkedannotation.org/background]{linked annotation} resource, we also participated in the event BLAH \cite{blah} and the symposium.
+As a part of the efforts to create a \hyperref[http://2015.linkedannotation.org/background]{linked annotations} resource, we also participated at the BLAH \cite{blah} hackaton and symposium.
 
-The tagtog annotation web interface stores the annotation in a different format than the format used at the BLAH hackathon. At the hackathon, the data was to be used in PubAnnotation format. PubAnnotation \cite{kim2012pubannotation} is a repository of text annotations and it has its own format to represent the annotation for any article. It also uses a visualization tool TextAE \cite{textae} for visualizing the annotations. Therefore, the data in tagtog JSON format was converted to PubAnnotation JSON format. The code for converting data in tagtog JSON format to PubAnnotation JSON format is available at \url{https://github.com/Aryabhatta/BLAHSubmission} \cite{blahsubmission}. The annotations which are shown in Fig \ref{fig:tagtogScreenshot} are represented as Fig. \ref{fig:TextAEVis} in the TextAE visualization tool.
+The tagtog annotation web interface stores the annotation in a different format than the format used at the BLAH hackathon. At the hackathon, the data was to be translated into PubAnnotation format. PubAnnotation \cite{kim2012pubannotation} is a repository of text annotations and it has its own format to represent the annotation for any article. It also uses a visualization tool TextAE \cite{textae} for visualizing the annotations. Therefore, the data in tagtog JSON format was converted to PubAnnotation JSON format. The code for converting data in tagtog JSON format to PubAnnotation JSON format is available at \url{https://github.com/Aryabhatta/BLAHSubmission} \cite{blahsubmission}. The annotations, which are shown in Fig \ref{fig:tagtogScreenshot} are represented as Fig. \ref{fig:TextAEVis} in the TextAE visualization tool.
 
-The LocText corpus is available for download under \hyperref[https://creativecommons.org/licenses/by/4.0/]{Creative Commons Attribution 4.0} in tagtog format at \url{https://www.tagtog.net/-corpora/loctext}  and in PubAnnotation format at \url{http://pubannotation.org/projects/LocText}.
+The LocText corpus is available for download under \hyperref[https://creativecommons.org/licenses/by/4.0/]{Creative Commons Attribution 4.0} in tagtog format at \url{https://www.tagtog.net/-corpora/loctext} and in PubAnnotation format at \url{http://pubannotation.org/projects/LocText}.
