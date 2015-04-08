@@ -2,27 +2,31 @@
 
 \section{Need for a separate corpus}
 
-As mentioned in the previous chapter, the GENIA event corpus or its subset, the BioNLP shared task corpus is not the best corpus to be used for the task of protein-location relation extraction. As pointed out previously, following are some of the issues related to the GENIA event corpus:
+As mentioned in the Introduction, the GENIA event corpus, or its subset, the BioNLP shared task corpus, is not the best corpus to be used for the task of protein-location relation extraction. As pointed out previously, following are some of the issues related to the GENIA event corpus:
 
 \begin{enumerate}
 
 \item Not all the locations mentioned in the GENIA event corpus are subcellular locations. Some of the locations are names of cells or tissues in the body.
 
-\item In some mentions of locations, there are extraneous words in addition to the actual  mention of a subcellular location. These extraneous words takes away the preciseness of the mention of location.
+\item In some mentions of locations, there are extraneous words in addition to the actual mention of a subcellular location. These extraneous words take away the preciseness of the location mention. %j: An example of this would be nice
 
-\item Some \textit{Localization} events does not contain an actual mention of subcellular location, i.e., neither the event trigger nor its arguments refers to any subcellular location. The event is annotated only due to the reason that the context gives a clue about the \textit{Localization} event.
+\item Some \textit{Localization} events do not contain an actual mention of a subcellular location, i.e., neither the event trigger nor its arguments refer to any subcellular location. The event is annotated only due to the reason that the context gives a clue about the \textit{Localization} event.
 
 \end{enumerate}
 
-To summarize, the GENIA event corpus have some issues and cannot be directly used for the task of protein-location relation extraction. Therefore, there was a need to create a separate corpus dedicated for this task.
+To summarize, the GENIA event corpus has some issues and cannot be directly used for the task of protein-location relation extraction. Therefore, there was a need to create a separate corpus dedicated for this task.
 
 \section{LocText}
 
-I, along with my team, annotated a corpus consisting of 100 MEDLINE \cite{medline} abstracts. The corpus is called LocText. To select the abstracts that contain evidence of subcellular localization of protein, a list of PubMed \cite{pubmed} identifiers, cited by UniprotKB \cite{magrane2011uniprot} protein subcellular localization annotations, was made. From this list, 100 abstracts were chosen randomly. In order to have sufficient taxonomic variation, it was made sure that 50 abstracts belonged to human and 25 abstracts belonged each to budding yeast (Saccharomyces cerevisiae) and Arabidopsis (Arabidopsis thaliana).
+%j: who is your team? This requires some explanation.
+
+I, along with my team, annotated a corpus consisting of 100 MEDLINE \cite{medline} abstracts. The corpus is called \emph{LocText}. To select the abstracts that contain evidence of the subcellular localization of proteins, a list of PubMed \cite{pubmed} identifiers, cited by UniprotKB \cite{magrane2011uniprot} protein subcellular localization annotations, was made. %j:this previous sentence is a bit too long; can you divide it in 2?
+From this list, 100 abstracts were chosen randomly. In order to have sufficient taxonomic variation, it was made sure that 50 abstracts belonged to \emph{human}, 25 to \emph{budding yeast} (\emph{Saccharomyces cerevisiae}), 25 to \emph{Arabidopsis} (\emph{Arabidopsis thaliana}).
 
 \section{Corpus annotation process and guidelines}
 
-The process of corpus annotation started with random selection of 100 abstracts. The annotation of the corpus was done with the help of \textit{tagtog} \cite{cejuela2014tagtog}. The corpus was annotated for:
+The process of corpus annotation started with a random selection of 100 abstracts. %j: I would probably deleted this sentence; you already just said it
+The annotation of the corpus was done with the help of \textit{tagtog} \cite{cejuela2014tagtog}. The corpus was annotated for:
 
 \begin{enumerate}
 \item Entities
@@ -40,20 +44,21 @@ The process of corpus annotation started with random selection of 100 abstracts.
 
 \subsection*{Normalization of entities}
 
-Every entity was normalized to a unique identifier in order to have a uniform representation of entities and the relations involving those entities. Protein annotations were normalized to UniprotKB \cite{magrane2011uniprot} identifiers, subcellular localization annotations were normalized to Gene Ontology (GO) \cite{ashburner2000gene} terms and organism annotations were normalized to NCBI Taxonomic \cite{ncbiTaxonomy} identifiers.
+Every entity was normalized to a unique identifier in order to have a uniform representation of the entities and their relations. Protein annotations were normalized to UniprotKB \cite{magrane2011uniprot} identifiers, subcellular localization annotations were normalized to Gene Ontology (GO) \cite{ashburner2000gene} terms and organism annotations were normalized to NCBI Taxonomic \cite{ncbiTaxonomy} identifiers.
 
 \subsection*{Annotation guidelines}
-Out of 100 abstracts, 46 abstracts were used to develop the annotation guidelines. The guidelines, along with the full corpus, is available at \url{https://www.tagtog.net/-corpora/loctext}. Some of the important guidelines used during the annotation process are listed as follows:
+
+Out of 100 abstracts, 46 abstracts were used to develop the annotation guidelines. The guidelines, along with the full corpus, is available at \url{https://www.tagtog.net/-corpora/loctext}. Some of the important guideline rules used during the annotation process are listed as follows:
 
 \begin{itemize}
 
-\item Protein names should be annotated only if the names are found in UniprotKB \cite{magrane2011uniprot} for particular organism.
+\item Protein names should be annotated only if the names are found on UniprotKB \cite{magrane2011uniprot} for a particular organism.
 
-\item Subcellular locations should be annotated only if these location names are found in GO ontology \cite{ashburner2000gene}.
+\item Subcellular locations should be annotated only if these location names are found in the GO ontology \cite{ashburner2000gene}.
 
-\item Organism names should be annotated only if the organism name corresponds to rank species, genus or subfamily in NCBI Taxonomy \cite{ncbiTaxonomy}.
+\item Organism names should be annotated only if the organism name corresponds to rank \emph{\{species, genus or subfamily\}} in the NCBI Taxonomy \cite{ncbiTaxonomy}.
 
-\item For all the relations (protein-organism \& protein-location), the context is  important and the relation should not be made without sufficient evidence.
+\item For all relations (protein-organism \& protein-location), the context is important and the relation should not be made without sufficient evidence.
 
 \end{itemize}
 
@@ -61,47 +66,49 @@ Out of 100 abstracts, 46 abstracts were used to develop the annotation guideline
 \begin{figure}
 \centering
 \includegraphics[scale=0.4]{figures/tagtog_screenshot.png}
-\caption{Screenshot of an abstract from tagtog annotation tool}\label{fig:tagtogScreenshot}
+\caption{Screenshot of an abstract annotated with tagtog.}\label{fig:tagtogScreenshot}
 \end{figure}
 
-Figure \ref{fig:tagtogScreenshot} shows an example abstract annotated in the tagtog annotation tool. Proteins, locations and organisms are highlighted in yellow, green and magenta respectively. The entities, which participates in either protein-organism or protein-location relation, have a double arrow as an additional marking.
+Figure \ref{fig:tagtogScreenshot} shows an example abstract annotated in the tagtog annotation tool. Proteins, locations and organisms are highlighted in yellow, green and magenta, respectively. The entities, which participate in either protein-organism or protein-location relation, have a double arrow as an additional marking.
 
 \section{Inter-annotator agreement (IAA)}
 
-Inter-annotator agreement is a term quite often used in linguistics. It determines the agreement between different annotators on predefined set of annotated documents. High inter-annotator agreement implies that the annotation guidelines are very clear and different annotators agreed on most of the annotations.
+Inter-annotator agreement (IAA) is a common term in linguistics. It determines the agreement between different human annotators on a predefined set of annotated documents. High inter-annotator agreement is correlated to high annotation quality. High IAA also implies that the annotation guidelines are clear, the level of the annotators' expertise, or that the domain problem is simple.
 
-As mentioned earlier, 46 out of 100 abstracts were used for developing annotation guidelines. Remaining 54 abstracts were independently annotated by me and my teammate Tatyana Goldberg using annotation guidelines. The inter-annotator agreement was calculated using annotations from these 54 abstracts. The inter-annotator agreement was denoted by F1 score and it was calculated separately for entity and relation annotations. The F1 score was calculated using following formula:
+As mentioned earlier, 46 out of 100 abstracts were used to develop the annotation guidelines. The remaining 54 abstracts were independently annotated by me and my teammate Tatyana Goldberg using the annotation guidelines. The IAA was calculated using the annotations from these 54 abstracts. The IAA was calculated via the \emph{F1 score} and it was calculated separately for entity and relation annotations. The F1 score was calculated using following formula:
 
 $$
 F1 = \frac{2*X_{AB}*X_{BA}}{X_{AB}+X_{BA}}
 $$
 
-where $X_{ij}$ is the fraction of annotations by annotator i matching those of annotator j.
+where $X_{ij}$ is the fraction of annotations by annotator $i$ matching those of annotator $j$.
 
-Since the focus of corpus annotation was protein-location relation extraction, the IAA was calculated for annotations of entities, viz. proteins and subcellular locations, and annotations of protein-location relations.
+Since the focus of the corpus annotations was protein-location relation extraction, the IAA was calculated for protein entities, subcellular location entities, and protein-location relations.
 
 \subsection*{IAA for entities}
 
-Two annotations of the same entity were considered to match if they have the exact same start offsets and end offsets. The IAA between two annotators was F1 score of  96\% and 88\% for protein and location annotations respectively. The combined F1 score for entity types was 94\%.
+Two annotations of the same entity match if they have the exact same start and end offsets. The IAA between two annotators was F1 score of 96\% and 88\% for protein and location entity annotations, respectively. The combined F1 score for these entity types was 94\%. %The _combination_ method is not clear, nor the 94 number.
 
 \subsection*{IAA for relations}
 
-A protein-location relation annotation was defined to match between two annotators if annotations of both the protein and location entity match between the annotators, according to the definition above.
+A protein-location relation annotation matches between two annotators if the annotations of both the protein and location entities match, according to the definition above.
 
-The IAA between two annotators was F1 score of 80\% for protein-location relations.
+The IAA was F1 score of 80\% for protein-location relations.
 
 \section{Important insights from the corpus and publication of results}
 
-% Explain about the results that you published at the BLAH conference
-Some important insights were derived from LocText annotation. The annotation of the corpus was done from scratch without actually referring to the annotations present in the knowledge bases like UniProtKB. When the protein-location relations present in the corpus were compared with the information already present in the knowledge bases, it was found out that the corpus has more annotations for same set of documents compared with UniProtKB.
+% j: I don't know why you use in general "konwledge bases" since we only compared against UniProt
 
-The annotations in LocText were, thus, divided in three categories, viz. \textit{existing}, \textit{more detailed} and \textit{novel}. \textit{Existing} annotations are the ones that are present in knowledge bases already. An annotation was defined as \textit{more detailed} annotation if it provides more information than what is present in the knowledge bases. In the same way, an annotation was defined as \textit{novel} annotation if it is not present in the knowledge bases. The annotations were further subdivided based on whether or not the relationships involve UniprotKB proteins that cite the abstract.
+% s: Explain about the results that you published at the BLAH conference
+Some important insights were derived from the LocText corpus. The annotation of the corpus was done from scratch without actually referring to the annotations present in other knowledge bases like UniProtKB. When the protein-location relations present in the corpus were compared to those already present in the knowledge bases, it was found out that the corpus has more annotations for the same set of documents compared with UniProtKB.
+
+The annotations in LocText were, thus, divided in three categories, viz. \textit{existing}, \textit{more detailed} and \textit{novel}. \textit{Existing} annotations are the ones that are present in knowledge bases already. An annotation was defined as \textit{more detailed} if it provides more information than what is present in the knowledge bases. In the same way, an annotation was defined as \textit{novel} if it is not present in the knowledge bases. The annotations were further subdivided based on whether or not the relationships involve UniprotKB proteins that cite the abstract.
 
 \begin{table}
 \centering
 \begin{tabular}{|c|c|c|c|c|c|c|}
 \hline
-\textbf{Category} & \multicolumn{2}{c|}{\textbf{Existing}} & \multicolumn{2}{c|}{\textbf{More detailed}} & \multicolumn{2}{c|}{\textbf{Novel}} \\ 
+\textbf{Category} & \multicolumn{2}{c|}{\textbf{Existing}} & \multicolumn{2}{c|}{\textbf{More detailed}} & \multicolumn{2}{c|}{\textbf{Novel}} \\
 \hline
 \textbf{Citing Protein} & \textbf{Yes} & \textbf{No} & \textbf{Yes} & \textbf{No} & \textbf{Yes} & \textbf{No} \\
 \hline
@@ -112,21 +119,23 @@ Other & 2 & 9 & 0 & 0 & 0 & 6 \\
 \hline
 Subtotal & 72 & 45 & 11 & 6 & 26 & 41 \\
 \hline
-\textbf{Total} & \multicolumn{2}{c|}{\textbf{117}} & \multicolumn{2}{c|}{\textbf{17}} & \multicolumn{2}{c|}{\textbf{67}} \\ 
+\textbf{Total} & \multicolumn{2}{c|}{\textbf{117}} & \multicolumn{2}{c|}{\textbf{17}} & \multicolumn{2}{c|}{\textbf{67}} \\
  \hline
 \end{tabular}
-\caption{Comparison of protein-location annotations in LocText with information available in UniProtKB}\label{tab:novelAnnotation}
+\caption{Comparison of protein-location annotations in LocText with information available in UniProtKB.}\label{tab:novelAnnotation}
 \end{table}
 
-% Write about observations from table here
-As shown in the Fig. \ref{tab:novelAnnotation}, novel or more detailed annotations could be found out for 84 out of 201 (42\%) proteins in 34 abstracts. For example, as seen in Fig. \ref{fig:tagtogScreenshot}, the Arabidopsis protein RabF2a is localized to the endosomes, which at the time of publication of results was not recorded in UniProtKB entry RAF2A\_ARATH.
+% j: here and everywhere, end your figure/table captions with a `period`.
 
-Therefore, these findings show that the annotations in databases such as UniprotKB aren't complete and there is a considerable room for improvement. The results \cite{goldberg2015linked} were published in the symposium at Biomedical Linked Annotation Hackathon (BLAH) 2015 \cite{blah}. From these results, it can be concluded that manually annotated corpora can contribute novel information about proteins in addition to what is present in the knowledge bases. A case study was presented which proves that the creation of linked annotation resource would contain more annotations. Since the biomedical research community and the natural language processing (NLP) community both undertake the annotations of text with different objectives in mind, linked annotations comprising contributions from both communities could be immensely helpful. In addition, such a linked annotation resource would also create a synergy between the biomedical research community and the natural language processing community.
+% s: Write about observations from table here
+As shown in Fig. \ref{tab:novelAnnotation}, novel or more detailed annotations could be found out for 84 out of 201 (42\%) proteins in 34 abstracts. For example, as seen in Fig. \ref{fig:tagtogScreenshot}, the Arabidopsis protein RabF2a is localized in endosome, which at the time of publication is not recorded in the UniProtKB entry \emph{RAF2A\_ARATH}.
+
+Therefore, these findings indicate that the annotations in databases such as UniprotKB are not complete and there is a considerable room for improvement. The results \cite{goldberg2015linked} were published in the symposium at Biomedical Linked Annotation Hackathon (BLAH) 2015 \cite{blah}. From these results, we propose that manually-annotated corpora can contribute novel information about proteins in addition to what is present in the knowledge bases. A case study was presented, which suggests that the creation of a linked annotation resource would contain more annotations. Since the biomedical research community and the natural language processing (NLP) community both undertake annotations of text with different objectives in mind, linked annotations comprising contributions from both communities could be helpful. In addition, such a linked annotation resource would also create a synergy between the biomedical research community and the natural language processing community.
 
 
 \section{Corpus statistics}\label{sec:corpusStats}
 
-% Put all the numbers with respect to number of entities, relations and their distribution here. Also, put all the nice graphs that you made here
+% s: Put all the numbers with respect to number of entities, relations and their distribution here. Also, put all the nice graphs that you made here
 
 As stated earlier, the LocText corpus is made by annotating 100 MEDLINE abstracts. Although collectively called as abstracts, the corpus is made by annotating 100 documents and every document has a title part and an abstract part. This section presents an analysis of the annotations from various perspectives, viz. whether the annotation is present in the title or the abstract, the type (protein-location/protein-organism) in case of relation annotations, etc.
 
@@ -199,7 +208,7 @@ Fig. \ref{fig:Abs_PO_Rel} and \ref{fig:Abs_PL_Rel} shows the distribution of pro
 \caption{Sentence distance for PL Relations}\label{fig:SentDistancePL}
 \end{figure}
 
-The relations that are of prime interest are protein-location relations. From previous figures, it is already known that around 60\% of the PL relations in the abstract can be found in the same sentence. Fig. \ref{fig:SentDistancePL} shows how different-sentence PL relations are distributed according to the sentence distance. The different-sentence relations in which the participating entities are in neighboring sentences is said to have a sentence distance of 1. In other words, the sentence distance of 1 indicates that the entities participating in the relation are 1 sentences apart. 
+The relations that are of prime interest are protein-location relations. From previous figures, it is already known that around 60\% of the PL relations in the abstract can be found in the same sentence. Fig. \ref{fig:SentDistancePL} shows how different-sentence PL relations are distributed according to the sentence distance. The different-sentence relations in which the participating entities are in neighboring sentences is said to have a sentence distance of 1. In other words, the sentence distance of 1 indicates that the entities participating in the relation are 1 sentences apart.
 
 As seen in the Fig. \ref{fig:SentDistancePL}, it is also possible to find the relations with sentence distance 9 which means that the participating entities are 9 sentences apart. However, most of the different sentence relations have lower sentence distance. For example, about 95 out of 199 (47.74\%) different sentence relations are 1 sentences apart.
 
@@ -217,8 +226,8 @@ Therefore to summarize the discussion, it can be concluded that 316/515 abstract
 \caption{Visualization of annotations in TextAE}\label{fig:TextAEVis}
 \end{figure}
 
-As a part of the efforts to create a \hyperref[http://2015.linkedannotation.org/background]{linked annotation} resource, we also participated in the event BLAH \cite{blah} and the symposium. 
+As a part of the efforts to create a \hyperref[http://2015.linkedannotation.org/background]{linked annotation} resource, we also participated in the event BLAH \cite{blah} and the symposium.
 
-The tagtog annotation web interface stores the annotation in a different format than the format used at the BLAH hackathon. At the hackathon, the data was to be used in PubAnnotation format. PubAnnotation \cite{kim2012pubannotation} is a repository of text annotations and it has its own format to represent the annotation for any article. It also uses a visualization tool TextAE \cite{textae} for visualizing the annotations. Therefore, the data in tagtog JSON format was converted to PubAnnotation JSON format. The code for converting data in tagtog JSON format to PubAnnotation JSON format is available at \url{https://github.com/Aryabhatta/BLAHSubmission} \cite{blahsubmission}. The annotations which are shown in Fig \ref{fig:tagtogScreenshot} are represented as Fig. \ref{fig:TextAEVis} in the TextAE visualization tool. 
+The tagtog annotation web interface stores the annotation in a different format than the format used at the BLAH hackathon. At the hackathon, the data was to be used in PubAnnotation format. PubAnnotation \cite{kim2012pubannotation} is a repository of text annotations and it has its own format to represent the annotation for any article. It also uses a visualization tool TextAE \cite{textae} for visualizing the annotations. Therefore, the data in tagtog JSON format was converted to PubAnnotation JSON format. The code for converting data in tagtog JSON format to PubAnnotation JSON format is available at \url{https://github.com/Aryabhatta/BLAHSubmission} \cite{blahsubmission}. The annotations which are shown in Fig \ref{fig:tagtogScreenshot} are represented as Fig. \ref{fig:TextAEVis} in the TextAE visualization tool.
 
 The LocText corpus is available for download under \hyperref[https://creativecommons.org/licenses/by/4.0/]{Creative Commons Attribution 4.0} in tagtog format at \url{https://www.tagtog.net/-corpora/loctext}  and in PubAnnotation format at \url{http://pubannotation.org/projects/LocText}.
