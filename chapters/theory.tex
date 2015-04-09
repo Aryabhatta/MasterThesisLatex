@@ -1,40 +1,53 @@
 \chapter{Theory}\label{chapter:theory}
 
-This chapter explains the theoretical concepts needed for understanding the NLP system described in the next chapter. This chapter is broken down into two parts. First part of the chapter explains the terms and terminologies used in Natural Language Processing (NLP) and second part of the chapter explains the concepts  used in Support Vector Machines (SVM).
+This chapter explains the theoretical concepts needed to understand the \emph{natural language processing} (\emph{NLP}) system described in the next chapter. This chapter is broken down into two parts. The first part explains some common terms used in NLP and the second part of the chapter explains \emph{support sector machines} (\emph{SVM}).
 
 \section{Natural Language Processing (NLP)}
 
-Natural Language Processing (NLP) is an area of research and application that explores how computers can be used to understand and manipulate natural language text or speech to do useful things \cite{chowdhury2003natural}. The foundations of NLP lie in a number of disciplines, viz. computer and information sciences, formal language theory, linguistics, artificial intelligence, psycho-linguistics,  etc.
+Natural Language Processing (NLP) is an area of research and application that explores how computers can understand and manipulate natural language text or speech to do useful things \cite{chowdhury2003natural}. The foundations of NLP lie in a myriad of disciplines, viz. computer and information sciences, formal language theory, linguistics, artificial intelligence, psycho-linguistics, etc.
 
 \subsection{NLP Basics}\label{sec:NLPPipeline}
 
-NLP systems work on a chunk of text as an input. However, plain text data is unstructured data and all NLP systems preprocess the data in order to convert it into structured representation. There are two types of tasks in NLP, viz. syntactic tasks and semantic tasks \cite{nlpcourse}. All NLP systems work on many of these tasks in order to achieve a certain objective.  
+NLP systems work on a chunk of text as input. However, plain text data is unstructured data and all NLP systems preprocess the data in order to convert it into a structured representation. There are two types of tasks in NLP, viz. syntactic tasks and semantic tasks \cite{nlpcourse}. All NLP systems work on many of these tasks in order to achieve a certain objective.
 
-Syntax concerns with proper ordering of the words and its effect on the meaning while semantics deals with literal meaning of the words, phrases and sentences \cite{wiki:sentSeg}. This section presents an overview of syntactic tasks. Most of the NLP systems use syntactic tasks for preprocessing the data.
+Syntax relates to the proper ordering of the words and its effect on the meaning, while semantics deals with the literal meaning of the words, phrases and sentences \cite{wiki:sentSeg}. This section presents an overview of syntactic tasks. Most of the NLP systems use syntactic tasks for preprocessing the data.
+
+% This chapters sound a bit uninspired. I think the same message could be said in fewer words.
 
 \subsubsection{Sentence segmentation}
 
-\textit{Sentence segmentation} is the process of dividing a chunk of text into component sentences \cite{wiki:sentSeg}. In English and some other languages, using fullstop ('.') is a reasonable approximation for end of the sentence and can be used to parse the text into sentences. However, the problem is not so trivial due to the use of abbreviations such as "Mr.", "Dr.", etc. For example, in the sentence \textit{"Mr.Smith went to the shops in Jones Street."}, the sentence actually ends after the word \textit{"Street"} and not after abbreviation \textit{"Mr."}. In some languages, the task may become complex since they do not have a proper punctuation character that can be used for approximating sentence boundary.
+\textit{Sentence segmentation} is the process of dividing a chunk of text into component sentences \cite{wiki:sentSeg}. In English and some other languages, \emph{segmenting} after a fullstop ('.') is a reasonable approximation. However, the problem is not so trivial due to the use of abbreviations such as "Mr.", due to decimal numbers such as "3.1416", etc. For example, in the sentence \textit{"Mr. Smith went to the shops in Jones Street."}, the sentence actually ends after the word \textit{"Street"} and not after the abbreviation \textit{"Mr."}. In other languages, like Chinese, the task is more complex since they do not have a proper punctuation character that can be used for approximating sentence boundaries.
 
 \subsubsection{Word segmentation}
 
-\textit{Word segmentation} is the process of dividing the text into constituent words \cite{wiki:sentSeg}. Usually, white spaces can be used to parse the text into words in English. Although white spaces are a good approximation for breaking the text into words, sometimes they are not present. For example, the word \textit{couldn't} consists of two words \textit{could} and \textit{not} which cannot be split using a white space. In some other languages like Chinese, words are not separated by spaces.
+% j: watch out, u use the same citation here than before
+
+\textit{Word segmentation} is the process of dividing text into constituent words \cite{wiki:sentSeg}. Usually, white spaces can be used to parse the text into words in English. Although white spaces are a good approximation, sometimes they are not present. For example, the word \textit{couldn't} consists of two words \textit{could} and \textit{not}, which cannot be split using a white space. In some other languages like Chinese, words are not separated by spaces.
 
 \subsubsection{Tokenization}
 
-A token is a basic processing unit in NLP system. In most of the cases, a token is a word. However, in some NLP systems, a token can also be a sentence or a paragraph depending on the objective to be achieved.
+\emph{Tokens} are the smallest processing unit in NLP systems. In most cases, a token is the equivalent of a word. In other cases, for instance, the word \textit{couldn't} could be \emph{tokenized} into multiple tokens, such as: \textit{couldn}, \textit{'}, and \textit{t}. In other NLP systems, a token can also be a sentence or a paragraph. Therefore, the tokenization algorithm depends on the NLP task to solve.
 
 \subsubsection{Stemming and Lemmatization}
 
-\textit{Stemming} and \textit{lemmatization} are the processes used for reducing a word to a base form. Such reductions are useful for NLP systems. However, there is a difference between \textit{stemming} and \textit{lemmatization}. \textit{Stemming} refers to the crude heuristic process of chopping off the ends of the words in hope of finding the base word \cite{stemminglemmatization}. This works most of the time. For example, the stem of words \textit{running} and \textit{runs} is \textit{run}. \textit{Lemmatization} usually extracts the base word properly with the use of vocabulary and morphological analysis of the words \cite{stemminglemmatization}. For example, the base of \textit{is}, \textit{am} and \textit{are} is \textit{be} which can only be extracted by lemmatization and not by stemming.
+\textit{Stemming} and \textit{lemmatization} are the processes used to reduce a word to its \emph{base form}. Such reductions are useful for NLP systems. However, there is a difference between \textit{stemming} and \textit{lemmatization}. \textit{Stemming} refers to the crude heuristic process of chopping off the ends of the words in hope of finding the base word \cite{stemminglemmatization}. This works most of the time. For example, the stem of the words \textit{running} and \textit{runs} is \textit{run}. \textit{Lemmatization} usually extracts the base word properly with the use of a vocabulary and morphological analysis of the words \cite{stemminglemmatization}. This requires knowledge of the specific treated language. For example, the base form of \textit{is}, \textit{am} and \textit{are} is \textit{be}, which can only be extracted by lemmatization and not by stemming.
 
 \subsubsection{Part of the speech (POS) tagging}
 
-\textit{Part of the speech (POS) tagging} is the process of annotating each word in the sentence with part of the speech tag. This is an important step and is useful for subsequent syntactic parsing and word sense disambiguation \cite{nlpcourse}. 
+% j: Give 2 examples of common POS tags
+
+\textit{Part-of-the-speech (POS) tagging} is the process of annotating each word in the sentence with a \emph{part-of-the-speech tag}. This is an important step and is useful for subsequent syntactic parsing and word sense disambiguation \cite{nlpcourse}.
 
 \subsubsection{Parsing}
 
-There are two views of linguistic structure in NLP, viz., constituency (phrase structure) and dependency structure \cite{parsing}. Both structures are represented as trees. The process of producing these structures correctly is called parsing. There are two types of parsing:
+There are two views of linguistic structure in NLP, viz., \emph{constituency} (phrase structure) and \emph{dependency structure} \cite{parsing}. Both structures are represented as trees. The process of producing these structures is called \emph{parsing}. There are two types of parsing:
+
+\begin{itemize}
+
+\item \textit{Syntactic parsing:} is the process of producing a constituency structure from a sentence. In constituency structure, the words are organized into phrases, which are further organized into a phrase or a sentence. % j: What? -- Furthermore, what is a "constituency structure"?
+Fig. \ref{fig:SynParse} shows the syntactic parse of the sentence \textit{"Fed raises interest rates."}.
+
+\item \textit{Dependency parsing:} is the process of producing a dependency parse/structure from a sentence. In dependency parsing, the binary relations among the words are used to create a dependency parse tree. In a dependency tree, the words in the sentence act as nodes and the dependency relations between them act as edges. Fig. \ref{fig:DepParse} shows the dependency parse of the sentence \textit{"The boy put the tortoise on the rug."}.
 
 \begin{figure}
 \centering
@@ -48,23 +61,18 @@ There are two views of linguistic structure in NLP, viz., constituency (phrase s
 \caption{An example of dependency parsing}\label{fig:DepParse}
 \end{figure}
 
-
-\begin{itemize}
-
-\item \textit{Syntactic parsing:} The process of producing a constituency structure from a sentence is called syntactic parsing. In constituency structure, the words are organized into phrases which are further organized into a phrase or a sentence. Fig. \ref{fig:SynParse} shows the syntactic parse of sentence \textit{"Fed raises interest rates."}.
-
-\item \textit{Dependency parsing:} The process of producing a dependency parse/structure from a sentence is called dependency parsing. In dependency parsing, the binary relations among the words are used to create a dependency parse tree. In a dependency tree, the words in the sentence act as nodes and the dependency relations between them act as edges. Fig. \ref{fig:DepParse} shows the dependency parse of sentence \textit{"The boy put the tortoise on the rug."}.
-
 \end{itemize}
 
 \subsection{NLP Pipeline}
 
-Most of the NLP systems are actually a complex pipeline of tasks. For any processing to be done, it is necessary to break down the input unstructured text into structured units. Most of the syntactic tasks mentioned in the previous section are used for preprocessing the text. The usual pipeline for any NLP system looks like as shown in the Fig. \ref{fig:NLPPipe}.
+Most NLP systems are a complex pipeline of NLP sub-tasks. For any processing to be done, it is necessary to break down the unstructured text input into structured units. Most of the syntactic tasks mentioned in the previous section are used for preprocessing the text. The usual pipeline for an NLP system looks like as shown in Fig. \ref{fig:NLPPipe}.
 
 \begin{figure}
 \centering
 \includegraphics[scale=0.4]{figures/NLPPipeline.png}
 \caption{NLP pipeline}\label{fig:NLPPipe}
+% j: Make ALL figures/tables as much self-contained as possible, no matter repetition with the main text.
+% j: For example, here you could write "Usual NLP pipeline.", or "Usual pipeline of an NLP system."
 \end{figure}
 
 \subsection{NLP Semantic tasks}
@@ -73,28 +81,28 @@ Semantic tasks in NLP deal with extracting meaningful information from the text.
 
 \subsubsection{Named Entity Recognition (NER)}
 
-Named entities are atomic elements in the text belonging to predefined categories \cite{ner1} such as the names of the persons, organizations, locations, etc. In simple words, \textit{Named Entity Recognition} is the task of taking unannotated block of text such as \textit{"Jim bought 300 shares of Acme Corp. in 2006."} and converting it into an annotated block like \textit{"$[Jim]_{Person}$ bought 300 shares of $[Acme Corp.]_{Organization}$ in $[2006]_{Time}$."} \cite{wiki:ner}.
+Named entities are atomic elements in the text belonging to predefined categories \cite{ner1}, such as the names of persons, organizations, locations, etc. In simple words, \textit{named-entity recognition (NER)} is the task of taking an unannotated block of text such as \textit{"Jim bought 300 shares of Acme Corp. in 2006."} and converting it into an annotated block like \textit{"$[Jim]_{Person}$ bought 300 shares of $[Acme Corp.]_{Organization}$ in $[2006]_{Time}$."} \cite{wiki:ner}.
 
 \subsubsection{Machine translation}
-% Search Engines
-% Helping the human translators
+% s: Search Engines
+% s: Helping human translators
 
 \textit{Machine translation} is the process of translating text or speech from one language to another automatically without human intervention.
 
 \subsubsection{Relationship Extraction}\label{sec:RE}
-% task of extracting information from emails
+% s: task of extracting information from emails
 
-\textit{Relationship extraction} is the process of identifying relationship between different named entities present in the sentence. For example, in the sentence \textit{"$TUM_{university}$ is located in $Munich_{location}$"}, \textit{TUM} is a named entity of type \textit{university}, \textit{Munich} is a named entity of type \textit{location} and \textit{TUM} and \textit{Munich} are related by a relation \textit{located-in(TUM,Munich)}.
+\textit{Relationship extraction} is the process of identifying relationships between different named entities present in the sentence. For example, in the sentence \textit{"$TUM_{university}$ is located in $Munich_{location}$"}, \textit{TUM} and \textit{Munich} are connected by the relation \textit{located-in(TUM,Munich)}.
 
 \subsubsection{Coreference resolution}
 
-\textit{Coreference resolution} is the task of finding all expressions that refer to the same entity in the text. For example, in the sentence \textit{"Sally arrived, but nobody saw her."}, \textit{her} refers to \textit{Sally} in the sentence.
+\textit{Coreference resolution} is the task of finding all expressions that refer to the same entity in the text. For example, in the sentence \textit{"Sally arrived, but nobody saw her."}, both \textit{her} and \textit{Sally} refer to the same entity.
 
 \subsubsection{Other semantic tasks}
-% Other tasks: 
-% 2. word sense disambiguation 
-%4. Question Answering 
-%5. Document summarization 
+% Other tasks:
+% 2. word sense disambiguation
+%4. Question Answering
+%5. Document summarization
 %- summary of an article
 %6. Dialog
 %- Human machine communication
@@ -153,7 +161,7 @@ $$
 \mathbf{w}^{T}\mathbf{x} + b = 0
 $$
 
-where $\mathbf{w}$ is a vector normal to the hyperplane and $\mathbf{x}$ are the set of all points that satisfy above equation and are located on the hyperplane. The projection length from the origin is denoted by $\frac{b}{|\mathbf{w}|}$. 
+where $\mathbf{w}$ is a vector normal to the hyperplane and $\mathbf{x}$ are the set of all points that satisfy above equation and are located on the hyperplane. The projection length from the origin is denoted by $\frac{b}{|\mathbf{w}|}$.
 
 For a point $\mathbf{x}_1$ having projection length greater than $\frac{b}{|\mathbf{w}|}$, $\mathbf{w}^{T}\mathbf{x}_1 + b > 0$ and the point is classified as a blue point. Similarly, for a point $\mathbf{x}_2$ having projection length less than $\frac{b}{|\mathbf{w}|}$, $\mathbf{w}^{T}\mathbf{x}_2 + b < 0$ and the point is classified as a green point. Therefore, the class of a new point $\mathbf{x}$ is given by:
 
@@ -182,7 +190,7 @@ For such a classifier, if the target classes for data point $x_i$ are given by $
 \end{aligned}
 \end{align}
 
-can be condensed into 
+can be condensed into
 
 $$
 y_i (\mathbf{w}^{T}\mathbf{x}_i + b) \geq 1 \quad \text{for all} \quad i
