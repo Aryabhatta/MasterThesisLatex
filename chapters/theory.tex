@@ -119,12 +119,15 @@ There are a plethora of other semantic tasks in NLP such as sentiment analysis, 
 %Dependency Parser
 
 \section{Support Vector Machines}\label{sec:SVM}
+% j: I haven't checked the math exhaustively. Please, triple-check
+
 % Write about some of the theory behind SVM
 
-Machine Learning algorithms are a set of algorithms that can learn from data. Machine learning tasks are broadly classified into supervised learning and unsupervised learning. In supervised learning, the algorithms are given a set of data along with their labels and the goal for algorithms is to learn the rule that maps the input data to their labels. In unsupervised learning, the data is given without labels and the goal for algorithms is to find the hidden pattern.
+Machine learning algorithms are algorithms that can learn patterns from data. Machine learning tasks can be broadly classified into \emph{supervised learning} and \emph{unsupervised learning}. In supervised learning, the algorithms are given a set of data along with their labels and the goal for the algorithms is to learn a function that maps the input data to their correct \emph{given} labels. In unsupervised learning, the goal is the same, however, the training data is given without assigned labels and so the algorithms must assign the correct \emph{implicit} labels.
 
-Support vector machines (SVM) are supervised learning models that can be used for the task of classification and regression. SVM is widely used for the task of classification, i.e., classifying the data into one of the predefined classes/labels.
+Support vector machines (SVM) are supervised learning models that can be used for the task of classification and regression. SVMs are widely used for the task of classification, i.e., classifying the data into predefined classes/labels.
 
+% j: u put the figures side by side. Yet, the captions are not aligned. That looks wrong.
 \subsection{Mathematical formulation}
 \begin{figure}
 \centering
@@ -155,13 +158,13 @@ Support vector machines (SVM) are supervised learning models that can be used fo
 %\end{figure}
 
 
-SVM tries to build a hyperplane that separates the data points belonging to different categories. For example, as shown in Fig. \ref{fig:SVM1}, the hyperplane separating blue points and green points is given by:
+SVMs try to build a hyperplane that best separates the data points belonging to two different categories. For example, as shown in Fig. \ref{fig:SVM1}, the hyperplane separating the blue points and green points is given by:
 
 $$
 \mathbf{w}^{T}\mathbf{x} + b = 0
 $$
 
-where $\mathbf{w}$ is a vector normal to the hyperplane and $\mathbf{x}$ are the set of all points that satisfy above equation and are located on the hyperplane. The projection length from the origin is denoted by $\frac{b}{|\mathbf{w}|}$.
+where $\mathbf{w}$ is a vector normal to the hyperplane and $\mathbf{x}$ are the set of all points that satisfy above equation and are located on the hyperplane. The projection length from the origin is denoted by $\frac{b}{|\mathbf{w}|}$. % j: u must explain what b and origin are
 
 For a point $\mathbf{x}_1$ having projection length greater than $\frac{b}{|\mathbf{w}|}$, $\mathbf{w}^{T}\mathbf{x}_1 + b > 0$ and the point is classified as a blue point. Similarly, for a point $\mathbf{x}_2$ having projection length less than $\frac{b}{|\mathbf{w}|}$, $\mathbf{w}^{T}\mathbf{x}_2 + b < 0$ and the point is classified as a green point. Therefore, the class of a new point $\mathbf{x}$ is given by:
 
@@ -181,7 +184,8 @@ $$
 m=\frac{2}{|\mathbf{w}|}
 $$
 
-For such a classifier, if the target classes for data point $x_i$ are given by $y_i \in \left\lbrace -1, +1 \right\rbrace$, then the constraints
+% j: Following previous convention, x_i should be written in bold / vector form
+For such a classifier, if the target classes for a data point $x_i$ are given by $y_i \in \left\lbrace -1, +1 \right\rbrace$, then the constraints
 
 \begin{align}
 \begin{aligned}
@@ -196,7 +200,7 @@ $$
 y_i (\mathbf{w}^{T}\mathbf{x}_i + b) \geq 1 \quad \text{for all} \quad i
 $$
 
-Therefore, the problem of finding a maximum margin classifier can be formulated in the form of constrained convex optimization problem as follows:
+Therefore, the problem of finding a maximum margin classifier can be formulated as a constrained convex optimization problem as follows:
 
 \begin{align}
 \begin{aligned}
@@ -205,13 +209,15 @@ Therefore, the problem of finding a maximum margin classifier can be formulated 
 \end{aligned}
 \end{align}
 
-Upon solving the optimization problem, the weights are found to be linear combination of training samples:
+% j: this is the first time you use "weights" -- You should have made it clearer before that vector w corresponds to a vector of weight points
+
+Upon solving the optimization problem, the weights are found to be a linear combination of the training samples:
 
 $$
 \mathbf{w} = \sum^{m}_{i=1} \alpha_i y_i x_i
 $$
 
-Substituting the weight vector into \ref{eq:sgn}, the class of a new point $\mathbf{x}$ is given by:
+Substituting the weight vector into equation \ref{eq:sgn}, the class of a new point $\mathbf{x}$ is given by:
 
 $$
 h(\mathbf{x}) = sgn(\sum^{m}_{i=1} \alpha_i y_i x_i^{T} x_i + b)
@@ -220,11 +226,13 @@ $$
 \begin{figure}
 \centering
 \includegraphics[scale=0.4]{figures/SVMFigure3.png}
-\caption{Support vectors}\label{fig:SVM3}
+\caption{Support vectors}\label{fig:SVM3} % j: this caption is not informative. What are the support vectors here?
 \end{figure}
 
-Actually, only the points lying on the margin contribute to the weight vector and are therefore called support vectors. The support vector points are encircled in the figure \ref{fig:SVM3}. The algorithm derives its name from "support vectors".
+Actually, only the data points lying on the margin contribute to the weight vector and are therefore called \emph{support vectors}. The support vector points are encircled in Figure \ref{fig:SVM3}.
 
 \subsection{Regularization parameter} \label{subsec:RegPar}
 
-One of the hyperparameters used in support vector machines is known as regularization parameter and denoted by $\mathbf{C}$. Regularization parameter controls the trade off between achieving a low training error and achieving a low testing error. It tells the SVM optimization how much it should avoid misclassifying each training example. In other words, using large values of $\mathbf{C}$ may fit the training data very well and can result in overfitting. On the other hand, small values of $\mathbf{C}$ may lead to lower performance on training set but better generalization.
+% j: What is overfitting? What is training & testing error?
+
+One of the hyperparameters used in support vector machines is the regularization parameter, $\mathbf{C}$. The regularization parameter controls the trade off between achieving a low \emph{training error} and achieving a low \emph{testing error}. It tells the SVM optimization how much it should avoid misclassifying each training example. In other words, using large values of $\mathbf{C}$ may fit the training data very well and can result in \emph{overfitting}. On the other hand, small values of $\mathbf{C}$ may lead to lower performance on training set but better generalization.
