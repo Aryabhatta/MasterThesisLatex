@@ -1,65 +1,6 @@
-\chapter{Results}\label{chapter:results}
+\chapter{Results and Discussion}\label{chapter:results}
 
 This chapter explains the evaluation methods used for evaluating the performance of machine learning models and presents the results.
-
-\section{Evaluation Criteria} \label{sec:evaluationCriteria}
-
-\subsection{Performance measures}
-% Precision, Recall, Fscore
-The performance measures \textit{Precision}, \textit{Recall} and \textit{F score} are used for calculating of performance of the machine learning models \textit{SSModel} and \textit{DSModel}.
-
-For the task of protein-location relation extraction, a positive prediction is the one in which the machine learning model predicts a PL (protein-location) relation between a protein entity and a location entity. Similarly, a negative prediction is the one in which the machine learning model predicts that there is no relation between a protein entity and a location entity. 
-
-A prediction can be classified into one of the following categories:
-
-
-\begin{itemize}
-
-\item \textit{True positive (tp)}: A prediction is said to be a true positive if it is a positive prediction (i.e., the entities are predicted to be related) and it matches an original relation in the corpus.
-
-\item \textit{True negative (tn)}: A prediction is said to be a true negative if it is a negative prediction and the entities in the relation are also not related in the original corpus.
-
-\item \textit{False positive (fp)}: A prediction is said to be a false positive if it is a positive prediction but the participating entities are not related in the original corpus.
-
-\item \textit{False negative (fn)}: A prediction is said to be a false negative if it is a negative prediction but the participating entities are related in the original corpus.
-
-\end{itemize}
-
-\subsubsection*{\textit{Precision}}
-
-Precision is the fraction of true predictions from all predictions and is given by:
-
-$$
-\textit{Precision} = \frac{tp}{tp+fp}
-$$
-
-
-\subsubsection*{\textit{Recall}}
-
-Recall is the fraction of true predictions compared to original relations and is given by:
-
-$$
-\textit{Recall} = \frac{tp}{tp+fn}
-$$
-
-\subsubsection*{\textit{F score}}
-
-F score, also called as F1 score, is the harmonic mean of precision and recall. It is given by:
-
-$$
-\textit{F score} = 2 * \frac{Precision * Recall}{Precision + Recall}
-$$
-
-
-\subsection{Evaluation mode - Non unique evaluation} \label{subsec:UniqNonUniqEval}
-
-For a particular document in the corpus, it may happen that a protein is related to a location twice in the document at different places. In the non-unique evaluation mode, such repetitions are considered separately. A predicted relation is said to match with an original relation if and only if the text offsets of both protein and location entities in the predicted relation matches exactly with the text offsets of protein and location entities in the original relation respectively.
-
-
-% Talk about unique relations here
-\subsection{Evaluation mode -  Unique evaluation}
-
-In the unique evaluation mode, a list of unique protein-location relations is made for every document in the corpus, notwithstanding the repetition of relations in the document. A predicted positive relation is said to match if and only if the predicted relation for the document is found in the list of unique relations for that document. If the predicted relation is not found in the list, it is either classified as a false positive or a true negative depending on whether it is a positive prediction or a negative prediction.
 
 \section{Results for \textit{SSModel}}
 

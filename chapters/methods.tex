@@ -8,7 +8,7 @@ This chapter explains the method developed to extract the protein-location relat
 Given a piece of text that contains two entity mentions, viz. protein and location, the task of relation extraction method is to decide if the text contains enough evidence for semantic relationship between these two entities. Formally, let $r=(t,arg_1,arg_2)$ denote a relationship instance where $t$ is a piece of text, $arg_1$ and $arg_2$  are entity mentions contained in text $t$, and $arg_1$ precedes $arg_2$ in the text. Given a set of relations $\left\lbrace r_i \right\rbrace$ such that every relation instance has label $l \in \left\lbrace-1,1\right\rbrace$, our task is to learn a function that can predict the label $l$ for new relation instance whose label is not known. Note that $t$ can simply be a piece of text or it may also contain structured information such as parse tree and dependency graph. For entity mentions $arg_1$ and $arg_2$, either of them can represent a protein or a location entity.
  
 % Following section to be deleted, to be shifted to introduction
-\section{Replication of the state of the art in BioNLP'09}
+\section{Replication of the-state-of-the-art in BioNLP'09}
 
 % where should I put that
 Section \ref{sec:JariBioNLP} describes the method developed by Björne et al. \cite{bjorne2009extracting} for the task of event extraction in BioNLP 2009. The method developed by Björne et al. along with several other methods for various tasks is available online at \url{http://jbjorne.github.io/TEES/}. We used the package TEES (Turku Event Extraction System) \cite{teesonline} to get started and tried to replicate the results for the task of event extraction. The selection of features in our model is influenced by the features used for the task of event extraction in TEES.
@@ -20,7 +20,7 @@ The method, developed for the extraction of protein-location relations, is descr
 
 Section \ref{sec:ssModeldsModel} explains the motivation for creating more than 1 machine learning model. Section \ref{sec:pipeline} outlines the flow of information in this task of relation extraction. Section \ref{sec:graphRep} explains actual representation of the data in the model. The process of feature extraction and feature selection is explained in Section \ref{sec:featExp} and \ref{sec:featSel} respectively.
 
-The training methodologies and procedures are explained in Section \ref{sec:training}. Section \ref{sec:experiments} describes the effect of different experiments on the performance of the method. Finally, Section \ref{sec:tools} concludes the chapter with describing the tools that are used in this task.
+The training methodologies and procedures are explained in Section \ref{sec:training}. Section \ref{sec:experiments} describes the effect of different experiments on the performance of the method. Section \ref{sec:evaluationCriteria} explains about evaluation criteria used for calculating the performance of models. Finally, Section \ref{sec:tools} concludes the chapter with describing the tools that are used in this task.
 
 \section{Creating multiple machine learning models: SSModel and DSModel}\label{sec:ssModeldsModel}
 
@@ -32,7 +32,7 @@ Furthermore, the semantic relationship between protein and location in the case 
 
 The same-sentence model designed for extracting same-sentence relations would be  abbreviated as \textit{SSModel} hereafter for the purpose of brevity. The different-sentence model designed for extracting different-sentence relations would be abbreviated as \textit{DSModel} for the same purpose.
 
-\section{Method pipeline}\label{sec:pipeline}
+\section{Extraction Method pipeline}\label{sec:pipeline}
 
 %- Explain the whole pipeline 
 %- Corpus-->Sentence Segmentation-->Tokenization-->Syntactic & dependency Parsing-->Graph Representation-->  Feature Extraction --> ML Model training -->Classification on Test
@@ -338,6 +338,68 @@ $SVM_{light}$ provides an ability to use several kernels for the purpose of trai
 Efforts were made to increase the performance of \textit{DSModel} using additional information extracted from the document. One instance of such additional information is shortform-longform pairs extracted from the document. The intuition was that if either of shortform or longform of a protein is predicted to be in protein-location relationship with a location entity, then the corresponding longform or shortform should also be in a protein-location relationship with that entity. Shortform and longform pairs were extracted using a simple algorithm \cite{hearst2003simple}.
 
 However, adding such information actually decreased the performance of \textit{DSModel} since more number of false positives were added than true positives. It was decided, therefore, not to use this augmentation of information.
+
+\section{Evaluation Metrics} \label{sec:evaluationCriteria}
+
+\subsection{Performance measures}
+% Precision, Recall, Fscore
+The performance measures \textit{Precision}, \textit{Recall} and \textit{F score} are used for calculating of performance of machine learning models \textit{SSModel} and \textit{DSModel}.
+
+For the task of protein-location relation extraction, a positive prediction is the one in which the machine learning model predicts a PL (protein-location) relation between a protein entity and a location entity. Similarly, a negative prediction is the one in which the machine learning model predicts that there is no relation between a protein entity and a location entity. 
+
+A prediction can be classified into one of the following categories:
+
+
+\begin{itemize}
+
+\item \textit{True positive (tp)}: A prediction is said to be a true positive if it is a positive prediction (i.e., the entities are predicted to be related) and it matches an original relation in the corpus.
+
+\item \textit{True negative (tn)}: A prediction is said to be a true negative if it is a negative prediction and the entities in the relation are also not related in the original corpus.
+
+\item \textit{False positive (fp)}: A prediction is said to be a false positive if it is a positive prediction but the participating entities are not related in the original corpus.
+
+\item \textit{False negative (fn)}: A prediction is said to be a false negative if it is a negative prediction even though the participating entities are related in the original corpus.
+
+\end{itemize}
+
+\subsubsection*{\textit{Precision}}
+
+Precision is the fraction of true predictions from all predictions and is given by:
+
+$$
+\textit{Precision} = \frac{tp}{tp+fp}
+$$
+
+
+\subsubsection*{\textit{Recall}}
+
+Recall is the fraction of original relations that are predicted and is given by:
+
+$$
+\textit{Recall} = \frac{tp}{tp+fn}
+$$
+
+\subsubsection*{\textit{F score}}
+
+F score, also called as F1 score, is the harmonic mean of precision and recall. It is given by:
+
+$$
+\textit{F score} = 2 * \frac{Precision * Recall}{Precision + Recall}
+$$
+
+
+%TODO write about standard error
+
+\subsection{Evaluation modes} 
+
+\subsubsection{Non unique evaluation mode}\label{subsec:UniqNonUniqEval}
+
+For a particular document in the corpus, it may happen that a protein is related to a location twice in the document at different places. In the non-unique evaluation mode, such repetitions are considered separately. For this mode of evaluation, a predicted relation is said to match with an original relation if and only if the text offsets of both protein and location entities in the predicted relation matches exactly with the text offsets of protein and location entities in the original relation respectively.
+
+% Talk about unique relations here
+\subsubsection{Unique evaluation mode}
+
+In the unique evaluation mode, a list of unique protein-location relations is made for every document in the corpus, notwithstanding the repetition of relations in the document. A predicted positive relation is said to match with original unique relation if and only if the predicted relation for the document is found in the list of unique relations for that document. If the predicted relation is not found in the list, it is either classified as a false positive if it is a positive prediction or a true negative if it is a negative prediction.
 
 \section{Tools used}\label{sec:tools}
 
