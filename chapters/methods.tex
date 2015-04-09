@@ -362,7 +362,7 @@ A prediction can be classified into one of the following categories:
 
 \end{itemize}
 
-\subsubsection*{\textit{Precision}}
+\subsubsection*{\textit{Precision}}\label{subsubsec:Prec}
 
 Precision is the fraction of true predictions from all predictions and is given by:
 
@@ -371,7 +371,7 @@ $$
 $$
 
 
-\subsubsection*{\textit{Recall}}
+\subsubsection*{\textit{Recall}}\label{subsubsec:Recal}
 
 Recall is the fraction of original relations that are predicted and is given by:
 
@@ -379,7 +379,7 @@ $$
 \textit{Recall} = \frac{tp}{tp+fn}
 $$
 
-\subsubsection*{\textit{F score}}
+\subsubsection*{\textit{F score}}\label{subsubsec:Fscore}
 
 F score, also called as F1 score, is the harmonic mean of precision and recall. It is given by:
 
@@ -390,14 +390,15 @@ $$
 
 %TODO write about standard error
 
-\subsection{Evaluation modes} 
+\subsection{Evaluation modes} \label{subsec:Eval}
 
-\subsubsection{Non unique evaluation mode}\label{subsec:UniqNonUniqEval}
+
+\subsubsection{Non unique evaluation mode}\label{subsubsec:NonUniqEval}
 
 For a particular document in the corpus, it may happen that a protein is related to a location twice in the document at different places. In the non-unique evaluation mode, such repetitions are considered separately. For this mode of evaluation, a predicted relation is said to match with an original relation if and only if the text offsets of both protein and location entities in the predicted relation matches exactly with the text offsets of protein and location entities in the original relation respectively.
 
 % Talk about unique relations here
-\subsubsection{Unique evaluation mode}
+\subsubsection{Unique evaluation mode}\label{subsubsec:UniqEval}
 
 In the unique evaluation mode, a list of unique protein-location relations is made for every document in the corpus, notwithstanding the repetition of relations in the document. A predicted positive relation is said to match with original unique relation if and only if the predicted relation for the document is found in the list of unique relations for that document. If the predicted relation is not found in the list, it is either classified as a false positive if it is a positive prediction or a true negative if it is a negative prediction.
 
