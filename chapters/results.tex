@@ -91,7 +91,7 @@ For each round of cross-validation, a model is learned and therefore, the featur
 
 Figure \ref{fig:FWRPerfComp} shows the comparison of performance of various FWR (Feature Weight Ranking) models with initial model. Only average \textit{F scores} are shown for comparison. The model \textit{1\_1k} implies that the model is trained using 1000 highest weighted features from every round of cross validation. Similar terminology applies for rest of the FWR models shown in the figure. None of the FWR models have a higher performance than the initial model. The performance of FWR model with first 1000 features (\textit{1\_1k}) is lower than FWR model with first 5000 features (\textit{1\_5k}). It is also seen that the performance drops for first 10000 (1\_10k) features and then again increases for 20000 (1\_20k) and 30000 (1\_30k) features. This trend invalidates the intuition that higher weighted features should result in higher performance and addition of lower weighted features should decrease the performance. In our case, addition of features ranked 10000 to 20000 have actually increased the performance. The FWR model consisting of lowest 2000 features in every round (\textit{28k\_30k}) also has considerable performance and cannot be discarded as useless. Owing to all these problems, this approach was not experimented further.
  
-\subsection{Results after Information Gain Analysis}
+\subsection{Results after Information Gain Analysis}\label{subsec:SS_IG}
 
 Information gain is widely used technique for the purpose of feature selection. The theoretical background for calculating information gain can be found in Subsection \ref{subsec:IG}. The information gain is calculated for features in every round of cross validation and analysis is done similar to the analysis based on feature weights.
 
@@ -191,9 +191,156 @@ Exhaustive hyperparameter search was conducted for the selected model Avg\_55. T
 
 \subsection{Final Results}\label{subsec:SSFinalRes}
 
+\begin{figure}
+\centering
+\begin{minipage}{.5\textwidth}
+  \centering
+  \includegraphics[width=.95\textwidth]{figures/CompDevTestResultsNonUniq.png}
+  \caption{Non unique mode results}
+  \label{fig:SS_DevTest_NU}
+\end{minipage}%
+\begin{minipage}{.5\textwidth}
+  \centering
+  \includegraphics[width=.95\textwidth]{figures/CompDevTestResultsUniq.png}
+  \caption{Unique mode results}
+  \label{fig:SS_DevTest_U}
+\end{minipage}
+\end{figure}
+
+The optimal \textit{SSModel} trained after feature selection and hyperparameter search is finally evaluated on unseen test data. Since the test data is not touched during tuning of the model, the evaluation on test data is considered a robust estimate of the model performance and hence, can be termed as final results for \textit{SSModel}.
+
+Figure \ref{fig:SS_DevTest_NU} shows the comparison between average results of the optimal \textit{SSModel} on development set termed as "Dev Results" and test set termed as "Test Results". The results in Fig. \ref{fig:SS_DevTest_NU} are computed using non unique mode of evaluation. As shown in figure, the evaluation performance on the test set is nearly equal to the evaluation performance on the development set. While the average \textit{F score} for evaluation on development set is 71.01, the average \textit{F score} for evaluation on the test set is 71.29.
+
+Figure \ref{fig:SS_DevTest_U} shows similar comparison between evaluation performance on the development set and the test set, but using unique mode of evaluation. Similar to the trends in Fig. \ref{fig:SS_DevTest_NU}, the evaluation performance on the test set is nearly equal to the evaluation performance on development set. As shown in the figure, the average \textit{F score} for evaluation on development set is 63.22 whereas the average \textit{F score} for evaluation on the test set is 62.45.
+
 \section{Results for \textit{DSModel}}
 
-\section{Results for CombinedModel}
+This section discusses the evaluation of performance of the different-sentence model (\textit{DSModel}). The goal of the \textit{DSModel} is to extract the protein-location relations in which either of the entity is present in a different sentence. The overall objective of using two different models, viz. \textit{SSModel} and \textit{DSModel} is to extract as many protein-location relations as possible. 
+
+The evaluation of performance of the \textit{DSModel} is, in a way, dependent on the predictions of the \textit{SSModel}. If unique mode of evaluation (Section \ref{subsubsec:UniqEval}) is considered, then it may happen that a particular relation predicted by the \textit{DSModel} is already predicted by the \textit{SSModel}. In this particular case, the \textit{DSModel} is not adding any extra information to the set of predictions. Therefore, utmost care is taken while evaluating the results of the \textit{DSModel}. Several evaluation criteria are developed to understand how the \textit{DSModel} is supplementing the set of predictions. These evaluation criteria are:
+
+\begin{itemize}
+
+\item \textit{SVM Performance:} This criteria describes the performance of the SVM model. This is exactly the same as non unique mode of the evaluation (Subsection \ref{subsubsec:NonUniqEval}).
+
+\item \textit{Unique performance:} This criteria compares the set of predictions of the \textit{DSModel} with the unique set of relations for the document in the corpus. This is exactly same as unique mode of the evaluation (Subsection \ref{subsubsec:UniqEval}).
+
+\item \textit{Manipulated prediction:} In this evaluation mode, the predictions of the \textit{DSModel} are manipulated to some extent. The intuition behind this manipulation is, if a relation is predicted positive by the \textit{SSModel} (in other words, the \textit{SSModel} predicts that the entities in the relation are related and present in the same sentence), then it is highly unlikely that the same entities could be related in a different-sentence relation. Therefore, if a relation predicted by the \textit{DSModel} is found in the list of positive predictions by \textit{SSModel}, then that particular relation prediction is manipulated into a negative prediction, irrespective of whether it was a positive prediction or a negative prediction earlier. 
+
+\item \textit{Combined evaluation:} The predictions of \textit{SSModel} and \textit{DSModel} are combined in a unique list of predictions. It also means that if a relation is predicted both by \textit{SSModel} and \textit{DSModel}, then the prediction is added to the unique list only once. This unique list of predictions is then compared with the unique list of relations for every document in the corpus and the results are computed. 
+
+\end{itemize}
+
+\subsection{Initial Results}
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.7]{figures/DSInitialResults.png}
+\caption{Initial results of \textit{DSModel}}\label{fig:DSInitial}
+\end{figure}
+
+Figure \ref{fig:DSInitial} shows the initial results of the \textit{DSModel}. These are the results prior to any experimentation for feature selection or hyperparameter search. The results are shown in the figure according to various evaluation criteria explained in the previous section. For combined evaluation, the predictions of the \textit{DSModel} are combined with predictions of best performing \textit{SSModel}, i.e., the predictions generated by Avg\_55 model trained using optimal hyperparameter.
+
+\subsection{Need for optimizing combined evaluation}
+
+During various experimentation, it was found out that the non unique performance does not correlate well with combined evaluation performance. In other words, if the efforts are made to maximize non-unique or unique performance of the \textit{DSModel}, then it does not necessarily optimizes the combined performance.  This may happen due to the reason that the model with optimal non-unique performance produces more repeated predictions that are already predicted by the \textit{SSModel}. Therefore, it was decided for further experimentation that efforts would be made to optimize the combined performance rather than unique or non-unique performance.
+
+The experimentation performed on the \textit{DSModel} was similar to the experimentation performed on the \textit{SSModel}. Three experiments, viz. Leave One Out Analysis, Feature Weight Ranking and Information Gain Analysis, were carried out for feature selection. Following subsections describe the results of these experiments:
+
+\subsection{Results after Leave One Out Analysis}
+
+The theoretical background for Leave One Out approach is discussed in Subsection \ref{subsec:LeaveOneOut}. In this approach, the feature generators or functions are greedily discarded to produce the best possible performance.
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.8]{figures/DSLeaveOneOutComb.png}
+\caption{Effect of Leave One Out Analysis on \textit{DSModel}}\label{fig:DSLeaveOO}
+\end{figure}
+
+Figure \ref{fig:DSLeaveOO} shows the effect of Leave One Out experimentation. The \textit{F score} for combined evaluation increased from 65.42 to 66.53. The total number of features used by initial model for 5 rounds of cross-validation was 310512 (62000 features per round of cross-validation on average). After Leave One Out experimentation, the total number of features for 5 rounds dropped to 201475 (average 40295 features per round), thereby reducing the number of features to a good extent.
+
+\subsection{Results after Feature Weight Ranking}
+
+The Feature Weight Ranking (FWR) approach is discussed in detail in Subsection \ref{subsec:FWR}. This approach uses the feature weights learned by Support Vector Machine (SVM), for the purpose of feature selection.
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.7]{figures/DSFWRResults.png}
+\caption{Effect of Feature Weight Ranking approach on \textit{DSModel}}\label{fig:DSFWR}
+\end{figure}
+
+Figure \ref{fig:DSFWR} shows the comparison between average \textit{F score} for combined evaluation mode. Initial model shows the performance before any experimentation. The model 1\_1k implies that 1000 highest weighted features from every round of cross validation are used for training the model. Similarly, the model 1\_20k implies that 20000 highest weighted features from every round of cross validation are used for training the model. As shown in Fig. \ref{fig:DSFWR}, the model 1\_5k register the best performance. However, the performance obtained is lower than the best performance obtained by LeaveOneOut experimentation and therefore, this approach was not further investigated. The weights of the features followed similar distribution as followed by the weights of the features for \textit{SSModel} in Fig. \ref{fig:FWRWeightDist}.
+
+\subsection{Results after Information Gain Analysis}
+
+
+Information gain analysis is most widely used approach for the purpose of feature selection. The theoretical aspects of Information Gain Analysis are discussed in Subsection \ref{subsec:IG}. The approach is also widely discussed for SSModel in Subsection \ref{subsec:SS_IG}. 
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.7]{figures/DSIGResults.png}
+\caption{Effect of Information Gain Analysis on \textit{DSModel}}\label{fig:DSIG}
+\end{figure}
+
+
+The initial model has close to 62000 average features for every round of cross validation. Information gain is calculated for every feature. The information gain for the features in every round follows similar distribution as observed in Fig. \ref{fig:IGDist}. 
+
+Figure \ref{fig:DSIG} shows the comparison between different models using information gain analysis. The initial model represents the model before information gain analysis experiments. The model 1\_5k implies that 5000 features with best information gain are selected for every round of cross validation and the model is trained. As seen in the figure, the performance of the IG (information gain) models continue to rise from 1\_5k to 1\_55k. The model trained using best 55000 features (1\_55k) produces the best performance and surpasses the performance of the initial model. Since there are around 60000 features per round of cross validation and 55000 features are required for best performing model implies the fact that the features with low information gain are equally important for \textit{DSModel}. Since this approach played an important role in improving the performance of \textit{SSModel} in addition to reducing the number of features, it was decided to investigate this approach further.
+
+As discussed in Section \ref{subsec:SS_IG}, the features have to be traced back to the feature generators that produce them. These feature generators can then be discarded in order to improve the performance and reduce the number of features. As in the case of the \textit{SSModel}, the feature generators were assigned a statistic and experiments were carried out using these statistics. Following statistics were used for every feature generator:
+
+\begin{itemize}
+
+\item \textit{Total information gain}
+
+\item \textit{Number of features}
+
+\item \textit{Average information gain}
+
+\item \textit{Minimum information gain}
+
+\item \textit{Maximum information gain}
+
+\end{itemize}
+
+
+These 5 statistics were used for conducting an exhaustive search. For every statistic, a model was trained and evaluated using some or all of the feature generators. For the \textit{DSModel}, there are 132 feature generators, i.e., 132 functions generate the features used for training the \textit{DSModel}. In every experiment, these 132 feature generators were sorted according to some statistic and some of them were selected for training the model. For example, in the case of using average information gain as a feature generator statistic, the feature generators were arranged from highest average information gain to lowest average information gain. If only 10 of these feature generators are used for training the model, such a model is called Avg\_10. Similarly, if 50 of the best feature generators are used for training the model, the model is called Avg\_50. The models from Avg\_1 to Avg\_132 were tested for average information gain analysis. Similarly, for minimum information gain analysis, the models from Min\_1 to Min\_132 were tested.
+
+\begin{figure}
+\centering
+\begin{minipage}{.5\textwidth}
+  \centering
+  \includegraphics[width=.95\textwidth]{figures/DSAvgAnalysis.png}
+  \caption{Average analysis results}
+  \label{fig:DS_AvgAnalysis}
+\end{minipage}%
+\begin{minipage}{.5\textwidth}
+  \centering
+  \includegraphics[width=.95\textwidth]{figures/DSMinAnalysis.png}
+  \caption{Min IG analysis results}
+  \label{fig:DS_MinAnalysis}
+\end{minipage}
+\end{figure}
+
+Figure \ref{fig:DS_AvgAnalysis} shows the results of average information gain analysis and \ref{fig:DS_MinAnalysis} shows the results of minimum information gain analysis. As seen in Fig. \ref{fig:DS_AvgAnalysis}, the Avg\_64 model registers the best performance with a \textit{F score} of 66.73. This model also reduces the number of features from 310512 to 92514 for 5 rounds of cross validation (reduction of average number of features per round from 62000 to 18500). Since this model registers the best performance and massively reduces the number of features, this model was considered as the best model from feature selection experiments.
+
+\subsection{Hyperparameter search results}
+
+The optimal model Avg\_64 was tested for optimal hyperparameter. Exhaustive hyperparameter search was carried out with hyperparameter ranging from 0.0000 to 2.0000 with the steps of 0.0005. Before the exhaustive searching, the hyperparameter used was 0.0065. After the exhaustive search, the same hyperparameter registered the best performance. Therefore, no change was made for the value of hyperparameter.
+
+\subsection{Final Results}
+
+After rigorous feature selection and hyperparameter search, the optimal \textit{DSModel} was used for evaluation of unseen test data.
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.7]{figures/DSFinalResults.png}
+\caption{Final evaluation on test set}\label{fig:DSFinal}
+\end{figure}
+
+Figure \ref{fig:DSFinal} shows the comparison between results on development set and test set. The \textit{F score} on development set is 66.73 while that on test set is 63.15.
+
+%\section{Results for CombinedModel}
 
 \section{Assessment of Performance evaluation results}
 
