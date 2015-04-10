@@ -392,15 +392,19 @@ $$
 
 \subsection{Evaluation modes} \label{subsec:Eval}
 
-
-\subsubsection{Non unique evaluation mode}\label{subsubsec:NonUniqEval}
-
-For a particular document in the corpus, it may happen that a protein is related to a location twice in the document at different places. In the non-unique evaluation mode, such repetitions are considered separately. For this mode of evaluation, a predicted relation is said to match with an original relation if and only if the text offsets of both protein and location entities in the predicted relation matches exactly with the text offsets of protein and location entities in the original relation respectively.
-
 % Talk about unique relations here
 \subsubsection{Unique evaluation mode}\label{subsubsec:UniqEval}
 
 In the unique evaluation mode, a list of unique protein-location relations is made for every document in the corpus, notwithstanding the repetition of relations in the document. A predicted positive relation is said to match with original unique relation if and only if the predicted relation for the document is found in the list of unique relations for that document. If the predicted relation is not found in the list, it is either classified as a false positive if it is a positive prediction or a true negative if it is a negative prediction.
+
+
+\subsubsection{Non unique evaluation mode}\label{subsubsec:NonUniqEval}
+
+Simply put, the results of non unique evaluation mode are the results of SVM classification. The predictions are compared with original relations and the results are computed. 
+
+For a particular document in the corpus, it may happen that a protein is related to a location twice in the document at different places. In this evaluation mode,  such repetitions are considered separately and therefore, this evaluation mode is called non-unique evaluation mode. For this mode of evaluation, a predicted relation is said to match with an original relation if and only if the text offsets of both protein and location entities in the predicted relation matches exactly with the text offsets of protein and location entities in the original relation respectively. 
+
+It is important to note that, here, the set of original relations consists of potential relations present only in the same sentence unlike unique evaluation mode where the set of original relations are all unique relations in a document.
 
 \section{Tools used}\label{sec:tools}
 
