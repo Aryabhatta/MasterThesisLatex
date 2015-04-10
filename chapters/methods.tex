@@ -48,13 +48,13 @@ For the LocText corpus, the annotated data is present in the JSON files that can
 
 \begin{figure}
 \centering
-\includegraphics[scale=0.4]{figures/Corpus_Creation.png}
+\includegraphics[scale=0.58]{figures/Corpus_Creation.png}
 \caption{The process of creating a XML corpus file}\label{fig:corpusCreation}
 \end{figure}
 
 Figure \ref{fig:corpusCreation} outlines the process  of corpus creation. The data read from a HTML file is parsed using Stanford CoreNLP pipeline \cite{manning2014stanford}. In every HTML file, the data is divided into title and abstract. The text from HTML file, which consists of a title and an abstract, is initially segmented into sentences (\textit{Sentence Splitting}). 
 
-Every sentence is then split into tokens (\textit{Tokenization}). Part of the speech tags are found out for every token (\textit{POS Tagging}). Finally, the dependency relations between the tokens in the sentence are computed (\textit{Dependency Parsing}). The steps of \textit{Tokenization}, \textit{POS Tagging} and \textit{Dependency Parsing} are repeated for every sentence. These stages of processing are explained in detail in Section \ref{sec:NLPPipeline}.
+Every sentence is then split into tokens (\textit{Tokenization}). Part of the speech tags are found out for every token (\textit{Syntactic Parsing}). Finally, the dependency relations between the tokens in the sentence are computed (\textit{Dependency Parsing}). The steps of \textit{Tokenization}, \textit{Syntactic Parsing} and \textit{Dependency Parsing} are repeated for every sentence. These stages of processing are explained in detail in Section \ref{sec:NLPPipeline}.
 
 All unstructured (plain text) and structured (sentences, tokens, POS tags, dependencies) information is then combined with annotations present in JSON the files and written to the XML corpus file.
 
