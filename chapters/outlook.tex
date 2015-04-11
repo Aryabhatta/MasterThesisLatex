@@ -1,0 +1,14 @@
+\chapter{Outlook}\label{chapter:outlook}
+
+\section{Future work and directions}
+
+This section discusses the possible directions in which future work could be carried out in this problem of protein-subcellular location relation extraction.
+
+\subsection{Use of coreference}
+
+The experimentation with coreferences was carried out as discussed in Subsection \ref{subsubsec:coref}. However, it was not further experimented due to the fact that extracting coreferences using Stanford CoreNLP pipeline \cite{manning2014stanford} is a time consuming process. Since our methods are developed with the objective of being able to extract the protein-location relations on the fly, it was not possible to use coreferences as it takes a long time to parse coreferences from the text. Therefore, the coreference resolution approach was not carried forward. However, there is a scope to use fast coreference resolution extractor and use it along with our methods.
+
+\subsection{Use of different methods like Markov Logic Networks (MLN)}
+
+
+Yoshikawa et al. used Markov Logic Networks \cite{yoshikawa2011coreference} for the task of event extraction and achieved somewhat better results than the-state-of-the-art in BioNLP'09 which used graph based features like our method. Therefore, it would also be interesting to experiment with Markov Logic Networks for the task of protein-location relation extraction.
