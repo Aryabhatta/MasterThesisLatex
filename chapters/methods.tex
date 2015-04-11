@@ -3,24 +3,22 @@
 %\section{Task Definition}
 
 %TODO Refer to the actual section of relatione extraction
-This chapter explains the method developed to extract the protein-location relations from the biomedical text. This task of relation extraction is one of the semantic tasks in the area of natural language processing (NLP), as explained in the section \ref{sec:RE}. The task of protein-location relation extraction can be formally described as follows:
+This chapter explains the method developed to extract the protein-location relations from the biomedical text. The task of relation extraction is one of the semantic tasks in the area of natural language processing (NLP), as explained in the section \ref{sec:RE}.
 
-Given a piece of text that contains two entity mentions, viz. protein and location, the task of relation extraction method is to decide if the text contains enough evidence for semantic relationship between these two entities. Formally, let $r=(t,arg_1,arg_2)$ denote a relationship instance where $t$ is a piece of text, $arg_1$ and $arg_2$  are entity mentions contained in text $t$, and $arg_1$ precedes $arg_2$ in the text. Given a set of relations $\left\lbrace r_i \right\rbrace$ such that every relation instance has label $l \in \left\lbrace-1,1\right\rbrace$, our task is to learn a function that can predict the label $l$ for new relation instance whose label is not known. Note that $t$ can simply be a piece of text or it may also contain structured information such as parse tree and dependency graph. For entity mentions $arg_1$ and $arg_2$, either of them can represent a protein or a location entity.
- 
+The task of protein-location relation extraction can be formally described as follows: given a piece of text that contains two entity mentions, viz. protein and location, decide if the text contains enough evidence for a semantic relationship between these two entities. Formally, let $r=(t,arg_1,arg_2)$ denote a relationship instance where $t$ is a piece of text, $arg_1$ and $arg_2$ are entity mentions contained in text $t$, and $arg_1$ precedes $arg_2$ in the text. Given a set of relations $\left\lbrace r_i \right\rbrace$ such that every relation instance has label $l \in \left\lbrace-1,1\right\rbrace$, our task is to learn a function that can predict the label $l$ for a new relation instance whose label is not known. Note that $t$ can simply be a piece of text or it may also contain structured information such as a parse tree or a dependency graph. For entity mentions $arg_1$ and $arg_2$, either of them can represent a protein or a location entity.
+
 % Following section to be deleted, to be shifted to introduction
-\section{Replication of the-state-of-the-art in BioNLP'09}
+\section{Replication of the state of the art in BioNLP'09}
 
 % where should I put that
-Section \ref{sec:JariBioNLP} describes the method developed by Björne et al. \cite{bjorne2009extracting} for the task of event extraction in BioNLP 2009. The method developed by Björne et al. along with several other methods for various tasks is available online at \url{http://jbjorne.github.io/TEES/}. We used the package TEES (Turku Event Extraction System) \cite{teesonline} to get started and tried to replicate the results for the task of event extraction. The selection of features in our model is influenced by the features used for the task of event extraction in TEES.
+Section \ref{sec:JariBioNLP} describes the method developed by Björne et al. \cite{bjorne2009extracting} for the task of event extraction in BioNLP 2009. This along with several other methods for various tasks is available online at \url{http://jbjorne.github.io/TEES/}. I used the package TEES (Turku Event Extraction System) \cite{teesonline} to get started and tried to replicate the results for the task of event extraction. The selection of features in our model is influenced by the features used for the task of event extraction in TEES.
 
 %\section{Method for protein-location relation extraction}
 \subsection*{Outline of the chapter}
 
-The method, developed for the extraction of protein-location relations, is described in subsequent sections. Here is the overview of sections in this chapter: 
+Section \ref{sec:ssModeldsModel} explains the motivation for creating more than one machine learning model. Section \ref{sec:pipeline} outlines the flow of information in the task of relation extraction. Section \ref{sec:graphRep} explains the actual representation of the data in the model. The process of feature extraction and feature selection is explained in Section \ref{sec:featExp} and \ref{sec:featSel} respectively.
 
-Section \ref{sec:ssModeldsModel} explains the motivation for creating more than 1 machine learning model. Section \ref{sec:pipeline} outlines the flow of information in this task of relation extraction. Section \ref{sec:graphRep} explains actual representation of the data in the model. The process of feature extraction and feature selection is explained in Section \ref{sec:featExp} and \ref{sec:featSel} respectively.
-
-The training methodologies and procedures are explained in Section \ref{sec:training}. Section \ref{sec:experiments} describes the effect of different experiments on the performance of the method. Section \ref{sec:evaluationCriteria} explains about evaluation criteria used for calculating the performance of models. Finally, Section \ref{sec:tools} concludes the chapter with describing the tools that are used in this task.
+The training methodologies are explained in Section \ref{sec:training}. Section \ref{sec:experiments} describes the effect of different experiments on the the method's performance. Section \ref{sec:evaluationCriteria} explains the evaluation criteria used for calculating the models' performance. Finally, Section \ref{sec:tools} describes some external tools used in my implementation.
 
 \section{Creating multiple machine learning models: SSModel and DSModel}\label{sec:ssModeldsModel}
 
@@ -34,7 +32,7 @@ The same-sentence model designed for extracting same-sentence relations would be
 
 \section{Extraction Method pipeline}\label{sec:pipeline}
 
-%- Explain the whole pipeline 
+%- Explain the whole pipeline
 %- Corpus-->Sentence Segmentation-->Tokenization-->Syntactic & dependency Parsing-->Graph Representation-->  Feature Extraction --> ML Model training -->Classification on Test
 %- Put a nice picture explaining the pipeline
 
@@ -52,7 +50,7 @@ For the LocText corpus, the annotated data is present in the JSON files that can
 \caption{The process of creating a XML corpus file}\label{fig:corpusCreation}
 \end{figure}
 
-Figure \ref{fig:corpusCreation} outlines the process  of corpus creation. The data read from a HTML file is parsed using Stanford CoreNLP pipeline \cite{manning2014stanford}. In every HTML file, the data is divided into title and abstract. The text from HTML file, which consists of a title and an abstract, is initially segmented into sentences (\textit{Sentence Splitting}). 
+Figure \ref{fig:corpusCreation} outlines the process  of corpus creation. The data read from a HTML file is parsed using Stanford CoreNLP pipeline \cite{manning2014stanford}. In every HTML file, the data is divided into title and abstract. The text from HTML file, which consists of a title and an abstract, is initially segmented into sentences (\textit{Sentence Splitting}).
 
 Every sentence is then split into tokens (\textit{Tokenization}). Part of the speech tags are found out for every token (\textit{Syntactic Parsing}). Finally, the dependency relations between the tokens in the sentence are computed (\textit{Dependency Parsing}). The steps of \textit{Tokenization}, \textit{Syntactic Parsing} and \textit{Dependency Parsing} are repeated for every sentence. These stages of processing are explained in detail in Section \ref{sec:NLPPipeline}.
 
@@ -82,15 +80,15 @@ The nodes in the \texttt{DATA FORMAT} can be explained as follows:
   \item \texttt{sentence}: a basic sentence unit containing information such as sentence text, start offset, end offset, etc.
     \begin{itemize}
 	\item \texttt{tokens}: collection of tokens
-	  \begin{itemize}	  
-	  \item \texttt{token}	: a basic token unit containing information such as text of the token, start offset, end offset, POS tag, etc.		
+	  \begin{itemize}
+	  \item \texttt{token}	: a basic token unit containing information such as text of the token, start offset, end offset, POS tag, etc.
 	  \end{itemize}
 	\item \texttt{parse}: a syntactic parse tree of the sentence
-	\item \texttt{dependencies}: collection of dependencies between the tokens	  
+	\item \texttt{dependencies}: collection of dependencies between the tokens
 	  \begin{itemize}
 	  \item \texttt{dependency}: a dependency relation containing information such as from token, to token, dependency type, etc.
-	  \end{itemize}	  
-	\end{itemize}	
+	  \end{itemize}
+	\end{itemize}
   \end{itemize}
   \item \texttt{coreferences}:
     This node is a collection of coreferences present in the entire text unit (title or abstract)
@@ -110,13 +108,13 @@ The nodes in the \texttt{DATA FORMAT} can be explained as follows:
 
 \item \textbf{Training \& evaluating \textit{SSModel}}
 
-This is second step in the relation extraction method. This step focuses solely on extracting same sentence protein-location relations from the text. 
+This is second step in the relation extraction method. This step focuses solely on extracting same sentence protein-location relations from the text.
 
-The data is read from the corpus XML file and stored in internal data structures in the main memory. Reading the file once also saves unnecessary I/O time and improves the execution time by a small margin. 
+The data is read from the corpus XML file and stored in internal data structures in the main memory. Reading the file once also saves unnecessary I/O time and improves the execution time by a small margin.
 
 Since this step tries to extract the protein-location relations present in the same sentence only, every sentence in the document is analyzed one by one. In every sentence, potential protein-location relations are found out and the features are written for each one of them along with the target label. A relation is considered a potential relation if both the protein entity and the location entity are present in the same sentence. The potential relations that are present in the manual annotations are considered true relations and are denoted by target label $1$. On the other hand, the potential relations that are not found in the manual annotations are considered negative relations and are denoted by target label $-1$. Every relation is written as a feature vector. The support vector machine library $SVM^{light}$ \cite{joachims1999making} is used for the purpose of training and classification.  The data representation for $SVM^{light}$ is discussed in more detail in Section \ref{sec:training}.
 
-The data is broken down into training set, development set and test set. A feature file is created each for training set, development set and test set. These files are then used by $SVM^{light}$ to train the classifiers. A model is learned from the training data. This model classifies the examples in the development set and test set. The development set is used for the tuning of the hyperparameters. The model classifies the test set examples using hyperparameter learned on the development set. The process of training and cross-validation is explained in detail in Section \ref{sec:training}. 
+The data is broken down into training set, development set and test set. A feature file is created each for training set, development set and test set. These files are then used by $SVM^{light}$ to train the classifiers. A model is learned from the training data. This model classifies the examples in the development set and test set. The development set is used for the tuning of the hyperparameters. The model classifies the test set examples using hyperparameter learned on the development set. The process of training and cross-validation is explained in detail in Section \ref{sec:training}.
 
 The results of the classification are then evaluated. Various evaluation criteria used for the evaluation of results are discussed in Section \ref{sec:evaluationCriteria}. The results of the \textit{SSModel} are also cached for use during \textit{DSModel} evaluation later.
 
@@ -126,7 +124,7 @@ This step aims to extract different-sentence relations. As discussed in Section 
 
 For every document, the sentences are processed in pairs and every pair consists of neighboring sentences. The potential different sentence protein-location relations are found out and the relations are written to the SVM feature file. A potential protein-location relation is the one which has participating entities in  neighboring sentences. For example, if sentences \texttt{s1} and \texttt{s2} are being processed, then the protein entities in \texttt{s1} can have a potential PL relationship with location entities in \texttt{s2} and vice versa.
 
-Features are extracted for all potential relations and are written to the feature file along with the target label. As done during the training and evaluation of \texttt{SSModel}, a feature file is created each for the training set, development set and test set. 
+Features are extracted for all potential relations and are written to the feature file along with the target label. As done during the training and evaluation of \texttt{SSModel}, a feature file is created each for the training set, development set and test set.
 
 The results of the classification are evaluated using various evaluation criteria discussed in Section \ref{sec:evaluationCriteria}.
 
@@ -151,7 +149,7 @@ For the purpose of feature extraction, the data is also used in the form of a gr
 \end{figure}
 
 The representation of a sentence as a graph is shown Fig. \ref{fig:SSGraph}. The sentence "Discrete domains mediate the light-responsive nuclear and cytoplasmic localization of Arabidopsis COP1." is tokenized and every token forms a node in the graph. The displayed node shows the text of the token in the first row and its part of the speech(POS) tag and the token number joined by a hyphen in the second row. The tokens that are part of a protein entity are shown with a green background, the tokens that are part of a location entity are shown with a magenta background and the tokens that are part of organism entity are shown with a yellow  background. As seen in the graph, \textit{"COP1"} is a protein entity, \textit{"Arabidopsis"} is an organism name and \textit{"nuclear"} and \textit{"cytoplasmic"} are the locations mentioned in the sentence. The nodes in the graph are connected by edges, which are the dependency
- relations between the tokens. The type of the edges are shown with colored boxes. For example, there is a dependency edge of the type \textit{amod} from the token \textit{"domains"}  to  the token \textit{"Discrete"}. Since the dependency relations between the tokens are directed, this graph representation is a directed graph. 
+ relations between the tokens. The type of the edges are shown with colored boxes. For example, there is a dependency edge of the type \textit{amod} from the token \textit{"domains"}  to  the token \textit{"Discrete"}. Since the dependency relations between the tokens are directed, this graph representation is a directed graph.
 
 Also shown are dashed edges which represents the protein-location relations. Obviously, these dashed edges are just shown for representation and do not form edges in the actual graph.
 
@@ -159,7 +157,7 @@ Also shown are dashed edges which represents the protein-location relations. Obv
 
 %TODO add figure for multi sentences
 
-For \textit{DSModel}, the graph representation is bit different compared with that in \textit{SSModel}. In \textit{DSModel}, pair of sentences are considered where every pair consists of neighboring sentences. Figure \ref{fig:DSGraph} shows an example of \textit{DSModel} graph representation. Similar to the graph representation in \textit{SSModel}, the sentence is tokenized and every token forms a node in the graph. The tokens that are part of protein entity are in green, those part of organism entity are in yellow and the tokens that are part of a location entity are in magenta. Since two sentences are considered at a time, the graphs of these sentences are concatenated together and considered as a combined sentence as shown in Fig. \ref{fig:DSGraph}. 
+For \textit{DSModel}, the graph representation is bit different compared with that in \textit{SSModel}. In \textit{DSModel}, pair of sentences are considered where every pair consists of neighboring sentences. Figure \ref{fig:DSGraph} shows an example of \textit{DSModel} graph representation. Similar to the graph representation in \textit{SSModel}, the sentence is tokenized and every token forms a node in the graph. The tokens that are part of protein entity are in green, those part of organism entity are in yellow and the tokens that are part of a location entity are in magenta. Since two sentences are considered at a time, the graphs of these sentences are concatenated together and considered as a combined sentence as shown in Fig. \ref{fig:DSGraph}.
 
 \begin{figure}
 \centering
@@ -176,7 +174,7 @@ The edges in the graph are primarily dependency edges between the tokens in two 
 
 \item \textbf{Connections between same words}: If some of the tokens in both sentences are nouns and have similar text, then these tokens are connected by edges. These edges are directed from tokens in the first sentence to the tokens in the second sentence.
 
-\item \textbf{Connections between protein entity and "protein" word}: These are special connections which try to gauge the coreferent mentions in the most naive manner. If one of the sentence contains a word "protein" and does not contain any protein entity, then it is likely that the word "protein" in this sentence may actually be referring to the protein entities in other sentence. Therefore, a connection is made from the word "protein" to the protein entities in other sentence with the expectation that if this is a case of coreferent mention, then it will be easier to extract the path. 
+\item \textbf{Connections between protein entity and "protein" word}: These are special connections which try to gauge the coreferent mentions in the most naive manner. If one of the sentence contains a word "protein" and does not contain any protein entity, then it is likely that the word "protein" in this sentence may actually be referring to the protein entities in other sentence. Therefore, a connection is made from the word "protein" to the protein entities in other sentence with the expectation that if this is a case of coreferent mention, then it will be easier to extract the path.
 
 \item \textbf{Connections between location entity and "location" word}: With the similar assumption as mentioned in the previous point, it is assumed that if a sentence has a word "localize", "location" or "compartment" and it does not have a location entity, then it might be the case that this word is a coreferent mention of the location entity present in the other sentence. Therefore, an extra edge is added between the words containing text "location", "localize" or "compartment" to the location entity. This is a directional edge from the word to the entity. In Fig. \ref{fig:DSGraph}, although there is a word \textit{compartment} in the first sentence, the connections are not shown in the figure to keep the figure readable.
 
@@ -189,7 +187,7 @@ Figure \ref{fig:DSGraph} is a representational figure. In the figure, the entity
 
 \section{Feature extraction}\label{sec:featExp}
 
-This section explains the process of feature extraction. The format of the feature set to be written for $SVM^{light}$ is explained in detail in Section \ref{sec:training}. Although there are a few differences in the feature sets of \textit{SSModel} and \textit{DSModel}, most of the features are common to both the models. 
+This section explains the process of feature extraction. The format of the feature set to be written for $SVM^{light}$ is explained in detail in Section \ref{sec:training}. Although there are a few differences in the feature sets of \textit{SSModel} and \textit{DSModel}, most of the features are common to both the models.
 
 There are three feature subspaces from which the features can be extracted. These feature subspaces correspond to the sequences, syntactic parse trees and dependency parse trees \cite{jiang2007systematic}. A variety of features are extracted from all these feature subspaces and combined for optimal performance. An overview of features can be presented as follows.
 
@@ -225,7 +223,7 @@ Token features are extracted for terminal features of the shortest path, which a
 
 The protein and location entities are represented by their respective head tokens.  The shortest path between two entities is actually a shortest path between the head tokens. However, there need not be a single shortest path between two entities. There can be multiple paths between two entities with same distance or same minimum distances. All such paths with minimum distance are computed and features are extracted for each one of them.
 
-For every such minimum distance path from the set of minimum distance paths, parts of the paths are considered for N-gram features. For example, set of all 2 consecutive tokens are considered for 2-gram features and set of all 3 consecutive tokens are considered for 3-gram features, etc. 2,3 and 4-gram features are extracted from all such paths. These features also include token features that are part of the corresponding set, dependencies in the set, directions of dependencies in the set, etc. 
+For every such minimum distance path from the set of minimum distance paths, parts of the paths are considered for N-gram features. For example, set of all 2 consecutive tokens are considered for 2-gram features and set of all 3 consecutive tokens are considered for 3-gram features, etc. 2,3 and 4-gram features are extracted from all such paths. These features also include token features that are part of the corresponding set, dependencies in the set, directions of dependencies in the set, etc.
 
 \subsection*{Other features}
 
@@ -247,7 +245,7 @@ Feature selection is the process of selecting appropriate features from a large 
 %When ranked according to Binary information gain, see Figure 1, removal of high ranking features does not take away a lot of information. This also means that even features ranked lowest still contain considerable information and are somewhat relevant.
 %
 
-As observed by authors in \cite{joachims1998text}, for the task of text categorization, there are very few irrelevant features. The authors calculated binary information gain for all the features and found out that even the features that are ranked lowest contain considerable information and are somewhat relevant. In the task of text categorization, the documents are classified into one of the several predefined categories depending on the words present in that document. Therefore, the words/terms present in the document are the features for the task of text categorization and it is easier to discard the words/terms if that particular feature is found irrelevant. 
+As observed by authors in \cite{joachims1998text}, for the task of text categorization, there are very few irrelevant features. The authors calculated binary information gain for all the features and found out that even the features that are ranked lowest contain considerable information and are somewhat relevant. In the task of text categorization, the documents are classified into one of the several predefined categories depending on the words present in that document. Therefore, the words/terms present in the document are the features for the task of text categorization and it is easier to discard the words/terms if that particular feature is found irrelevant.
 
 However, for our task of relation extraction, the features are very complex and discarding individual features is not an option. The features are extracted with the purpose of extracting some characteristic (e.g. binary test of capitalization in the case of token features) and the entire feature generating mechanism (e.g.  feature generating function in our case) can be commented if those features are found ineffective.
 
@@ -265,17 +263,17 @@ One of the widely used feature selection technique is to calculate the informati
 
 \begin{align}
 \begin{aligned}
- G \left( f \right) = & -  \sum^m_{i=1} P_r(c_i) \text{ log } P_r(c_i) \\ 
-  & + P_r(f) \sum^m_{i=1} P_r(c_i|f) \text{ log } P_r(c_i|f)\\ 
-  & +  P_r(\overline{f}) \sum^m_{i=1} P_r(c_i|\overline{f}) \text{ log } P_r(c_i|\overline{f})  
-\end{aligned}  
+ G \left( f \right) = & -  \sum^m_{i=1} P_r(c_i) \text{ log } P_r(c_i) \\
+  & + P_r(f) \sum^m_{i=1} P_r(c_i|f) \text{ log } P_r(c_i|f)\\
+  & +  P_r(\overline{f}) \sum^m_{i=1} P_r(c_i|\overline{f}) \text{ log } P_r(c_i|\overline{f})
+\end{aligned}
 \end{align}
 
 where $c_i$ is the set of target relations which is $\left\lbrace +1, -1 \right\rbrace$. $f$ indicates the presence of the feature and $\overline{f}$ indicates the absence of it.
 
 \subsection{Using feature weights}\label{subsec:FWR}
 
-One of the other relevant approach used for feature selection is normal-based feature selection \cite{brank2002feature}. As discussed in the section \ref{sec:SVM}, the support vector machine predictor uses a hyperplane to separate the positive instances from the negative ones. For a linear kernel, the prediction for certain example $x$ can be written as 
+One of the other relevant approach used for feature selection is normal-based feature selection \cite{brank2002feature}. As discussed in the section \ref{sec:SVM}, the support vector machine predictor uses a hyperplane to separate the positive instances from the negative ones. For a linear kernel, the prediction for certain example $x$ can be written as
 
 $$
 prediction(x) = sgn \left[ \mathbf{w}^T\mathbf{x} + b \right]
@@ -328,7 +326,7 @@ $SVM_{light}$ provides an ability to use several kernels for the purpose of trai
 \subsubsection*{Minimum subtree}
 \subsubsection*{Path enclosed subtree}
 
-\subsubsection*{Use of coreferences} \label{subsubsec:coref} 
+\subsubsection*{Use of coreferences} \label{subsubsec:coref}
 
 \subsection{Experimentation specific to \textit{SSModel}}
 %TODO
@@ -347,7 +345,7 @@ However, adding such information actually decreased the performance of \textit{D
 % Precision, Recall, Fscore
 The performance measures \textit{Precision}, \textit{Recall} and \textit{F score} are used for calculating of performance of machine learning models \textit{SSModel} and \textit{DSModel}.
 
-For the task of protein-location relation extraction, a positive prediction is the one in which the machine learning model predicts a PL (protein-location) relation between a protein entity and a location entity. Similarly, a negative prediction is the one in which the machine learning model predicts that there is no relation between a protein entity and a location entity. 
+For the task of protein-location relation extraction, a positive prediction is the one in which the machine learning model predicts a PL (protein-location) relation between a protein entity and a location entity. Similarly, a negative prediction is the one in which the machine learning model predicts that there is no relation between a protein entity and a location entity.
 
 A prediction can be classified into one of the following categories:
 
@@ -402,9 +400,9 @@ In the unique evaluation mode, a list of unique protein-location relations is ma
 
 \subsubsection{Non unique evaluation mode}\label{subsubsec:NonUniqEval}
 
-Simply put, the results of non unique evaluation mode are the results of SVM classification. The predictions are compared with original relations and the results are computed. 
+Simply put, the results of non unique evaluation mode are the results of SVM classification. The predictions are compared with original relations and the results are computed.
 
-For a particular document in the corpus, it may happen that a protein is related to a location twice in the document at different places. In this evaluation mode,  such repetitions are considered separately and therefore, this evaluation mode is called non-unique evaluation mode. For this mode of evaluation, a predicted relation is said to match with an original relation if and only if the text offsets of both protein and location entities in the predicted relation matches exactly with the text offsets of protein and location entities in the original relation respectively. 
+For a particular document in the corpus, it may happen that a protein is related to a location twice in the document at different places. In this evaluation mode,  such repetitions are considered separately and therefore, this evaluation mode is called non-unique evaluation mode. For this mode of evaluation, a predicted relation is said to match with an original relation if and only if the text offsets of both protein and location entities in the predicted relation matches exactly with the text offsets of protein and location entities in the original relation respectively.
 
 It is important to note that, here, the set of original relations consists of potential relations present only in the same sentence unlike unique evaluation mode where the set of original relations are all unique relations in a document.
 
