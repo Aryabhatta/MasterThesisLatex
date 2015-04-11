@@ -1,4 +1,13 @@
 \chapter{Conclusion}\label{chapter:conclusion}
 
-\section*{Conclusions from results}
+In this thesis, we tried to extract the instances of subcellular localization of proteins present in the biomedical literature. We used natural language processing (NLP) to extract such instances.
 
+Since existing datasets were not appropriate for the task of protein-location relation extraction, we annotated a new corpus "LocText". We randomly selected 100 MEDLINE \cite{medline} abstracts containing mentions of the subcellular localization of proteins and annotated them with the help of \textit{tagtog} web interface \cite{cejuela2014tagtog}. In addition to the abstracts, we also annotated 4 full-text PMC \cite{pmc} articles. The text annotation was done for protein entities, location entities, organism entities, protein-organism relations and protein-location relations.
+
+It was found out that around 60\% of the protein-location relations are present in the same sentence, i.e., both protein and location entity are present in the same sentence. Remaining 40\% of the protein-location relations are different-sentence relations, i.e., the participating entities are present in the different sentence. The interest finding was that for around 77\% of the protein-location relations, the participating entities are either present in the same sentence or neighboring sentence. We developed machine learning models to extract such instances of protein-location relations.
+
+We developed different models for extracting same-sentence relations and different-sentence relations. The model for extracting same-sentence relations was called \textit{SSModel} and the model for extracting relations in which the participating entities are present in the neighboring sentence was called \textit{DSModel}. Although \textit{SSModel} and \textit{DSModel} were trained using a bit different feature set, the features for both the models were extracted from the text, syntactic parse tree and dependency parse tree. In both models, the sentence was represented as a graph, with the tokens in the sentence forming the nodes of the graph and the dependency relations between the tokens acting as edges of the graph. This led to extracting graph based features that were found crucial.
+
+We also performed a lot of experimentation for feature selection. Using information gain analysis, we could reduce the number of features for \textit{SSModel} from 154421 to 66188 and for \textit{DSModel} from 310512 to 92514.
+
+We performed 5-fold cross validation to train the models. For evaluation on abstracts, the combined predictions of \textit{SSModel} and \textit{DSModel} could achieve a \textit{Precision} of 66.57\%, a \textit{Recall} of 67.61\% and a \textit{F score} of 66.73\% on the development set and a \textit{Precision} of 61.01\%, a \textit{Recall} of 66.55\% and a \textit{F score} of 63.15\% on the test set.
