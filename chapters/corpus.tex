@@ -18,7 +18,7 @@ To summarize, the GENIA event corpus have some issues and cannot be directly use
 
 \section{LocText}\label{sec:LocTextCorpus}
 
-I, along with my team, annotated a corpus consisting of 100 MEDLINE \cite{medline} abstracts. The corpus is called LocText. To select the abstracts that contain evidence of subcellular localization of protein, a list of PubMed \cite{pubmed} identifiers, cited by UniprotKB \cite{magrane2011uniprot} protein subcellular localization annotations, was made. From this list, 100 abstracts were chosen randomly. In order to have sufficient taxonomic variation, it was made sure that 50 abstracts belonged to human and 25 abstracts belonged each to budding yeast (Saccharomyces cerevisiae) and Arabidopsis (Arabidopsis thaliana).
+I, along with my team, annotated a corpus consisting of 100 MEDLINE \cite{medline} abstracts. We called the corpus "LocText". To select the abstracts that contain evidence of subcellular localization of protein, a list of PubMed \cite{pubmed} identifiers, cited by UniprotKB \cite{magrane2011uniprot} protein subcellular localization annotations, was made. From this list, 100 abstracts were chosen randomly. In order to have sufficient taxonomic variation, it was made sure that 50 abstracts belonged to human and 25 abstracts belonged each to budding yeast (\textit{Saccharomyces cerevisiae}) and Arabidopsis (\textit{Arabidopsis thaliana}).
 
 \section{Corpus annotation process and guidelines}
 
@@ -206,6 +206,46 @@ As seen in the Fig. \ref{fig:SentDistancePL}, it is also possible to find the re
 %TODO need a figure for distribution of PO PL in title as well.
 
 Therefore to summarize the discussion, it can be concluded that 316/515 abstract PL relations (Fig. \ref{fig:Abs_PL_Rel}) and 35 title PL relations are same-sentence relations, which mean that about 351/550 (63.81\%) of total PL relations are same-sentence relations. As seen from  Fig. \ref{fig:SentDistancePL}, 95/199 (47.74\%) different-sentence relations are at the distance of 1. Therefore, a total of 446/550 (81.09\%) PL relations are either same-sentence relations or have a sentence distance of 1. In other words, for about 81\% PL relations, the participating entities are either in the same sentence or in the neighboring sentences. Hence, even if these 81\% relations could be extracted with high accuracy, it would be possible to extract a significant amount of information from the text.
+
+\section{Annotation of full-text articles} \label{sec:full-text}
+
+We decided to annotate some full-text articles in order to compare and contrast the statistics of entities and relations with the abstracts-only corpus. The annotation guidelines developed for annotating abstracts in LocText was used for annotating full-text articles. To add full-text articles, PubMed identifiers for 100 selected abstracts were converted to PMC identifiers \cite{pubmedtopmc}. From this list of PMC identifiers, 4 full-text articles were added to "LocText". These 4 full-text articles would be collectively called as full-text subcorpus in this section.
+
+\begin{figure}
+\centering
+\begin{minipage}{.5\textwidth}
+  \centering
+  \includegraphics[width=.95\textwidth]{figures/1_FullTextEntities.png}
+  \caption{Entities in full-text articles}
+  \label{fig:FT_entities}
+\end{minipage}%
+\begin{minipage}{.5\textwidth}
+  \centering
+  \includegraphics[width=.95\textwidth]{figures/1_FullTextRelationDistribution.png}
+  \caption{Relations in full-text articles}
+  \label{fig:FT_relations}
+\end{minipage}
+\end{figure}
+
+As shown in Fig. \ref{fig:FT_entities}, there are 2009 protein entities, 787 location entities and 274 organism entities in the full-text subcorpus. There are a total of 551 relations, of which 269 are protein-organism relations and 282 are protein-location relations. Most of the 282 protein-location relations are repetitive. If duplicate protein-location relations are removed, the number of protein-location relations drops to 86.
+
+\begin{figure}
+\centering
+\begin{minipage}{.5\textwidth}
+  \centering
+  \includegraphics[width=.95\textwidth]{figures/2_FTTotalRelDist.png}
+  \caption{Total relations distribution}
+  \label{fig:FT_RelDist}
+\end{minipage}%
+\begin{minipage}{.5\textwidth}
+  \centering
+  \includegraphics[width=.95\textwidth]{figures/2_FTPLRelDist.png}
+  \caption{PL relations distribution}
+  \label{fig:FT_PLRelDist}
+\end{minipage}
+\end{figure}
+
+Fig. \ref{fig:FT_RelDist} and Fig. \ref{fig:FT_PLRelDist} shows the distribution of relations into same-sentence relations and different-sentence relations. As shown in Fig. \ref{fig:FT_RelDist}, around 83.49\% of total relations are same-sentence relations whereas only 16.51\% of total relations are different-sentence relations. The proportion worsens if only protein-location relations are considered. Fig. \ref{fig:FT_PLRelDist} shows that, about 92.2\% of the total protein-location relations are same-sentence relations while remaining 7.8\% are different-sentence relations. This distribution of protein-location relations in the full-text subcorpus is in stark contrast with the abstract subcorpus. While abstract subcorpus had around 40\% different-sentence protein-location relations (see Fig. \ref{fig:Abs_PL_Rel}), the full-text subcorpus has only 7.8\% different-sentence relations.
 
 \section{Linked annotation}
 
