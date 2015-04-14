@@ -2,17 +2,20 @@
 
 \section{Future work and directions}
 
-This section discusses the possible directions in which future work could be carried out in this problem of protein-subcellular location relation extraction.
+This section discusses possible directions for future improvements in a protein-location relation extraction method.
 
-\subsection{Experimentation with full-text articles}
+\subsection{Extending \textit{DSModel}}
 
-Section \ref{sec:FTPrimaryRes} presents primary results for experimentation on full-text subcorpus. However, in order to have robust performance figures, there is a need to annotate more full-text articles and then evaluating our models on the subcorpus. In addition, specific tuning experiments can be carried out to tune \textit{SSModel} to have a optimal performance on full-text subcorpus.
+As stated earlier, for 81\% protein-location relations, the involved entities are present in the same sentence or in the neighboring sentence (1 sentence apart). \textit{DSModel} was used for extracting the relations in which the participating entities are present 1 sentence apart in the text. However, there are some relations in which the involved entities are more than 1 sentence apart (Fig. \ref{fig:SentDistancePL}). For example, there are 53 and 23 relations in which the participating entities are present 2 and 3 sentences apart, respectively. If the relations that are 2 and 3 sentences apart are included, the coverage of relations increases to 90.7\% and 94.9\%, respectively. \textit{DSModel} could therefore be extended to extract relations in which the entities are 2 or even 3 sentence apart. However, trying to extract such relations would be real challenge, biggest problem being the construction of a combined sentence model by appropriately merging the sentence graphs of 3 or 4 sentences.
+
+\subsection{Full-text articles}
+
+Section \ref{sec:FTPrimaryRes} presents preliminary performance results on full-text articles. However, in order to have robust performance figures, there is a need to annotate, train, and test on more full-text articles. In addition, specific tuning experiments should be carried out to mold both \textit{SSModel} and \textit{DSModel} to full text.
 
 \subsection{Use of coreference}
 
-The experimentation with coreferences was carried out as discussed in Subsection \ref{subsubsec:coref}. However, it was not further experimented due to the fact that extracting coreferences using Stanford CoreNLP pipeline \cite{manning2014stanford} is a time consuming process. Since our methods are developed with the objective of being able to extract the protein-location relations on the fly, it was not possible to use coreferences as it takes a long time to parse coreferences from the text. Therefore, the coreference resolution approach was not carried forward. However, there is a scope to use fast coreference resolution extractor and use it along with our methods.
+Some experimentation with coreferences was carried out as discussed in Subsection \ref{subsubsec:coref}. However, it was not further studied due to the fact that resolving coreferences using the Stanford CoreNLP pipeline \cite{manning2014stanford} is a time-consuming process. Since my method was developed with the objective of extracting protein-location relations on the fly, i.e., fast, I discarded coreferences as a source of features. However, there is scope to use fast coreference resolution from other external methods and this warrants further investigation.
 
 \subsection{Use of different methods like Markov Logic Networks (MLN)}
 
-
-Yoshikawa et al. used Markov Logic Networks \cite{yoshikawa2011coreference} for the task of event extraction and achieved somewhat better results than the-state-of-the-art in BioNLP'09 which used graph based features like our method. Therefore, it would also be interesting to experiment with Markov Logic Networks for the task of protein-location relation extraction.
+Yoshikawa et al. used Markov Logic Networks \cite{yoshikawa2011coreference} for the task of event extraction and achieved somewhat better results than the-state-of-the-art in BioNLP'09. Therefore, it would also be interesting to experiment with MLNs for the task of protein-location relation extraction.
