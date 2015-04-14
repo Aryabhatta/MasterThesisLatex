@@ -166,7 +166,7 @@ Using these 5 criteria, an exhaustive search was conducted to select the best mo
 \end{minipage}
 \end{figure}
 
-Figures \ref{fig:AvgIG} and \ref{fig:MinIG} show the variation of \textit{F scores} of different models created AvgIG and MinIG, respectively. For AvgIG, the models are addressed as $Avg_1$ to $Avg_{109}$ depending on the number of feature generators used for training. Similarly, for MinIG, the models are addressed as $Min_{1}$ to $Min_{109}$. The last score and point in the line graph $Avg_{109}$ or $Min_{109}$ shows the performance of the respective model using all 109 feature generators, i.e., without any feature selection. Thus, the performance of $Avg_{109}$ and $Min_{109}$ is equal to the performance of initial model which is a \textit{F score} of 73.53 according to non unique evaluation method. In Fig. \ref{fig:AvgIG}, there are 3 models, viz., $Avg_{55}$, $Avg_{63}$ and $Avg_{64}$ that have better performance than the initial model ($Avg_{109}$). Similarly, in the figure \ref{fig:MinIG}, there are 3 models, viz., $Min_{66}$, $Min_{67}$ and $Min_{68}$ that have better performance than the initial model ($Min_{109}$). These 6 models were selected and analyzed.
+Figures \ref{fig:AvgIG} and \ref{fig:MinIG} show the variation of \textit{F scores} of different models created AvgIG and MinIG, respectively. For AvgIG, the models are addressed as $Avg_1$ to $Avg_{109}$ depending on the number of feature generators used for training. Similarly, for MinIG, the models are addressed as $Min_{1}$ to $Min_{109}$. The last score and point in the graph line $Avg_{109}$ or $Min_{109}$ shows the performance of the respective model using all 109 feature generators, i.e., without any feature selection. Thus, the performance of $Avg_{109}$ and $Min_{109}$ is equal to the performance of initial model, which is \textit{F score} of 73.53 according to the non unique evaluation method. In Fig. \ref{fig:AvgIG}, three models, viz., $Avg_{55}$, $Avg_{63}$ and $Avg_{64}$ that have better performance than the initial model ($Avg_{109}$). Similarly, in Figure \ref{fig:MinIG}, there are three models, viz., $Min_{66}$, $Min_{67}$ and $Min_{68}$ that have better performance than the initial model ($Min_{109}$). These 6 models further analyzed.
 
 \begin{figure}
 \centering
@@ -174,17 +174,17 @@ Figures \ref{fig:AvgIG} and \ref{fig:MinIG} show the variation of \textit{F scor
 \caption{Comparison of selected models with initial model}\label{fig:6ModelsComp}
 \end{figure}
 
-As shown in Fig. \ref{fig:6ModelsComp}, $Avg_{55}$ has near to best performance with respect to non unique evaluation mode, best performance with respect to unique evaluation mode and highest reduction in the number of features. The average number of feature for $Avg_{55}$ is around 13230 compared to 30900 in the initial model. Therefore, $Avg_{55}$ models was selected as the best \textit{SSModel}.
+As shown in Fig. \ref{fig:6ModelsComp}, $Avg_{55}$ has near to best performance with respect to non unique evaluation mode, best performance with respect to unique evaluation mode and the highest reduction in the number of features. The average number of feature for $Avg_{55}$ is around 13230 compared to 30900 in the initial model. Therefore, the $Avg_{55}$ model was selected as the best \textit{SSModel}.
 
 
 \subsection{Hyperparameter search results}
 
-Exhaustive hyperparameter search was conducted for the selected model $Avg_{55}$. The hyperparameter for support vector machine model is the regularization parameter $\mathbf{C}$ which determines the trade-off between training error and test error as explained in Subsection \ref{subsec:RegPar}. Experiments were conducted for finding the best regularization parameter by varying $\mathbf{C}$ from 0.0000 to 2.0000 with the steps of 0.0005. A value of 0.0005 was found to be the best hyperparameter value which results in increase in performance of 1.76 with respect to unique evaluation mode. The hyperparameter search was done to  maximize the performance with respect to unique evaluation mode.
+Exhaustive hyperparameter search was conducted for the selected model $Avg_{55}$. The hyperparameter for SVMs is the regularization parameter $\mathbf{C}$, which determines the trade-off between training error and test error as explained in Subsection \ref{subsec:RegPar}. Experiments were conducted for finding the best regularization parameter by varying $\mathbf{C}$ from 0.0000 to 2.0000 with steps of 0.0005. The value of 0.0005 was found to be the best hyperparameter value, which results in a performance increase of 1.76 points with respect to the unique evaluation mode. Note that the hyperparameter search was done to maximize the performance with respect to the unique evaluation mode.
 
 \begin{figure}
 \centering
 \includegraphics[scale=0.6]{figures/SSModelRegPar.png}
-\caption{Results before and after hyperparameter search}\label{fig:SSModelRegPar}
+\caption{Performance results before and after feature selection and hyperparameter search on the development set for the unique mode evaluation.}\label{fig:SSModelRegPar} % j: TODO, reference this figure in the text
 \end{figure}
 
 \subsection{Final Results}\label{subsec:SSFinalRes}
@@ -205,11 +205,11 @@ Exhaustive hyperparameter search was conducted for the selected model $Avg_{55}$
 \end{minipage}
 \end{figure}
 
-The optimal \textit{SSModel} trained after feature selection and hyperparameter search is finally evaluated on unseen test data. Since the test data is not touched during tuning of the model, the evaluation on test data is considered a robust estimate of the model performance and hence, can be termed as final results for \textit{SSModel}.
+The optimal \textit{SSModel} trained after feature selection and hyperparameter search is finally evaluated on unseen test data. Since the test data is not touched during the tuning of the model, the evaluation on test data is considered a robust estimate of the model performance and hence, can be termed as final results for \textit{SSModel}.
 
 Figure \ref{fig:SS_DevTest_NU} shows the comparison between average results of the optimal \textit{SSModel} on development set termed as "Dev Results" and test set termed as "Test Results". The results in Fig. \ref{fig:SS_DevTest_NU} are computed using non unique mode of evaluation. As shown in figure, the evaluation performance on the test set is nearly equal to the evaluation performance on the development set. While the average \textit{F score} for evaluation on development set is 71.01, the average \textit{F score} for evaluation on the test set is 71.29.
 
-Figure \ref{fig:SS_DevTest_U} shows similar comparison between evaluation performance on the development set and the test set, but using unique mode of evaluation. Similar to the trends in Fig. \ref{fig:SS_DevTest_NU}, the evaluation performance on the test set is nearly equal to the evaluation performance on development set. As shown in the figure, the average \textit{F score} for evaluation on development set is 63.22 whereas the average \textit{F score} for evaluation on the test set is 62.45.
+Figure \ref{fig:SS_DevTest_U} shows a similar comparison between the performance on the development set and the test set, but using unique mode of evaluation. Similar to the trends in Fig. \ref{fig:SS_DevTest_NU}, the evaluation performance on the test set is nearly equal to the evaluation performance on development set. As shown in the figure, the average \textit{F score} for evaluation on development set is 63.22, whereas the average \textit{F score} for evaluation on the test set is 62.45.
 
 \section{Results for \textit{DSModel} on abstracts subcorpus}
 
