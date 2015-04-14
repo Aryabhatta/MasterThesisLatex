@@ -4,6 +4,10 @@
 
 This section discusses the possible directions in which future work could be carried out in this problem of protein-subcellular location relation extraction.
 
+\subsection{Experimentation with full-text articles}
+
+Section \ref{sec:FTPrimaryRes} presents primary results for experimentation on full-text subcorpus. However, in order to have robust performance figures, there is a need to annotate more full-text articles and then evaluating our models on the subcorpus. In addition, specific tuning experiments can be carried out to tune \textit{SSModel} to have a optimal performance on full-text subcorpus.
+
 \subsection{Use of coreference}
 
 The experimentation with coreferences was carried out as discussed in Subsection \ref{subsubsec:coref}. However, it was not further experimented due to the fact that extracting coreferences using Stanford CoreNLP pipeline \cite{manning2014stanford} is a time consuming process. Since our methods are developed with the objective of being able to extract the protein-location relations on the fly, it was not possible to use coreferences as it takes a long time to parse coreferences from the text. Therefore, the coreference resolution approach was not carried forward. However, there is a scope to use fast coreference resolution extractor and use it along with our methods.
