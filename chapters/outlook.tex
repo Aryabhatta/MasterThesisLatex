@@ -1,21 +1,20 @@
 \chapter{Outlook}\label{chapter:outlook}
 
-\section{Future work and directions}
-
 This section discusses possible directions for future improvements in a protein-location relation extraction method.
 
-\subsection{Extending \textit{DSModel}}
+\section{Extending \textit{DSModel}}
 
-As stated earlier, for 81\% protein-location relations, the involved entities are present in the same sentence or in the neighboring sentence (1 sentence apart). There are some relations in which the involved entities are more than 1 sentence apart. For example, as shown in Fig. \ref{fig:SentDistancePL}, there are 53 and 23 relations in which the participating entities are present 2 and 3 sentences apart, respectively. If the relations that are 2 and 3 sentences apart are included, the coverage of relations increases to 90.7\% and 94.9\%, respectively. As of now, \textit{DSModel} is used for extracting the relations in which the entities are present 1 sentence apart in the text. It could, therefore, be extended to extract the relations in which the entities are 2 or even 3 sentences apart. However, trying to extract such relations would be real challenge, biggest problem being the construction of a combined sentence model by appropriately merging the sentence graphs of 3 or 4 sentences.
+As stated earlier, for 81\% of protein-location relations in abstracts, the involved entities are present in the same sentence or in the neighboring sentence (1 sentence apart). There are some relations in which the involved entities are more than 1 sentence apart. For example, as shown in Fig. \ref{fig:SentDistancePL}, there are 53 and 23 relations in which the participating entities are 2 and 3 sentences apart, respectively. If the relations that are 2 and 3 sentences apart are included, the coverage of relations increases to 90.7\% and to 94.9\%, respectively. As of now, \textit{DSModel} is used for extracting the relations in which the entities are present 1 sentence apart only. Ideally, therefore, \textit{DSModel} would be extended to extract relations in more distance sentences. However, trying to extract such relations would be a real challenge. For instance, an open question is how to construct a combined sentence model that may require the merging of the sentence graphs of 3 or 4 sentences.
 
-\subsection{Full-text articles}
+\section{Full text}
 
 Section \ref{sec:FTPrimaryRes} presents preliminary performance results on full-text articles. However, in order to have robust performance figures, there is a need to annotate, train, and test on more full-text articles. In addition, specific tuning experiments should be carried out to mold both \textit{SSModel} and \textit{DSModel} to full text.
 
-\subsection{Use of coreference}
+\section{Coreference resolution}
 
-Some experimentation with coreferences was carried out as discussed in Subsection \ref{subsubsec:coref}. However, it was not further studied due to the fact that resolving coreferences using the Stanford CoreNLP pipeline \cite{manning2014stanford} is a time-consuming process. Since my method was developed with the objective of extracting protein-location relations on the fly, i.e., fast, I discarded coreferences as a source of features. However, there is scope to use fast coreference resolution from other external methods and this warrants further investigation.
+Some experimentation with coreferences was carried out as discussed in Subsection \ref{subsubsec:coref}. However, it was not further studied due to the fact that resolving coreferences using the Stanford CoreNLP pipeline \cite{manning2014stanford} is a time-consuming process. Since my method was developed with the objective of extracting protein-location relations on the fly, i.e., fast, I discarded coreference resolution as a source for features. However, there is scope to use fast coreference resolution from other external methods and this warrants further investigation.
 
-\subsection{Use of different methods like Markov Logic Networks (MLN)}
+\section{Different methods like Markov Logic Networks (MLNs)}
 
-Yoshikawa et al. used Markov Logic Networks \cite{yoshikawa2011coreference} for the task of event extraction and achieved somewhat better results than the-state-of-the-art in BioNLP'09. Therefore, it would also be interesting to experiment with MLNs for the task of protein-location relation extraction.
+
+Yoshikawa et al. used Markov Logic Networks \cite{yoshikawa2011coreference} for the task of event extraction and achieved somewhat better results than state-of-the-art SVMs in BioNLP'09. Therefore, it would also be interesting to experiment with MLNs for the task of protein-location relation extraction.
