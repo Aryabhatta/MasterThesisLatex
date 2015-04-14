@@ -135,7 +135,7 @@ This is the fourth and last stage in the pipeline of relation extraction method.
 \section{Graph representation} \label{sec:graphRep}
 % Details about graph representation along with nice explanatory picture
 
-For the purpose of feature extraction, the data is also used in the form of a graph. A sentence is the most basic unit of the data which is represented as a graph. The tokens in the sentence form the nodes of the graph and the dependency relations between the tokens form the edges in the graph. The models \textit{SSModel} and \textit{DSModel} uses different representation of graphs,  which is explained in the following subsections.
+For the purpose of feature extraction, the data is also used in the form of a graph. Specifically, sentences are represented as a graph, their tokens are the nodes of the graph and the dependency relations between the tokens are the edges in the graph. The models \textit{SSModel} and \textit{DSModel} use different a graph representation, which is explained in the following subsections.
 
 \subsection{Graph representation for \textit{SSModel}}\label{sec:graphSSModel}
 
@@ -146,16 +146,16 @@ For the purpose of feature extraction, the data is also used in the form of a gr
 \caption{Graph representation of a sentence in \textit{SSModel}}\label{fig:SSGraph}
 \end{figure}
 
-The representation of a sentence as a graph is shown Fig. \ref{fig:SSGraph}. The sentence "Discrete domains mediate the light-responsive nuclear and cytoplasmic localization of Arabidopsis COP1." is tokenized and every token forms a node in the graph. The displayed node shows the text of the token in the first row and its part of the speech(POS) tag and the token number joined by a hyphen in the second row. The tokens that are part of a protein entity are shown with a green background, the tokens that are part of a location entity are shown with a magenta background and the tokens that are part of organism entity are shown with a yellow  background. As seen in the graph, \textit{"COP1"} is a protein entity, \textit{"Arabidopsis"} is an organism name and \textit{"nuclear"} and \textit{"cytoplasmic"} are the locations mentioned in the sentence. The nodes in the graph are connected by edges, which are the dependency
+The representation of a sentence as a graph is shown in Fig. \ref{fig:SSGraph}. The sentence \textit{"Discrete domains mediate the light-responsive nuclear and cytoplasmic localization of Arabidopsis COP1."} is tokenized and every token forms a node in the graph. A displayed node shows the text of its token in the first row and its part-of-speech (POS) tag and the token number joined by a hyphen in the second row. Tokens that are part of a protein entity are shown with a green background, tokens that are part of a location entity are shown with a magenta background and tokens that are part of organism entity are shown with a yellow background. As seen in the graph, \textit{"COP1"} is a protein entity, \textit{"Arabidopsis"} is an organism name and \textit{"nuclear"} and \textit{"cytoplasmic"} are the locations mentioned in the sentence. The nodes in the graph are connected by edges, which are the dependency
  relations between the tokens. The type of the edges are shown with colored boxes. For example, there is a dependency edge of the type \textit{amod} from the token \textit{"domains"}  to  the token \textit{"Discrete"}. Since the dependency relations between the tokens are directed, this graph representation is a directed graph.
 
-Also shown are dashed edges which represents the protein-location relations. Obviously, these dashed edges are just shown for representation and do not form edges in the actual graph.
+Also shown are dashed edges, which represent the protein-location relations. Obviously, these dashed edges are just shown for representation and do not form edges in the actual model graph.
 
 \subsection{Graph representation for \textit{DSModel}}\label{sec:graphDSModel}
 
 %TODO add figure for multi sentences
 
-For \textit{DSModel}, the graph representation is bit different compared with that in \textit{SSModel}. In \textit{DSModel}, pair of sentences are considered where every pair consists of neighboring sentences. Figure \ref{fig:DSGraph} shows an example of \textit{DSModel} graph representation. Similar to the graph representation in \textit{SSModel}, the sentence is tokenized and every token forms a node in the graph. The tokens that are part of protein entity are in green, those part of organism entity are in yellow and the tokens that are part of a location entity are in magenta. Since two sentences are considered at a time, the graphs of these sentences are concatenated together and considered as a combined sentence as shown in Fig. \ref{fig:DSGraph}.
+For \textit{DSModel}, the graph representation is a bit different compared to that in \textit{SSModel}. In \textit{DSModel}, pair of sentences are considered where every pair consists of the two neighboring sentences. Figure \ref{fig:DSGraph} shows an example of \textit{DSModel} graph representation. Similar to the graph representation in \textit{SSModel}, the sentence is tokenized and every token forms a node in the graph. The tokens that are part of protein entity are in green, those part of organism entity are in yellow and the tokens that are part of a location entity are in magenta. Since two sentences are considered at a time, the graphs of these sentences are concatenated together and considered as a combined sentence as shown in Fig. \ref{fig:DSGraph}.
 
 \begin{figure}
 \centering
@@ -163,31 +163,29 @@ For \textit{DSModel}, the graph representation is bit different compared with th
 \caption{Graph representation of a combined sentence in \textit{DSModel}}\label{fig:DSGraph}
 \end{figure}
 
-
-The edges in the graph are primarily dependency edges between the tokens in two sentences. In addition to the dependency edges, the graph is augmented with several other edges. The additional edges are described as follows:
+The edges in the graph are primarily dependency edges between the tokens in two sentences. In addition to the dependency edges, the graph is augmented with several other edges. The additional edges are:
 
 \begin{itemize}
 
-\item \textbf{Root to root connection}: the root of the first sentence is connected with the root of the second sentence. This connection helps in finding the path from a entity in one sentence to an entity in another sentence. This connection is bidirectional. As shown in the fig. \ref{fig:DSGraph}, the root of the first sentence \textit{"in"} is connected via a dependency edge to the root of the second sentence \textit{"domains"}. The forward dependency edge between the roots is labeled \textit{rootDepFwd} and the backward dependency edge between the roots is labeled \textit{rootDepBkwd}.
+\item \textbf{Root to root connection}: the root of the first sentence is connected with the root of the second sentence. This connection helps in finding the path from a entity in one sentence to an entity in another sentence. This connection is bidirectional. As shown in Fig. \ref{fig:DSGraph}, the root of the first sentence \textit{"in"} is connected via a dependency edge to the root of the second sentence \textit{"domains"}. The forward dependency edge between the roots is labeled \textit{rootDepFwd} and the backward dependency edge between the roots is labeled \textit{rootDepBkwd}.
 
-\item \textbf{Connections between same words}: If some of the tokens in both sentences are nouns and have similar text, then these tokens are connected by edges. These edges are directed from tokens in the first sentence to the tokens in the second sentence.
+\item \textbf{Connections between same words}: if some of the tokens in both sentences are nouns and have similar text, then these tokens are connected by edges. These edges are directed from tokens in the first sentence to the tokens in the second sentence.
 
-\item \textbf{Connections between protein entity and "protein" word}: These are special connections which try to gauge the coreferent mentions in the most naive manner. If one of the sentence contains a word "protein" and does not contain any protein entity, then it is likely that the word "protein" in this sentence may actually be referring to the protein entities in other sentence. Therefore, a connection is made from the word "protein" to the protein entities in other sentence with the expectation that if this is a case of coreferent mention, then it will be easier to extract the path.
+\item \textbf{Connections between protein entity and "protein" word}: these are special connections that try to gauge coreferent mentions in the most naive manner. If one of the sentence contains a word "protein" and does not contain any protein entity, then it is likely that the word "protein" in this sentence may actually be referring to the protein entities in other sentence. Therefore, a connection is made from the word "protein" to the protein entities in other sentence with the expectation that if this is a case of coreferent mention, then it will be easier to extract the path.
 
-\item \textbf{Connections between location entity and "location" word}: With the similar assumption as mentioned in the previous point, it is assumed that if a sentence has a word "localize", "location" or "compartment" and it does not have a location entity, then it might be the case that this word is a coreferent mention of the location entity present in the other sentence. Therefore, an extra edge is added between the words containing text "location", "localize" or "compartment" to the location entity. This is a directional edge from the word to the entity. In Fig. \ref{fig:DSGraph}, although there is a word \textit{compartment} in the first sentence, the connections are not shown in the figure to keep the figure readable.
+\item \textbf{Connections between location entity and "location" word}: with the similar assumption as mentioned in the previous point, it is assumed that if a sentence has a word "localize", "location" or "compartment" and it does not have a location entity, then it might be the case that this word is a coreferent mention of the location entity present in the other sentence. Therefore, an extra edge is added between the words containing text "location", "localize" or "compartment" to the location entity. This is a directional edge from the word to the entity. In Fig. \ref{fig:DSGraph}, although there is a word \textit{compartment} in the first sentence, the connection are not shown to keep the figure readable.
 
 \end{itemize}
 
-Figure \ref{fig:DSGraph} is a representational figure. In the figure, the entity \textit{Stp22p} present in the first sentence has a PL relationship with location entities \textit{vacuole} and \textit{vacuolar} present in the second sentence. These edges are denoted by dashed lines. As mentioned previously, the dashed edges are just for the purpose of illustration and do not form true edges in the graph used for feature extraction. In this way, \textit{DSModel} considers the combination of two neighboring sentences as a single sentence unit and extracts the features from such a combined sentence.
+For instance, in Figure \ref{fig:DSGraph}, the entity \textit{Stp22p} of the first sentence has a PL relationship with location entities \textit{vacuole} and \textit{vacuolar} present in the second sentence. These edges are denoted by dashed lines. As mentioned previously, the dashed edges are just for the purpose of illustration and do not form true edges in the graph used for feature extraction. In this way, \textit{DSModel} considers the combination of two neighboring sentences as a single sentence unit and extracts the features from such a combined sentence.
 
 %\section{Data Structures} \label{sec:dataStructure}
 
-
 \section{Feature extraction}\label{sec:featExp}
 
-This section explains the process of feature extraction. The format of the feature set to be written for $SVM^{light}$ is explained in detail in Section \ref{sec:training}. Although there are a few differences in the feature sets of \textit{SSModel} and \textit{DSModel}, most of the features are common to both the models.
+This section explains the process of feature extraction. The format of the feature set to be written for $SVM^{light}$ is explained in detail in Section \ref{sec:training}. Although there are a few differences in the feature sets of \textit{SSModel} and \textit{DSModel}, most of the features are common to both models.
 
-There are three feature subspaces from which the features can be extracted. These feature subspaces correspond to the sequences, syntactic parse trees and dependency parse trees \cite{jiang2007systematic}. A variety of features are extracted from all these feature subspaces and combined for optimal performance. An overview of features can be presented as follows.
+There are three sources from which the features can be extracted, namely: sequences (text), syntactic parse trees and dependency parse trees \cite{jiang2007systematic}. A variety of features are extracted from all these sources and combined for optimal performance. An overview of the features can be presented as follows.
 
 \subsection*{Sentence features}
 
@@ -195,15 +193,16 @@ Sentence features are extracted for every potential relation that is a part of t
 
 \subsection*{Token features}
 
-Token features are extracted for tokens that are part of the entities and for tokens that are in linear and dependency context of the entities. Every entity is represented by a head token, which is calculated by a simple heuristic.
+Token features are extracted for tokens that are part of the entities and for tokens that are in a linear dependency with the entities. Every entity is represented by a head token, which is calculated by a simple heuristic. % j: which heuristic?
 
-Token features include token text, masked token text, stem, POS tag, etc. Most of the features are binary and some are integer-valued features. There are features for binary tests on a token, e.g., whether first letter of token is in capital case or not (capitalization test), whether some letter in the middle is capital case or not, etc. Other binary tests include presence of a hyphen, presence of forward slash, presence of backward slash, presence of digits, etc. Character bigrams and trigrams of the token also contribute to the token features.
+% j: what is masked token text?
+Token features include token text, masked token text, stem, POS tag, etc. Most of the features are binary and some are integer-valued features. There are features for binary tests on a token, e.g., whether the first letter of token is in capital case or not (capitalization test), whether some letter in the middle is in capital case or not, etc.. Other binary tests include presence of a hyphen, presence of forward slash, presence of backward slash, presence of digits, etc.. Character bigrams and trigrams of the token also contribute to the token features.
 
 \subsection*{Linear context and dependency chain}
 
-Token features are also extracted for tokens that are present in the linear and dependency context. A linear context of length 3 is considered, i.e., features are extracted for next 3 tokens and previous 3 tokens of the token under consideration.
+Token features are also extracted for tokens that are present in the linear and dependency context. A linear context of length 3 is considered, i.e., features are extracted for the next and previous 3 tokens relative to the token under consideration.
 
-A dependency chain length of 3 is considered for the dependency context. Incoming and outgoing dependencies are considered for dependency related features. For example, in the case of incoming dependencies, features are extracted for 'source' token (or 'from' token) and its incoming, outgoing dependencies are considered too. This goes on upto the dependency depth of 3. In addition to the token features, the dependency edge types are also considered while extracting dependency chain features.
+A dependency chain of length 3 is considered for the dependency context. Incoming and outgoing dependencies are considered for dependency-related features. For example, in the case of incoming dependencies, features are extracted for the \emph{source}/\emph{from} token and its incoming and outgoing dependencies are considered too. This goes on up to a dependency depth of 3. In addition to the token features, the dependency edge types are also considered while extracting dependency chain features.
 
 \subsection*{Dependency features}
 
@@ -213,23 +212,23 @@ A dependency chain length of 3 is considered for the dependency context. Incomin
 \caption{Shortest Path from protein entity \textit{COP1} to location entity \textit{cytoplasmic}}\label{fig:shortPath}
 \end{figure}
 
-Lots of features are extracted depending on the dependency graph. Using Floyd-Warshall algorithm, shortest path between a protein entity and a location entity in a potential PL relation is calculated. For the purpose of extracting shortest path, an undirected graph of dependencies is considered. Figure \ref{fig:shortPath} shows the shortest path from protein entity \textit{"COP1"} to location entity \textit{"cytoplasmic"}. The path is shown in bold. Note that undirected graph is considered only for the purpose of extracting shortest path.  Most of the dependency based features depend on this shortest path. While extracting the features, the original direction of edges in the shortest path is also taken into consideration. The length of the shortest path contributes an integer valued feature in addition to the binary feature for each length.
+Many features are extracted depending on the dependency graph. Using the Floyd-Warshall algorithm, the shortest path between a protein entity and a location entity in a potential PL relation is calculated. For the purpose of extracting the shortest path, an undirected graph of dependencies is considered. Figure \ref{fig:shortPath} shows the shortest path from protein entity \textit{"COP1"} to location entity \textit{"cytoplasmic"}. The path is shown in bold. Note that an undirected graph is considered only for the purpose of extracting the shortest path. Most of the dependency-based features depend on this shortest path. While extracting the features, the original direction of the edges in the shortest path is also taken into consideration. The length of the shortest path contributes an integer-valued feature in addition to the binary feature for each length.
 
 Token features are extracted for terminal features of the shortest path, which are head tokens of the entities. Some of the other path related features include token features of the internal tokens in the path, features for every edge in the path, features for internal edges in the path, etc.
 
 \subsubsection*{N-gram dependency features}
 
-The protein and location entities are represented by their respective head tokens.  The shortest path between two entities is actually a shortest path between the head tokens. However, there need not be a single shortest path between two entities. There can be multiple paths between two entities with same distance or same minimum distances. All such paths with minimum distance are computed and features are extracted for each one of them.
+The protein and location entities are represented by their respective head tokens. The shortest path between two entities is actually a shortest path between the head tokens. However, there need not be a single shortest path between two entities. There can be multiple paths between two entities with same distance or same minimum distances. All such paths with minimum distance are computed and features are extracted for each one of them.
 
-For every such minimum distance path from the set of minimum distance paths, parts of the paths are considered for N-gram features. For example, set of all 2 consecutive tokens are considered for 2-gram features and set of all 3 consecutive tokens are considered for 3-gram features, etc. 2,3 and 4-gram features are extracted from all such paths. These features also include token features that are part of the corresponding set, dependencies in the set, directions of dependencies in the set, etc.
+For every such minimum distance path from the set of minimum distance paths, parts of the paths are considered for N-gram features. For example, a set of all 2 consecutive tokens are considered for 2-gram features and a set of all 3 consecutive tokens are considered for 3-gram features, etc.. 2-, 3- and 4-gram features are extracted from all such paths. These features also include token features that are part of the corresponding set, dependencies in the set, directions of dependencies in the set, etc.
 
 \subsection*{Other features}
 
-Other features include relative order of the entities, the features of the tokens that lie between entities in a potential relation, features depending on the presence of word "protein", presence of other special words between two entities, etc.
+Other features include relative order of the entities, the features of the tokens that lie between entities in a potential relation, features depending on the presence of word "protein", presence of other special words between two entities, etc. % j: which 'special' words? List them, if not here, in a footnote or appendix
 
 \subsection*{Features specific to \textit{DSModel}}
 
-Some features are very specific to the \textit{DSModel} since it involves processing pair of sentence as a combined sentence along with extra links. Some of those features include bag of words/stem/POS of tokens in individual sentences, binary tests like presence of an entity in first sentence or second sentence,  etc. Importantly, the \textit{DSModel} also makes use of predictions of the \textit{SSModel}. The features depending on \textit{SSModel} predictions include binary tests like whether the entities considered in the potential relations have a same sentence relation or not. The intuition behind using same sentence predictions is that the entities that already have a same sentence relations is unlikely to have a different sentence relations in most of the cases.
+Some features are specific to the \textit{DSModel} since it involves processing a pair of sentences as a combined sentence along with extra links. Some of those features include bag of words/stem/POS of tokens in individual sentences, binary tests like the presence of an entity in the first sentence or second sentence, etc. Importantly, the \textit{DSModel} also uses the predictions of the \textit{SSModel}. The features depending on \textit{SSModel} predictions include binary tests like whether the entities considered in the potential relations have a predicted same-sentence relation or not. The intuition behind using same-sentence predictions is that entities that already have a same-sentence relation are unlikely to have a different-sentence relation in most cases.
 
 \section{Feature Selection}\label{sec:featSel}
 
