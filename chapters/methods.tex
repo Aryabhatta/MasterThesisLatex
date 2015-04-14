@@ -36,33 +36,31 @@ The same-sentence model designed for extracting same-sentence relations is refer
 %- Corpus-->Sentence Segmentation-->Tokenization-->Syntactic & dependency Parsing-->Graph Representation-->  Feature Extraction --> ML Model training -->Classification on Test
 %- Put a nice picture explaining the pipeline
 
-The overall relation extraction method consists of following major stages:
+The overall relation extraction method consists of the following major stages:
 
 \begin{enumerate}
 
 \item \textbf{Data collection \& Corpus creation}
 
-For the LocText corpus, the annotated data is present in the JSON files that can be downloaded through the tagtog web-interface \cite{cejuela2014tagtog}. However, the JSON files only contains the text of the annotations. The whole document text is present in a separate set of HTML files. Every JSON or HTML file corresponds to a particular MEDLINE \cite{medline} document. To avoid reading from the plain files repeatedly, we decided to create a XML file containing all the corpus data along with annotations and structural details like parse tree, dependency graphs, etc.
+LocText corpus's annotations are formatted in JSON files and can be downloaded on the tagtog web interface: \url{https://www.tagtog.net/-corpora/loctext}. However, the JSON files only contains the text of the annotations. The whole document texts are present in a separate set of HTML files. Every JSON or HTML file corresponds to a particular MEDLINE \cite{medline} document.
+
+To avoid re-calculating model features, I decided to create a XML file containing all the corpus data along with annotations and structural details like parse tree, dependency graphs, etc. Figure \ref{fig:corpusCreation} outlines the process  of corpus creation. The data read from a HTML file is parsed using the Stanford CoreNLP pipeline \cite{manning2014stanford}. In every HTML file, the data is divided into title and abstract (for abstracts). The text is first segmented into sentences (\textit{Sentence Splitting}). Every sentence is then split into tokens (\textit{Tokenization}). Predicted part-of-speech tags are assigned to every token (\textit{Syntactic Parsing}). Finally, the dependency relations between the tokens in the sentence are computed (\textit{Dependency Parsing}). The steps of \textit{Tokenization}, \textit{Syntactic Parsing} and \textit{Dependency Parsing} are repeated for every sentence. These stages of processing are explained in detail in Section \ref{sec:NLPPipeline}.
 
 \begin{figure}
 \centering
 \includegraphics[scale=0.58]{figures/Corpus_Creation.png}
-\caption{The process of creating a XML corpus file}\label{fig:corpusCreation}
+\caption{The process of creating a XML corpus file.}\label{fig:corpusCreation}
 \end{figure}
 
-Figure \ref{fig:corpusCreation} outlines the process  of corpus creation. The data read from a HTML file is parsed using Stanford CoreNLP pipeline \cite{manning2014stanford}. In every HTML file, the data is divided into title and abstract. The text from HTML file, which consists of a title and an abstract, is initially segmented into sentences (\textit{Sentence Splitting}).
-
-Every sentence is then split into tokens (\textit{Tokenization}). Part of the speech tags are found out for every token (\textit{Syntactic Parsing}). Finally, the dependency relations between the tokens in the sentence are computed (\textit{Dependency Parsing}). The steps of \textit{Tokenization}, \textit{Syntactic Parsing} and \textit{Dependency Parsing} are repeated for every sentence. These stages of processing are explained in detail in Section \ref{sec:NLPPipeline}.
-
-All unstructured (plain text) and structured (sentences, tokens, POS tags, dependencies) information is then combined with annotations present in JSON the files and written to the XML corpus file.
+All unstructured (plain text) and structured (sentences, tokens, POS tags, dependencies) information is then combined with annotations present in the JSON files and written to the final XML corpus file.
 
 \begin{figure}
 \centering
 \includegraphics[scale=0.4]{figures/XMLSchema1.png}
-\caption{Coarse XML schema}\label{fig:XMLSchema1}
+\caption{XML file skeleton.}\label{fig:XMLSchema1}
 \end{figure}
 
-The coarse XML schema of the corpus XML file can be shown in Fig. \ref{fig:XMLSchema1}. Every document (corresponds to a MEDLINE document) has two sections, viz. title and abstract. Both sections have similar structure of internal data representation denoted by \texttt{DATA FORMAT}. The data representation format \texttt{DATA FORMAT} is elaborated in Fig. \ref{fig:XMLSchema2}.
+A coarse skeleton sample of the corpus XML file can be shown in Fig. \ref{fig:XMLSchema1}. Every document (MEDLINE document) has two sections, viz. title and abstract. Both sections have similar structure of internal data representation denoted by \texttt{DATA FORMAT}. The data representation format \texttt{DATA FORMAT} is elaborated in Fig. \ref{fig:XMLSchema2}.
 
 \begin{figure}
 \centering
@@ -72,7 +70,7 @@ The coarse XML schema of the corpus XML file can be shown in Fig. \ref{fig:XMLSc
 
 The \texttt{DATA FORMAT} shown in Fig. \ref{fig:XMLSchema2} represents the XML format used to store the data inside the title and the abstract node. The nested nodes are displayed with a tab indentation. The figure is representative and does not repeat the structures of the nodes for similar parent nodes. For example, even though only the node \texttt{sentence s1} shows the structure of internal nodes like \texttt{tokens}, essentially all the sentence nodes \texttt{sentence s2..sN} have the same structure of the internal nodes.
 
-The nodes in the \texttt{DATA FORMAT} can be explained as follows:
+The nodes in the \texttt{DATA FORMAT} are:
 
 \begin{itemize}
 \item \texttt{sentences}: This node represents collection of sentences.
@@ -108,11 +106,11 @@ The nodes in the \texttt{DATA FORMAT} can be explained as follows:
 
 \item \textbf{Training \& evaluating \textit{SSModel}}
 
-This is second step in the relation extraction method. This step focuses solely on extracting same sentence protein-location relations from the text.
+This is the third stage in the relation extraction method. This stage focuses solely on extracting same-sentence protein-location relations from text.
 
-The data is read from the corpus XML file and stored in internal data structures in the main memory. Reading the file once also saves unnecessary I/O time and improves the execution time by a small margin.
+The data is read from the corpus XML file and stored in internal data structures in the main memory. Reading the file once also saves unnecessary I/O accesses and improves the execution time by a small margin.
 
-Since this step tries to extract the protein-location relations present in the same sentence only, every sentence in the document is analyzed one by one. In every sentence, potential protein-location relations are found out and the features are written for each one of them along with the target label. A relation is considered a potential relation if both the protein entity and the location entity are present in the same sentence. The potential relations that are present in the manual annotations are considered true relations and are denoted by target label $1$. On the other hand, the potential relations that are not found in the manual annotations are considered negative relations and are denoted by target label $-1$. Every relation is written as a feature vector. The support vector machine library $SVM^{light}$ \cite{joachims1999making} is used for the purpose of training and classification.  The data representation for $SVM^{light}$ is discussed in more detail in Section \ref{sec:training}.
+Since this step tries to extract the protein-location relations present in a same sentence only, every sentence in the document is analyzed one by one. In every sentence, potential protein-location relations are found out and the features are written for each one of them along with the target label. A relation is considered a potential relation if both the protein entity and the location entity are present in the same sentence. The potential relations that are actually present in the manual annotations are considered true relations and are denoted by target label $1$. On the other hand, the potential relations that are not found in the manual annotations are considered negative relations and are denoted by target label $-1$. Every relation is written as a feature vector. The support vector machine library $SVM^{light}$ \cite{joachims1999making} is used for the purpose of training and classification.  The data representation for $SVM^{light}$ is discussed in more detail in Section \ref{sec:training}.
 
 The data is broken down into training set, development set and test set. A feature file is created each for training set, development set and test set. These files are then used by $SVM^{light}$ to train the classifiers. A model is learned from the training data. This model classifies the examples in the development set and test set. The development set is used for the tuning of the hyperparameters. The model classifies the test set examples using hyperparameter learned on the development set. The process of training and cross-validation is explained in detail in Section \ref{sec:training}.
 
@@ -120,9 +118,9 @@ The results of the classification are then evaluated. Various evaluation criteri
 
 \item \textbf{Training \& evaluating \textit{DSModel}}
 
-This step aims to extract different-sentence relations. As discussed in Section \ref{sec:ssModeldsModel}, a model is trained for extracting different-sentence relations with sentence distance of 1. A different-sentence relation with sentence distance of 1 implies that the participating protein and location entities are in neighboring sentence. As done during the training and evaluation of \textit{SSModel}, the data is read from the corpus XML file once and stored in the internal data structures.
+This third stage aims to extract different-sentence relations. As discussed in Section \ref{sec:ssModeldsModel}, a model is trained for extracting different-sentence relations with sentence distance of 1. A different-sentence relation with sentence distance of 1 implies that the participating protein and location entities are in the neighboring sentence. As done during the training and evaluation of \textit{SSModel}, the data is read from the corpus XML file once and stored in the internal data structures.
 
-For every document, the sentences are processed in pairs and every pair consists of neighboring sentences. The potential different sentence protein-location relations are found out and the relations are written to the SVM feature file. A potential protein-location relation is the one which has participating entities in  neighboring sentences. For example, if sentences \texttt{s1} and \texttt{s2} are being processed, then the protein entities in \texttt{s1} can have a potential PL relationship with location entities in \texttt{s2} and vice versa.
+For every document, the sentences are processed in pairs and every pair consists of neighboring sentences. The potential different sentence protein-location relations are found out and the relations are written to the SVM feature file. A potential protein-location relation is the one which has participating entities in neighboring sentences. For example, if sentences \texttt{s1} and \texttt{s2} are being processed, then the protein entities in \texttt{s1} can have a potential PL relationship with location entities in \texttt{s2} and vice versa.
 
 Features are extracted for all potential relations and are written to the feature file along with the target label. As done during the training and evaluation of \texttt{SSModel}, a feature file is created each for the training set, development set and test set.
 
@@ -130,7 +128,7 @@ The results of the classification are evaluated using various evaluation criteri
 
 \item \textbf{Combined evaluation}
 
-This is the last step in the pipeline of relation extraction method. This step primarily combines the predictions of \texttt{SSModel} and \texttt{DSModel}. The  combined predictions are compared with original target labels and uniquely evaluated. Unique and non-unique evaluation modes are explained in Section \ref{subsec:UniqNonUniqEval}.
+This is the fourth and last stage in the pipeline of relation extraction method. This stage primarily combines the predictions of \texttt{SSModel} and \texttt{DSModel}. The combined predictions are compared with original target labels and evaluated. Unique and non-unique evaluation modes are explained in Section \ref{subsec:UniqNonUniqEval}.
 
 \end{enumerate}
 
