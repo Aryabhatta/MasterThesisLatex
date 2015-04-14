@@ -247,7 +247,7 @@ However, for our task of relation extraction, the features are very complex and 
 
 Several approaches for the task of feature selection are used and they are explained below.
 
-\subsection{Leave-one-out}\label{subsec:LeaveOneOut}
+\subsection{Leave one out}\label{subsec:LeaveOneOut}
 
 For the task of protein-location relation extraction, the feature generators are the functions that extract certain characteristics. Such feature generators are commented out in a \emph{leave-one-out} fashion such that \emph{all} the features extracted by that function are discarded. The performance of the method is then calculated. This process is repeated for all feature generators to find out which feature generators produce irrelevant features. The feature generators, which upon commenting out boost the performance of the model, can be then removed from the final set of feature generators.
 

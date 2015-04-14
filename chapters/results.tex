@@ -213,19 +213,19 @@ Figure \ref{fig:SS_DevTest_U} shows a similar comparison between the performance
 
 \section{Results for \textit{DSModel} on abstracts subcorpus}
 
-This section discusses the evaluation of performance of the different-sentence model (\textit{DSModel}) on abstracts subcorpus. The goal of the \textit{DSModel} is to extract the protein-location relations in which either of the entity is present in a different sentence. The overall objective of using two different models, viz. \textit{SSModel} and \textit{DSModel} is to extract as many protein-location relations as possible.
+This section discusses the evaluation of performance of the different-sentence model (\textit{DSModel}) on the abstracts subcorpus. The goal of the \textit{DSModel} is to extract the protein-location relations in which either of the entity is present in a different sentence. The overall objective of using two different models, viz. \textit{SSModel} and \textit{DSModel} is to extract as many protein-location relations from a whole document as possible.
 
 The evaluation of performance of the \textit{DSModel} is, in a way, dependent on the predictions of the \textit{SSModel}. If unique mode of evaluation (Section \ref{subsubsec:UniqEval}) is considered, then it may happen that a particular relation predicted by the \textit{DSModel} is already predicted by the \textit{SSModel}. In this particular case, the \textit{DSModel} is not adding any extra information to the set of predictions. Therefore, utmost care is taken while evaluating the results of the \textit{DSModel}. Several evaluation criteria are developed to understand how the \textit{DSModel} is supplementing the set of predictions. These evaluation criteria are:
 
 \begin{itemize}
 
-\item \textit{SVM Performance:} This criteria describes the performance of the SVM model. This is exactly the same as non unique mode of the evaluation (Subsection \ref{subsubsec:NonUniqEval}).
+\item \textit{SVM Performance:} this evaluation describes the performance of the SVM model. This is exactly the same as non unique mode of the evaluation (Subsection \ref{subsubsec:NonUniqEval}).
 
-\item \textit{Unique performance:} This criteria compares the set of predictions of the \textit{DSModel} with the unique set of relations for the document in the corpus. This is exactly same as unique mode of the evaluation (Subsection \ref{subsubsec:UniqEval}).
+\item \textit{Unique performance:} this evaluation compares the set of predictions of the \textit{DSModel} with the unique set of relations for the document in the corpus. This is exactly the same as the unique mode of evaluation (Subsection \ref{subsubsec:UniqEval}).
 
-\item \textit{Manipulated prediction:} In this evaluation mode, the predictions of the \textit{DSModel} are manipulated to some extent. The intuition behind this manipulation is, if a relation is predicted positive by the \textit{SSModel} (in other words, the \textit{SSModel} predicts that the entities in the relation are related and present in the same sentence), then it is highly unlikely that the same entities could be related in a different-sentence relation. Therefore, if a relation predicted by the \textit{DSModel} is found in the list of positive predictions by \textit{SSModel}, then that particular relation prediction is manipulated into a negative prediction, irrespective of whether it was a positive prediction or a negative prediction earlier.
+\item \textit{Manipulated prediction:} in this evaluation mode, the predictions of the \textit{DSModel} are manipulated to some extent. The intuition behind this manipulation is, if a relation is predicted positively by the \textit{SSModel} (in other words, the \textit{SSModel} predicts that the entities in the relation are related and present in the same sentence), then it is unlikely that the same entities could be related in a different-sentence relation or otherwise they would not add anything in unique evaluation mode. Therefore, if a relation predicted by the \textit{DSModel} is found in the list of positive predictions by \textit{SSModel}, then that particular relation prediction is manipulated into a negative prediction, irrespective of whether it was a positive prediction or a negative prediction earlier.
 
-\item \textit{Combined evaluation:} The predictions of \textit{SSModel} and \textit{DSModel} are combined in a unique list of predictions. It also means that if a relation is predicted both by \textit{SSModel} and \textit{DSModel}, then the prediction is added to the unique list only once. This unique list of predictions is then compared with the unique list of relations for every document in the corpus and the results are computed.
+\item \textit{Combined evaluation:} The predictions of \textit{SSModel} and \textit{DSModel} are combined in a unique set of predictions. This also means that if a relation is predicted both by \textit{SSModel} and \textit{DSModel}, then the prediction is added to the unique set once. This unique set of predictions is then compared with the unique set of relations for every document in the corpus and the results are computed.
 
 \end{itemize}
 
@@ -241,11 +241,11 @@ Figure \ref{fig:DSInitial} shows the initial results of the \textit{DSModel}. Th
 
 For combined evaluation, the predictions of the \textit{DSModel} are combined with predictions of best performing \textit{SSModel}, i.e., the predictions generated by $Avg_{55}$ model trained using optimal hyperparameter.
 
-\subsection{Need for optimizing combined evaluation}
+\subsection{Need to optimize the combined evaluation}
 
-During various experimentation, it was found out that the non unique performance does not correlate well with combined evaluation performance. In other words, if the efforts are made to maximize non-unique or unique performance of the \textit{DSModel}, then it does not necessarily optimizes the combined performance.  This may happen due to the reason that the model with optimal non-unique performance produces more repeated predictions that are already predicted by the \textit{SSModel}. Therefore, it was decided for further experimentation that efforts would be made to optimize the combined performance rather than unique or non-unique performance.
+During various experiments, it was found out that the non unique performance does not correlate well the with combined evaluation performance. In other words, if efforts are aimed to maximize non-unique or unique performance of the \textit{DSModel}, this does not necessarily optimize the combined performance of both \textit{SSModel} and \textit{DSModel}. This, for instance, may happen when the optimal \textit{DSModel} non-unique performance produces more repeated predictions that are already predicted by the \textit{SSModel}. Therefore, it was decided that efforts should be made to optimize the combined performance rather than unique or non-unique performance for the \textit{DSModel} alone.
 
-The experimentation performed on the \textit{DSModel} was similar to the experimentation performed on the \textit{SSModel}. Three experiments, viz. Leave-One-Out Analysis, Feature Weight Ranking and Information Gain Analysis, were carried out for feature selection. Following subsections describe the results of these experiments:
+Feature selection performed on the \textit{DSModel} is analogous to that of \textit{SSModel}'s. Three feature selection methods were tried, viz. Leave-One-Out Analysis, Feature Weight Ranking and Information Gain Analysis. Following subsections describe the results of these experiments.
 
 \subsection{Results after Leave-One-Out Analysis}
 
@@ -287,11 +287,11 @@ The initial model has close to 62000 average features for every round of cross v
 
 Figure \ref{fig:DSIG} shows the comparison between different models using information gain analysis. The initial model represents the model before information gain analysis experiments. The model 1\_5k implies that 5000 features with best information gain are selected for every round of cross validation and the model is trained. As seen in the figure, the performance of the IG (information gain) models continue to rise from 1\_5k to 1\_55k. The model trained using best 55000 features (1\_55k) produces the best performance and surpasses the performance of the initial model. Since there are around 60000 features per round of cross validation and 55000 features are required for best performing model implies the fact that the features with low information gain are equally important for \textit{DSModel}. Since this approach played an important role in improving the performance of \textit{SSModel} in addition to reducing the number of features, it was decided to investigate this approach further.
 
-As discussed in Section \ref{subsec:SS_IG}, the features have to be traced back to the feature generators that produce them. These feature generators can then be discarded in order to improve the performance and reduce the number of features. As in the case of the \textit{SSModel}, the feature generators were assigned a statistic and experiments were carried out using these statistics. Following statistics were used for every feature generator:
+As discussed in Section \ref{subsec:SS_IG}, the features have to be traced back to the feature generators that produce them. These feature generators can then be discarded in order to improve the performance and reduce the number of features. As in the case of the \textit{SSModel}, the feature generators were assigned a statistic and experiments were carried out using these criteria:
 
 \begin{itemize}
 
-\item \textit{Total information gain}
+\item \textit{Total information gain (TIG)}
 
 \item \textit{Number of features}
 
@@ -304,7 +304,7 @@ As discussed in Section \ref{subsec:SS_IG}, the features have to be traced back 
 \end{itemize}
 
 
-These 5 statistics were used for conducting an exhaustive search. For every statistic, a model was trained and evaluated using some or all of the feature generators. For the \textit{DSModel}, there are 132 feature generators, i.e., 132 functions generate the features used for training the \textit{DSModel}. In every experiment, these 132 feature generators were sorted according to some statistic and some of them were selected for training the model. For example, in the case of using AvgIG as a feature generator statistic, the feature generators were arranged from highest AvgIG to lowest AvgIG. If only 10 of these feature generators are used for training the model, such a model is called $Avg_{10}$. Similarly, if 50 of the best feature generators are used for training the model, the model is called $Avg_{50}$. The models from $Avg_1$ to $Avg_{132}$ were tested for AvgIG analysis. Similarly, for MinIG analysis, the models from $Min_{1}$ to $Min_{132}$ were tested.
+These 5 criteria were used for conducting an exhaustive search. For every criterion, a model was trained and evaluated using some or all of the feature generators. For the \textit{DSModel}, there are 132 feature generators, i.e., 132 functions generate the features used for training the \textit{DSModel}. In every experiment, these 132 feature generators were sorted according to the listed criteria and some of them were selected for training the model. For example, in the case of using AvgIG as a feature generator criterion, the feature generators were arranged from highest AvgIG to lowest AvgIG. If only 10 of these feature generators are used for training the model, such a model is called $Avg_{10}$. Similarly, if 50 of the best feature generators are used for training the model, the model is called $Avg_{50}$. The models from $Avg_1$ to $Avg_{132}$ were tested for AvgIG analysis. Similarly, for MinIG analysis, the models from $Min_{1}$ to $Min_{132}$ were tested.
 
 \begin{figure}
 \centering
@@ -342,9 +342,9 @@ Figure \ref{fig:DSFinal} shows the comparison between results on development set
 
 \section{Initial results on full-text subcorpus} \label{sec:FTPrimaryRes}
 
-As explained in Section \ref{sec:full-text}, the full-text subcorpus in LocText consists of 4 PMC \cite{pmc} full-text articles. As the protein-location relations in the full-text subcorpus consists of 92.2\% same-sentence relations and a mere 7.8\% different-sentence relations (see Fig. \ref{fig:FT_PLRelDist}), it was decided to extract the protein-location relations using same-sentence (\textit{SSModel}) only.
+As discussed in Section \ref{sec:full-text}, the full-text subcorpus in LocText consists of 4 PMC \cite{pmc} full-text articles. As the protein-location relations in the full-text subcorpus consists of 92.2\% same-sentence relations (in other words, a mere 7.8\% were different-sentence relations; see Fig. \ref{fig:FT_PLRelDist}), I decided to extract the protein-location relations using the same-sentence model (\textit{SSModel}) only.
 
-\textit{SSModel}, already tuned after a lot of experimentation on abstracts subcorpus, was used directly for extracting the relations. None of the tuning experiments, except undersampling \cite{akbani2004applying} of the negative class, were carried out. The original proportion of positive instances to negative instances was 1:5. Different proportions were experimented by using undersampling of negative class and the proportion of 1:1 was found optimal.
+\textit{SSModel}, already tuned after thorough experimentation on the abstracts subcorpus, was used directly for extracting relations on full text. Here, none of the tuning experiments, except undersampling \cite{akbani2004applying} of the negative class, were repeated. The original proportion of positive instances to negative instances was 1:5. Different proportions were experimented by using undersampling of negative class and the proportion of 1:1 was found optimal.
 
 \begin{figure}
 \centering
@@ -362,9 +362,9 @@ As explained in Section \ref{sec:full-text}, the full-text subcorpus in LocText 
 \end{minipage}
 \end{figure}
 
-4-fold cross-validation was used in which every document was used as a test set once. In every round of cross-validation, the data set was broken down into training set consisting of 3 documents and test set consisting of a single document. Since there were no tuning experiments to be carried out, a development set was not created.
+4-fold cross validation was used, where every document was used as the total test set once. Thus, in every round of cross validation, the data set was broken down into a training set consisting of 3 documents and test set consisting of a single document. Since there were no tuning experiments to be carried out, a development set was not created.
 
-Fig. \ref{fig:FT_ResOrigNonUniq} and Fig. \ref{fig:FT_ResOrigUniq} shows the results of evaluation using original proportion of positive and negative examples.  Fig. \ref{fig:FT_ResOrigNonUniq} shows the evaluation results using non-unique mode of evaluation and \ref{fig:FT_ResOrigUniq} shows the evaluation results using unique mode of evaluation. The \textit{F scores} bars are labeled in both figures. For non unique mode of evaluation, \textit{SSModel} achieves an average \textit{F score} of 46.79 and for unique mode of evaluation, \textit{SSModel} achieves an average \textit{F score} of 53.43.
+Fig. \ref{fig:FT_ResOrigNonUniq} and Fig. \ref{fig:FT_ResOrigUniq} shows the evaluation results using the original proportion of positive and negative examples.  Fig. \ref{fig:FT_ResOrigNonUniq} shows the evaluation results using non-unique mode of evaluation and \ref{fig:FT_ResOrigUniq} shows the evaluation results using unique mode of evaluation. The \textit{F scores} bars are labeled in both figures. For non unique mode of evaluation, \textit{SSModel} achieves an average \textit{F score} of 46.79 and for unique mode of evaluation, \textit{SSModel} achieves an average \textit{F score} of 53.43.
 
 %\begin{figure}
 %\centering
@@ -400,7 +400,7 @@ Fig. \ref{fig:FT_ResOrigNonUniq} and Fig. \ref{fig:FT_ResOrigUniq} shows the res
 %\label{fig:test}
 \end{figure}
 
-As stated earlier, a proportion of 1:1 was found to be optimal. A proportion of 1:1 implies that the negative class was undersampled to such an extent that the number of negative examples become equal to the number of positive examples. Fig. \ref{fig:FT_ResUnderSampNonUniq} shows the results of non unique evaluation using 1:1 proportion and Fig. \ref{fig:FT_ResUnderSampUniq} shows the results of unique evaluation using 1:1 proportion. \textit{SSModel} achieves an average \textit{F score} of 54.63 for non unique evaluation mode and 68.2 for unique evaluation mode. The unique \textit{F score} of 68.2 is better than the best \textit{F score} achieved for abstract corpus, i.e., 63.15 on test set (Fig. \ref{fig:DSFinal}). However, these are very primary results and there is a need of experimenting with more data as well as tuning the model specifically for full-text subcorpus, to come to a discrete conclusion.
+As stated earlier, a proportion of 1:1 was found to be optimal. A proportion of 1:1 implies that the negative class was undersampled to such an extent that the number of negative examples becomes equal to the number of positive examples. Fig. \ref{fig:FT_ResUnderSampNonUniq} shows the results of non unique evaluation using 1:1 proportion and Fig. \ref{fig:FT_ResUnderSampUniq} shows the results of unique evaluation using 1:1 proportion. \textit{SSModel} achieves an average \textit{F score} of 54.63 for non unique evaluation mode and 68.2 for unique evaluation mode. The unique \textit{F score} of 68.2 is better than the best \textit{F score} achieved on the abstracts corpus, namely, 63.15 on test set (Fig. \ref{fig:DSFinal}). However, these are preliminary results and there is a need of experimenting with more data as well as tuning the model specifically to full text.
 
 
 %\section{Results for CombinedModel}
