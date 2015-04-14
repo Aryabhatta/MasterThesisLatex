@@ -397,7 +397,7 @@ Simply put, the results of non-unique evaluation mode are the results of SVM cla
 
 For a particular document in the corpus, it may happen that a protein is related to a location twice or more in the document at different places. In this evaluation mode,  such repetitions are considered separately and therefore, this evaluation mode is called non-unique evaluation mode. For this mode of evaluation, a predicted relation is said to match with an original relation if and only if the text offsets of both protein and location entities in the predicted relation matches exactly with the text offsets of protein and location entities in the original relation respectively.
 
-It is important to note that, here, the list of original relations consists of potential relations present only in the same sentence unlike unique evaluation mode where the set of original relations are all unique relations in a document.
+It is important to note that, in this evaluation mode, SSModel considers the list of same-sentence relations for evaluation, whereas DSModel uses the list of 1-sentence-apart relations. This is in contrast to the unique mode, where the set of all the document's relations are considered to evaluate both SSModel and DSModel.
 
 \section{Tools used}\label{sec:tools}
 
