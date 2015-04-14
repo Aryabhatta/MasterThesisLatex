@@ -279,11 +279,11 @@ where $\mathbf{w}$ is the vector of weights. Geometrically, $\mathbf{w}$ is the 
 
 \section{Training, Cross validation and Classification}\label{sec:training}
 
-All experiments are performed on the LocText \cite{loctext} corpus (explained in Section \ref{sec:LocTextCorpus}).
+All following experiments are performed on the LocText \cite{loctext} corpus (explained in Section \ref{sec:LocTextCorpus}).
 
 \subsection{Representation of examples in $SVM^{light}$ }
 
-$SVM^{light}$ \cite{joachims1999making} have a specific way of representing the examples. For protein-location relation extraction, every potential relation is an example. Every example is written on a new line in a plain file and represented as a vector of features. Following format explains the structure of every example:
+$SVM^{light}$ \cite{joachims1999making} has a specific way of representing the instances. For protein-location relation extraction, every potential relation is an instance. Every instance is written on a new line in a plain file and represented as a vector of features. Following format explains the structure of every instance:
 
 \bigskip
 
@@ -305,18 +305,19 @@ $SVM^{light}$ \cite{joachims1999making} have a specific way of representing the 
 \caption{5-fold cross validation}\label{fig:crossVal}
 \end{figure}
 
-A 5-fold cross validation is used where every fold consists of 20 documents. In every round, 60\% of the total data is used for training, 20\% for development and 20\% for test. Since our corpus has 100 documents, 60 documents are used for training, 20 for development and 20 for testing in every round of cross validation. The training data is used to train the model using $SVM^{light}$. The development data is used for tuning the hyperparameters. For both \textit{SSModel} and \textit{DSModel}, regularization parameter $\mathbf{C}$ is the only hyperparameter to be tuned.  Finally, unseen test data is used for calculating results. The final performance of the model is the average of the performance for all 5 rounds. Figure \ref{fig:crossVal} illustrates the division of data for 5 rounds of cross validation.
+A 5-fold cross validation is used where every fold consists of 20 documents (out of the 100 abstracts). In every round, 60\% of the total data is used for training, 20\% for development and 20\% for test. Since our corpus has 100 documents, 60 documents are used for training, 20 for development and 20 for testing in every round of cross validation. The training data is used to train the model using $SVM^{light}$. The development data is used for tuning the hyperparameters. For both \textit{SSModel} and \textit{DSModel}, regularization parameter $\mathbf{C}$ is the only hyperparameter to be tuned. Finally, unseen test data is used for calculating round performance results. The final performance of the model is the average of the performance for all 5 rounds. Figure \ref{fig:crossVal} illustrates the division of data for 5 rounds of cross validation.
 
 %TODO Add more details about other experimentation
 \section{Additional experimentation}\label{sec:experiments}
 
-A lot of experiments were designed and their effect was observed on the performance of the models. All of these experiments were based on some or the other intuition. This section describes the effects of all such experiments. This section initially describes the experimentation common to \textit{SSModel} and \textit{DSModel}. The experiments specific to \textit{SSModel} and \textit{DSModel} are discussed later as a subsection.
+Several experiments were designed and their effect was observed on the performance of the models. All of these experiments were somewhat based on intuition. This section describes the effects of all such experiments. This section initially describes the experimentation common to \textit{SSModel} and \textit{DSModel}. The experiments specific to \textit{SSModel} and \textit{DSModel} are discussed later as a subsection.
 
 \subsubsection*{Experimentation with different kernels}
 
-$SVM_{light}$ provides an ability to use several kernels for the purpose of training a model. The default kernel is the linear kernel and other kernels are polynomial, RBF (Radial Basis Function) and sigmoid kernels. Using kernels other than default kernel reduces the performance of the method. Even \cite{joachims1998text} shows that the linear kernel is the best kernel that can be used for text processing.
+$SVM_{light}$ provides an ability to use different kernels for the purpose of training a model. The default kernel is the linear kernel and other kernels are polynomial, RBF (Radial Basis Function) and sigmoid kernels. After experimentation, using kernels other than the default kernel reduces the performance of the method. Even \cite{joachims1998text} shows that the linear kernel is the best kernel that can be used for text processing.
 
 \subsubsection*{Minimum subtree}
+
 \subsubsection*{Path enclosed subtree}
 
 \subsubsection*{Use of coreferences} \label{subsubsec:coref}
@@ -328,15 +329,14 @@ $SVM_{light}$ provides an ability to use several kernels for the purpose of trai
 
 \subsubsection*{Using additional information}
 
-Efforts were made to increase the performance of \textit{DSModel} using additional information extracted from the document. One instance of such additional information is shortform-longform pairs extracted from the document. The intuition was that if either of shortform or longform of a protein is predicted to be in protein-location relationship with a location entity, then the corresponding longform or shortform should also be in a protein-location relationship with that entity. Shortform and longform pairs were extracted using a simple algorithm \cite{hearst2003simple}.
-
-However, adding such information actually decreased the performance of \textit{DSModel} since more number of false positives were added than true positives. It was decided, therefore, not to use this augmentation of information.
+Efforts were made to increase the performance of \textit{DSModel} using additional information extracted from the document. One instance of such additional information is \emph{shortform}-\emph{longform} pairs extracted from the document. The intuition was that if either the short or long name form of a protein is predicted to be in a protein-location relationship with a particular location entity, then the corresponding short or long form should also be in a protein-location relationship with that entity. \emph{Shortform} and \emph{longform} pairs were extracted using a simple algorithm \cite{hearst2003simple}. However, adding such information actually decreased the performance of \textit{DSModel} since more number of false positives were added than true positives. It was decided, therefore, not to use this augmentation of information.
 
 \section{Evaluation Metrics} \label{sec:evaluationCriteria}
 
 \subsection{Performance measures}
+
 % Precision, Recall, Fscore
-The performance measures \textit{Precision}, \textit{Recall} and \textit{F score} are used for calculating of performance of machine learning models \textit{SSModel} and \textit{DSModel}.
+The standard performance measures \textit{Precision}, \textit{Recall} and \textit{F score} are used for calculating the performance of \textit{SSModel} and \textit{DSModel}.
 
 For the task of protein-location relation extraction, a positive prediction is the one in which the machine learning model predicts a PL (protein-location) relation between a protein entity and a location entity. Similarly, a negative prediction is the one in which the machine learning model predicts that there is no relation between a protein entity and a location entity.
 
@@ -386,19 +386,19 @@ $$
 \subsection{Evaluation modes} \label{subsec:Eval}
 
 % Talk about unique relations here
-\subsubsection{Unique evaluation mode}\label{subsubsec:UniqEval}
+\subsubsection{Unique}\label{subsubsec:UniqEval}
 
-In the unique evaluation mode, a list of unique protein-location relations is made for every document in the corpus, notwithstanding the repetition of relations in the document. A predicted positive relation is said to match with original unique relation if and only if the predicted relation for the document is found in the list of unique relations for that document. If the predicted relation is not found in the list, it is either classified as a false positive if it is a positive prediction or a true negative if it is a negative prediction.
+In the unique evaluation mode, a set of unique protein-location relations is made for every document in the corpus, notwithstanding the repetition of relations in the document. A predicted positive relation is said to match with the original unique relation if and only if the predicted relation for the document is found in the set of unique relations for that document. If the predicted relation is not found in the set, it is either classified as a false positive if it is a positive prediction or a true negative if it is a negative prediction.
 
 
-\subsubsection{Non unique evaluation mode}\label{subsubsec:NonUniqEval}
+\subsubsection{Not unique}\label{subsubsec:NonUniqEval}
 
-Simply put, the results of non unique evaluation mode are the results of SVM classification. The predictions are compared with original relations and the results are computed.
+Simply put, the results of non-unique evaluation mode are the results of SVM classification. The predictions are compared with original relations and the results are computed.
 
-For a particular document in the corpus, it may happen that a protein is related to a location twice in the document at different places. In this evaluation mode,  such repetitions are considered separately and therefore, this evaluation mode is called non-unique evaluation mode. For this mode of evaluation, a predicted relation is said to match with an original relation if and only if the text offsets of both protein and location entities in the predicted relation matches exactly with the text offsets of protein and location entities in the original relation respectively.
+For a particular document in the corpus, it may happen that a protein is related to a location twice or more in the document at different places. In this evaluation mode,  such repetitions are considered separately and therefore, this evaluation mode is called non-unique evaluation mode. For this mode of evaluation, a predicted relation is said to match with an original relation if and only if the text offsets of both protein and location entities in the predicted relation matches exactly with the text offsets of protein and location entities in the original relation respectively.
 
-It is important to note that, here, the set of original relations consists of potential relations present only in the same sentence unlike unique evaluation mode where the set of original relations are all unique relations in a document.
+It is important to note that, here, the list of original relations consists of potential relations present only in the same sentence unlike unique evaluation mode where the set of original relations are all unique relations in a document.
 
 \section{Tools used}\label{sec:tools}
 
-Stanford corenlp pipeline \cite{manning2014stanford} is used for the process of sentence segmentation, tokenization, syntactic parsing, dependency parsing and coreference resolution. The support vector machine library $SVM^{light}$ \cite{joachims1999making} is used for training and classification.
+The Stanford corenlp pipeline \cite{manning2014stanford} is used for sentence segmentation, tokenization, syntactic parsing, dependency parsing and coreference resolution. The support vector machine library $SVM^{light}$ \cite{joachims1999making} is used for training and classification.
