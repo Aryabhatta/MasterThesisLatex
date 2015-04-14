@@ -2,12 +2,12 @@
 
 This chapter explains the evaluation methods used for evaluating the performance of machine learning models and presents the results.
 
-\section{Results for \textit{SSModel} on abstract subcorpus}
+\section{Results for \textit{SSModel} on abstracts subcorpus}
 
-This section presents the results for same-sentence model (\textit{SSModel}) on LocText abstract subcorpus. The results are initially discussed for the model trained on training data and evaluated on development data. All experimentation such as feature selection, hyperparameter search is performed with the development data. Once the number of features to keep are fixed and the hyperparameter is exhaustively searched, the training model is used for evaluation on the test data. The results on unseen test data are considered final results. All following subsections until subsection \ref{subsec:SSFinalRes} presents the results for a model trained on training data and evaluated on development data.
+This section presents the results for same-sentence model (\textit{SSModel}) on LocText abstracts subcorpus. The results are initially discussed for the model trained on training data and evaluated on development data. All experimentation such as feature selection, hyperparameter search is performed with the development data. Once the number of features to keep are fixed and the hyperparameter is exhaustively searched, the training model is used for evaluation on the test data. The results on unseen test data are considered final results. All following subsections until subsection \ref{subsec:SSFinalRes} presents the results for a model trained on training data and evaluated on development data.
 
 %After all experimentation, an additional model is training combining training and development data. Such a model is used to evaluate the test data and the results in such a way are considered much more robust.
- 
+
 \subsection{Initial results}
 
 \begin{figure}
@@ -68,7 +68,7 @@ Figure \ref{fig:LeaveOO_NU} and \ref{fig:LeaveOO_U} show the comparison between 
 
 \subsection{Results after Feature Weight Ranking}
 
-The Feature Weight Ranking (FWR) approach, discussed in detail in Subsection \ref{subsec:FWR}, uses the weights of the features for feature selection. The support vector machine (SVM), while creating a hyperplane to separate positive and negative instances in the training data, learns the weights for the features. These weights can be extracted from the learned model using a perl script \cite{svmlightonline}. 
+The Feature Weight Ranking (FWR) approach, discussed in detail in Subsection \ref{subsec:FWR}, uses the weights of the features for feature selection. The support vector machine (SVM), while creating a hyperplane to separate positive and negative instances in the training data, learns the weights for the features. These weights can be extracted from the learned model using a perl script \cite{svmlightonline}.
 
 
 \begin{figure}
@@ -85,12 +85,12 @@ The Feature Weight Ranking (FWR) approach, discussed in detail in Subsection \re
   \caption{FWR Performance comparison}
   \label{fig:FWRPerfComp}
 \end{minipage}
-\end{figure} 
+\end{figure}
 
 For each round of cross-validation, a model is learned and therefore, the feature weights can be extracted for every round. Figure \ref{fig:FWRWeightDist} shows the distribution of weights for features of round 1, from highest weighted feature to lowest weighted feature. The weights of the features in other folds follow similar distribution. As shown in figure, there are very less features with higher weights and most of the features have comparatively lower weights.
 
 Figure \ref{fig:FWRPerfComp} shows the comparison of performance of various FWR (Feature Weight Ranking) models with initial model. Only average \textit{F scores} are shown for comparison. The model \textit{1\_1k} implies that the model is trained using 1000 highest weighted features from every round of cross validation. Similar terminology applies for rest of the FWR models shown in the figure. None of the FWR models have a higher performance than the initial model. The performance of FWR model with first 1000 features (\textit{1\_1k}) is lower than FWR model with first 5000 features (\textit{1\_5k}). It is also seen that the performance drops for first 10000 (1\_10k) features and then again increases for 20000 (1\_20k) and 30000 (1\_30k) features. This trend invalidates the intuition that higher weighted features should result in higher performance and addition of lower weighted features should decrease the performance. In our case, addition of features ranked 10000 to 20000 have actually increased the performance. The FWR model consisting of lowest 2000 features in every round (\textit{28k\_30k}) also has considerable performance and cannot be discarded as useless. Owing to all these problems, this approach was not experimented further.
- 
+
 \subsection{Results after Information Gain Analysis}\label{subsec:SS_IG}
 
 Information gain is widely used technique for the purpose of feature selection. The theoretical background for calculating information gain can be found in Subsection \ref{subsec:IG}. The information gain is calculated for features in every round of cross validation and analysis is done similar to the analysis based on feature weights.
@@ -109,7 +109,7 @@ Information gain is widely used technique for the purpose of feature selection. 
   \caption{IG models with 5k slabs}
   \label{fig:IG5kComp}
 \end{minipage}
-\end{figure} 
+\end{figure}
 
 Figure \ref{fig:IGDist} shows the information gain of the features used in round 1. The distribution of information gain is similar to the distribution of feature weights with minor difference that the feature weight distribution is much smoother than the distribution of information gain. To analyze the effectiveness of features with different information gain, an experiment was conducted by dividing the features into slabs of 5000 features depending on their information gain. Figure \ref{fig:IG5kComp} shows the average performance of various models trained with slabs of 5000 features. The model \textit{1\_5000} uses the first 5000 features with best information gain, the model \textit{5001\_10000} uses next 5000 features and so on. As seen in the figure, none of the 5k models have exceptionally low performance except model \textit{15001\_20000}. This further consolidates the finding of Joachims et al. \cite{joachims1998text} that all features have some or other information and aggressive feature selection might not result in manifold increase in the performance.
 
@@ -129,7 +129,7 @@ Further experiments were carried out using some of the features with best inform
   \caption{IG unique comparison}
   \label{fig:IG_5k_U}
 \end{minipage}
-\end{figure} 
+\end{figure}
 
 
 As described previously, the features are generated by feature generators or functions. Note that the term feature generator and feature functions mean the same and used interchangeably in the explanation ahead. In order to discard bad features, the solution is to discard the feature generators that decrease performance. A feature generator can generate a lot of features and the options is to either keep all of them or discard all of them. Hence, it was necessary to trace back the feature generators from the features. Once the feature generators are located, other features generators can be discarded and the performance of such a model can be observed.
@@ -166,7 +166,7 @@ Using these 5 statistics, an exhaustive search was conducted to select the best 
   \caption{Minimum IG experiments}
   \label{fig:MinIG}
 \end{minipage}
-\end{figure} 
+\end{figure}
 
 Figures \ref{fig:AvgIG} and \ref{fig:MinIG} shows the variation of \textit{F scores} of different models created using average information gain and minimum information gain respectively. For average information gain, the models are addressed as Avg\_1 to Avg\_109 depending on the number of feature generators used for training. Similarly, for minimum information gain, the models are addressed as Min\_1 to Min\_109 depending on the number of feature generators used for training. The last point in the line graph Avg\_109 or Min\_109 shows the performance of model using all 109 feature generator, i.e., without any feature selection. The performance of Avg\_109 and Min\_109, therefore, is equal to the performance of initial model which is a \textit{F score} of 73.53 according to non unique evaluation method. In Fig. \ref{fig:AvgIG}, there are 3 models, viz., Avg\_55, Avg\_63 and Avg\_64 that have better performance than the initial model (Avg\_109). Similarly, in the figure \ref{fig:MinIG}, there are 3 models, viz., Min\_66, Min\_67 and Min\_68 that have better performance than the initial model (Min\_109). These 6 models were selected and analyzed.
 
@@ -213,9 +213,9 @@ Figure \ref{fig:SS_DevTest_NU} shows the comparison between average results of t
 
 Figure \ref{fig:SS_DevTest_U} shows similar comparison between evaluation performance on the development set and the test set, but using unique mode of evaluation. Similar to the trends in Fig. \ref{fig:SS_DevTest_NU}, the evaluation performance on the test set is nearly equal to the evaluation performance on development set. As shown in the figure, the average \textit{F score} for evaluation on development set is 63.22 whereas the average \textit{F score} for evaluation on the test set is 62.45.
 
-\section{Results for \textit{DSModel} on abstract subcorpus}
+\section{Results for \textit{DSModel} on abstracts subcorpus}
 
-This section discusses the evaluation of performance of the different-sentence model (\textit{DSModel}) on abstract subcorpus. The goal of the \textit{DSModel} is to extract the protein-location relations in which either of the entity is present in a different sentence. The overall objective of using two different models, viz. \textit{SSModel} and \textit{DSModel} is to extract as many protein-location relations as possible. 
+This section discusses the evaluation of performance of the different-sentence model (\textit{DSModel}) on abstracts subcorpus. The goal of the \textit{DSModel} is to extract the protein-location relations in which either of the entity is present in a different sentence. The overall objective of using two different models, viz. \textit{SSModel} and \textit{DSModel} is to extract as many protein-location relations as possible.
 
 The evaluation of performance of the \textit{DSModel} is, in a way, dependent on the predictions of the \textit{SSModel}. If unique mode of evaluation (Section \ref{subsubsec:UniqEval}) is considered, then it may happen that a particular relation predicted by the \textit{DSModel} is already predicted by the \textit{SSModel}. In this particular case, the \textit{DSModel} is not adding any extra information to the set of predictions. Therefore, utmost care is taken while evaluating the results of the \textit{DSModel}. Several evaluation criteria are developed to understand how the \textit{DSModel} is supplementing the set of predictions. These evaluation criteria are:
 
@@ -225,9 +225,9 @@ The evaluation of performance of the \textit{DSModel} is, in a way, dependent on
 
 \item \textit{Unique performance:} This criteria compares the set of predictions of the \textit{DSModel} with the unique set of relations for the document in the corpus. This is exactly same as unique mode of the evaluation (Subsection \ref{subsubsec:UniqEval}).
 
-\item \textit{Manipulated prediction:} In this evaluation mode, the predictions of the \textit{DSModel} are manipulated to some extent. The intuition behind this manipulation is, if a relation is predicted positive by the \textit{SSModel} (in other words, the \textit{SSModel} predicts that the entities in the relation are related and present in the same sentence), then it is highly unlikely that the same entities could be related in a different-sentence relation. Therefore, if a relation predicted by the \textit{DSModel} is found in the list of positive predictions by \textit{SSModel}, then that particular relation prediction is manipulated into a negative prediction, irrespective of whether it was a positive prediction or a negative prediction earlier. 
+\item \textit{Manipulated prediction:} In this evaluation mode, the predictions of the \textit{DSModel} are manipulated to some extent. The intuition behind this manipulation is, if a relation is predicted positive by the \textit{SSModel} (in other words, the \textit{SSModel} predicts that the entities in the relation are related and present in the same sentence), then it is highly unlikely that the same entities could be related in a different-sentence relation. Therefore, if a relation predicted by the \textit{DSModel} is found in the list of positive predictions by \textit{SSModel}, then that particular relation prediction is manipulated into a negative prediction, irrespective of whether it was a positive prediction or a negative prediction earlier.
 
-\item \textit{Combined evaluation:} The predictions of \textit{SSModel} and \textit{DSModel} are combined in a unique list of predictions. It also means that if a relation is predicted both by \textit{SSModel} and \textit{DSModel}, then the prediction is added to the unique list only once. This unique list of predictions is then compared with the unique list of relations for every document in the corpus and the results are computed. 
+\item \textit{Combined evaluation:} The predictions of \textit{SSModel} and \textit{DSModel} are combined in a unique list of predictions. It also means that if a relation is predicted both by \textit{SSModel} and \textit{DSModel}, then the prediction is added to the unique list only once. This unique list of predictions is then compared with the unique list of relations for every document in the corpus and the results are computed.
 
 \end{itemize}
 
@@ -276,7 +276,7 @@ Figure \ref{fig:DSFWR} shows the comparison between average \textit{F score} for
 \subsection{Results after Information Gain Analysis}
 
 
-Information gain analysis is most widely used approach for the purpose of feature selection. The theoretical aspects of Information Gain Analysis are discussed in Subsection \ref{subsec:IG}. The approach is also widely discussed for SSModel in Subsection \ref{subsec:SS_IG}. 
+Information gain analysis is most widely used approach for the purpose of feature selection. The theoretical aspects of Information Gain Analysis are discussed in Subsection \ref{subsec:IG}. The approach is also widely discussed for SSModel in Subsection \ref{subsec:SS_IG}.
 
 \begin{figure}
 \centering
@@ -285,7 +285,7 @@ Information gain analysis is most widely used approach for the purpose of featur
 \end{figure}
 
 
-The initial model has close to 62000 average features for every round of cross validation. Information gain is calculated for every feature. The information gain for the features in every round follows similar distribution as observed in Fig. \ref{fig:IGDist}. 
+The initial model has close to 62000 average features for every round of cross validation. Information gain is calculated for every feature. The information gain for the features in every round follows similar distribution as observed in Fig. \ref{fig:IGDist}.
 
 Figure \ref{fig:DSIG} shows the comparison between different models using information gain analysis. The initial model represents the model before information gain analysis experiments. The model 1\_5k implies that 5000 features with best information gain are selected for every round of cross validation and the model is trained. As seen in the figure, the performance of the IG (information gain) models continue to rise from 1\_5k to 1\_55k. The model trained using best 55000 features (1\_55k) produces the best performance and surpasses the performance of the initial model. Since there are around 60000 features per round of cross validation and 55000 features are required for best performing model implies the fact that the features with low information gain are equally important for \textit{DSModel}. Since this approach played an important role in improving the performance of \textit{SSModel} in addition to reducing the number of features, it was decided to investigate this approach further.
 
@@ -346,7 +346,7 @@ Figure \ref{fig:DSFinal} shows the comparison between results on development set
 
 As explained in Section \ref{sec:full-text}, the full-text subcorpus in LocText consists of 4 PMC \cite{pmc} full-text articles. As the protein-location relations in the full-text subcorpus consists of 92.2\% same-sentence relations and a mere 7.8\% different-sentence relations (see Fig. \ref{fig:FT_PLRelDist}), it was decided to extract the protein-location relations using same-sentence (\textit{SSModel}) only.
 
-\textit{SSModel}, already tuned after a lot of experimentation on abstract subcorpus, was used directly for extracting the relations. None of the tuning experiments, except undersampling \cite{akbani2004applying} of the negative class, were carried out. The original proportion of positive instances to negative instances was 1:5. Different proportions were experimented by using undersampling of negative class and the proportion of 1:1 was found optimal.
+\textit{SSModel}, already tuned after a lot of experimentation on abstracts subcorpus, was used directly for extracting the relations. None of the tuning experiments, except undersampling \cite{akbani2004applying} of the negative class, were carried out. The original proportion of positive instances to negative instances was 1:5. Different proportions were experimented by using undersampling of negative class and the proportion of 1:1 was found optimal.
 
 \begin{figure}
 \centering
