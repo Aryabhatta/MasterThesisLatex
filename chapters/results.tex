@@ -348,19 +348,37 @@ As discussed in Section \ref{sec:full-text}, the full-text subcorpus in LocText 
 
 \begin{figure}
 \centering
-\begin{minipage}{.5\textwidth}
+\begin{subfigure}{.5\textwidth}
   \centering
-  \includegraphics[width=.95\textwidth]{figures/3_FTOrigRatioResults.png}
-  \caption{Non unique evaluation results using original proportion.}
+  \includegraphics[width=.95\linewidth]{figures/3_FTOrigRatioResults.png}
+  \caption{Non unique evaluation results.}
   \label{fig:FT_ResOrigNonUniq}
-\end{minipage}%
-\begin{minipage}{.5\textwidth}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
   \centering
-  \includegraphics[width=.95\textwidth]{figures/3_FTOrigRatioResults_Uniq.png}
-  \caption{Unique evaluation results using original proportion.}
+  \includegraphics[width=.95\linewidth]{figures/3_FTOrigRatioResults_Uniq.png}
+  \caption{Unique evaluation results.}
   \label{fig:FT_ResOrigUniq}
-\end{minipage}
+\end{subfigure}
+\caption{Evaluation results using original proportion.}
+%\label{fig:test}
 \end{figure}
+
+%\begin{figure}
+%\centering
+%\begin{minipage}{.5\textwidth}
+%  \centering
+%  \includegraphics[width=.95\textwidth]{figures/3_FTOrigRatioResults.png}
+%  \caption{Non unique evaluation results using original proportion.}
+%  \label{fig:FT_ResOrigNonUniq}
+%\end{minipage}%
+%\begin{minipage}{.5\textwidth}
+%  \centering
+%  \includegraphics[width=.95\textwidth]{figures/3_FTOrigRatioResults_Uniq.png}
+%  \caption{Unique evaluation results using original proportion.}
+%  \label{fig:FT_ResOrigUniq}
+%\end{minipage}
+%\end{figure}
 
 4-fold cross validation was used, where every document was used as the total test set once. Thus, in every round of cross validation, the data set was broken down into a training set consisting of 3 documents and test set consisting of a single document. Since there were no tuning experiments to be carried out, a development set was not created.
 
