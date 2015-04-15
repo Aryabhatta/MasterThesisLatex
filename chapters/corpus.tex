@@ -1,8 +1,8 @@
 \chapter{LocText Corpus}\label{chapter:corpus}
 
-\section{Need for a separate corpus}
+%\section{Need for a Separate Corpus}
 
-As mentioned in the previous chapter, the GENIA event corpus, or its subset, the BioNLP shared task corpus, is not the best corpus to be used for the task of protein-location relation extraction. As pointed out previously, following are some of the issues related to the GENIA event corpus:
+As mentioned in the Introduction, the GENIA event corpus, or its subset, the BioNLP shared task corpus, is not the best corpus to be used for the task of protein-location relation extraction. As pointed out previously, following are some of the issues related to the GENIA event corpus:
 
 \begin{enumerate}
 
@@ -16,11 +16,11 @@ As mentioned in the previous chapter, the GENIA event corpus, or its subset, the
 
 To summarize, the GENIA event corpus has some issues and cannot be directly used for the task of protein-location relation extraction. Therefore, there was a need to create a separate corpus dedicated for this task.
 
-\section{LocText}\label{sec:LocTextCorpus}
+\section{Data Set}\label{sec:LocTextCorpus}
 
 I, along with my thesis advisors, Juan and Tatyana, annotated a corpus consisting of 100 MEDLINE \cite{medline} abstracts and called it "LocText". It was necessary to make sure that the abstracts contain evidence of subcellular localization of proteins. Therefore, a list of PubMed \cite{pubmed} identifiers, cited by UniprotKB \cite{magrane2011uniprot} protein subcellular localization annotations, was made and 100 abstracts were chosen randomly from this list. In order to have sufficient taxonomic variation, it was made sure that 50 abstracts belonged to human and 25 abstracts belonged each to budding yeast (\textit{Saccharomyces cerevisiae}) and Arabidopsis (\textit{Arabidopsis thaliana}).
 
-\section{Corpus annotation process and guidelines}
+\section{Corpus Annotation Process and Guidelines}
 
 The annotation of the corpus was done with the help of \textit{tagtog} \cite{cejuela2014tagtog}. The corpus was annotated for:
 
@@ -38,11 +38,11 @@ The annotation of the corpus was done with the help of \textit{tagtog} \cite{cej
 \end{enumerate}
 \end{enumerate}
 
-\subsection*{Normalization of entities}
+\subsection*{Normalization of Entities}
 
 Every entity was normalized to a unique identifier in order to have a uniform representation of the entities and their relations. Protein annotations were normalized to UniprotKB \cite{magrane2011uniprot} identifiers, subcellular localization annotations were normalized to Gene Ontology (GO) \cite{ashburner2000gene} terms and organism annotations were normalized to NCBI Taxonomic \cite{ncbiTaxonomy} identifiers.
 
-\subsection*{Annotation guidelines}
+\subsection*{Annotation Guidelines}
 
 Out of 100 abstracts, 46 abstracts were used to develop the annotation guidelines. The guidelines, along with the full corpus, is available at \url{https://www.tagtog.net/-corpora/loctext}. Some of the important guidelines used during the annotation process are listed as follows:
 
@@ -67,7 +67,7 @@ Out of 100 abstracts, 46 abstracts were used to develop the annotation guideline
 
 Figure \ref{fig:tagtogScreenshot} shows an example abstract annotated in the tagtog annotation tool. Proteins, locations and organisms are highlighted in yellow, green and magenta, respectively. The entities, which participate in either protein-organism or protein-location relation, have a double arrow as an additional marking.
 
-\section{Inter-annotator agreement (IAA)}
+\section{Inter-Annotator Agreement (IAA)}
 
 Inter-annotator agreement (IAA) is a common term in linguistics. It determines the agreement between different human annotators on a predefined set of annotated documents. High inter-annotator agreement is correlated to high annotation quality. High IAA also implies that the annotation guidelines are clear, the level of the annotators' expertise, or that the domain problem is simple.
 
@@ -81,19 +81,19 @@ where $X_{ij}$ is the fraction of annotations by annotator $i$ matching those of
 
 Since the focus of the corpus annotations was protein-location relation extraction, the IAA was calculated for protein entities, subcellular location entities, and protein-location relations.
 
-\subsection*{IAA for entities}
+\subsection*{IAA for Entities}
 
 Two annotations of the same entity match if they have the exact same start offsets and end offsets. The IAA between two annotators was F1 score of 96\% and 88\% for protein and location entity annotations, respectively. 
 
 To calculate the IAA for the focus entities as a whole, the annotation-matches for protein entity type are combined with the annotation-matches for location entity type. In a similar way, annotation-mismatches are combined. Thus, the combined IAA for entities protein and location was F1 score of 94\%.
 
-\subsection*{IAA for relations}
+\subsection*{IAA for Relations}
 
 A protein-location relation annotation matches between two annotators if the annotations of both the protein and location entities match, according to the definition above.
 
 The IAA was F1 score of 80\% for protein-location relations.
 
-\section{Important insights from the corpus and publication of results}
+\section{Important Insights from the Corpus and Publication of Results}
 
 % Explain about the results that you published at the BLAH conference
 Some important insights were derived from LocText annotation. The annotation of the corpus was done from scratch, without actually referring to the annotations present in UniProtKB. When the protein-location relations in the corpus were compared with the annotations already present in UniProtKB, it was found out that the corpus has more information for same set of documents.
@@ -129,13 +129,13 @@ As shown in Fig. \ref{tab:novelAnnotation}, novel or more detailed annotations c
 Therefore, these findings indicate that the annotations in databases such as UniprotKB are not complete and there is a considerable room for improvement. The results \cite{goldberg2015linked} were published in the symposium at Biomedical Linked Annotation Hackathon (BLAH) 2015 \cite{blah}. From these results, we propose that manually-annotated corpora can contribute novel information about proteins in addition to what is present in the knowledge bases like UniProtKB. A case study was presented, which suggests that the creation of linked annotation resource would contain more annotations. Since the biomedical research community and the natural language processing (NLP) community both undertake the annotations of text with different objectives in mind, linked annotations comprising contributions from both communities could be helpful. In addition, such a linked annotation resource would also create a synergy between the biomedical research community and the natural language processing community.
 
 
-\section{Corpus statistics}\label{sec:corpusStats}
+\section{Corpus Statistics}\label{sec:corpusStats}
 
 % Put all the numbers with respect to number of entities, relations and their distribution here. Also, put all the nice graphs that you made here
 
 As stated earlier, the LocText corpus is composed of 100 MEDLINE abstracts (to be exact, 100 documents containing both title an abstract). This section presents an analysis of the annotations from various perspectives, viz. whether the annotation is present in the title or the abstract, the annotation relation type (protein-location/protein-organism), etc.
 
-\subsection*{Count of entities and relations}
+\subsection*{Count of Entities and Relations}
 
 \begin{figure}
 \centering
@@ -155,7 +155,7 @@ As stated earlier, the LocText corpus is composed of 100 MEDLINE abstracts (to b
 
 Fig. \ref{fig:LocText_Entities} and \ref{fig:LocText_Relations} show the number of entities and relations present in LocText corpus. As shown in  Fig. \ref{fig:LocText_Entities}, there are 1393 protein, 560 location and 277 organism annotations in the corpus. Similarly, Fig. \ref{fig:LocText_Relations} shows that there are a total of 1395 relations in the corpus, 550 of which are protein-location relations and 795 are protein-organism relations. Protein-organism relations contribute nearly 60\% of the total relations whereas protein-location relations make up remaining 40\%.
 
-\subsection*{Analysis of relations}
+\subsection*{Analysis of Relations}
 
 \begin{figure}
 \centering
@@ -210,7 +210,7 @@ As seen in Fig. \ref{fig:SentDistancePL}, it is also possible to find relations 
 
 Therefore to summarize the discussion, 316/515 abstract PL relations (Fig. \ref{fig:Abs_PL_Rel}) and 35 title PL relations are same-sentence relations, which mean that about 351/550 (63.81\%) of total PL relations are same-sentence relations. As seen from  Fig. \ref{fig:SentDistancePL}, 95/199 (47.74\%) different-sentence relations are at the distance of 1. Therefore, a total of 446/550 (81.09\%) PL relations are either same-sentence relations or have a sentence distance of 1. In other words, for about 81\% PL relations, the participating entities are either in the same sentence or in the neighboring sentences.
 
-\section{Annotation of full-text articles} \label{sec:full-text}
+\section{Annotation of Full-Text Articles} \label{sec:full-text}
 
 In addition to the abstracts, we also annotated 4 full-text articles. The annotation guidelines developed for abstracts was used for annotating full-text articles. Initially, PubMed identifiers for 100 abstracts in the LocText were converted to PMC identifiers \cite{pubmedtopmc}. From this list of PMC identifiers, 4 full-text articles were added to "LocText". These 4 full-text articles would be collectively called as full-text subcorpus in this section.
 
@@ -250,7 +250,7 @@ As shown in Fig. \ref{fig:FT_entities}, there are 2009 protein entities, 787 loc
 
 Figures \ref{fig:FT_RelDist} and \ref{fig:FT_PLRelDist} shows the distribution of relations into same-sentence relations and different-sentence relations. As shown in Fig. \ref{fig:FT_RelDist}, around 83.49\% of total relations are same-sentence relations whereas only 16.51\% of total relations are different-sentence relations. The percentage of different-sentence relations goes further down if only protein-location relations are considered. Fig. \ref{fig:FT_PLRelDist} shows that, about 92.2\% of the total protein-location relations are same-sentence relations while remaining 7.8\% are different-sentence relations. This distribution of protein-location relations in the full-text subcorpus is in stark contrast with the distribution in the abstract subcorpus. While abstract subcorpus had around 40\% different-sentence protein-location relations (see Fig. \ref{fig:Abs_PL_Rel}), the full-text subcorpus has only 7.8\% different-sentence relations.
 
-\section{Linked annotation}
+\section{Linked Annotation}
 
 %Write about contribution in BLAH
 

@@ -12,11 +12,11 @@ NLP systems work on a chunk of text as input. However, plain text data is unstru
 
 Syntax relates to the proper ordering of the words and its effect on the meaning, while semantics deals with the literal meaning of the words, phrases and sentences \cite{wiki:sentSeg}. This section presents an overview of syntactic tasks. Most of the NLP systems use syntactic tasks for preprocessing the data.
 
-\subsubsection{Sentence segmentation}
+\subsubsection{Sentence Segmentation}
 
 \textit{Sentence segmentation} is the process of dividing a chunk of text into component sentences \cite{wiki:sentSeg}. In English and some other languages, \emph{segmenting} after a fullstop ('.') is a reasonable approximation. However, the problem is not so trivial due to the use of abbreviations such as "Mr.", due to decimal numbers such as "3.1416", etc. For example, in the sentence \textit{"Mr. Smith went to the shops in Jones Street."}, the sentence actually ends after the word \textit{"Street"} and not after the abbreviation \textit{"Mr."}. In other languages, like Chinese, the task is more complex since they do not have a proper punctuation character that can be used for approximating sentence boundaries.
 
-\subsubsection{Word segmentation}
+\subsubsection{Word Segmentation}
 
 \textit{Word segmentation} is the process of dividing text into constituent words \cite{wiki:sentSeg}. Usually, white spaces can be used to parse the text into words in English. Although white spaces are a good approximation, sometimes they are not present. For example, the word \textit{couldn't} consists of two words \textit{could} and \textit{not}, which cannot be split using a white space. In some other languages like Chinese, words are not separated by spaces
 
@@ -28,7 +28,7 @@ Syntax relates to the proper ordering of the words and its effect on the meaning
 
 \textit{Stemming} and \textit{lemmatization} are the processes used to reduce a word to its \textit{base} form. Such reductions are useful for NLP systems. However, there is a difference between \textit{stemming} and \textit{lemmatization}. \textit{Stemming} refers to the crude heuristic process of chopping off the ends of the words in hope of finding the base word \cite{stemminglemmatization}. This works most of the time. For example, the stem of words \textit{running} and \textit{runs} is \textit{run}. \textit{Lemmatization} usually extracts the base word properly with the use of a vocabulary and morphological analysis of the words \cite{stemminglemmatization}.  This requires knowledge of the specific treated language. For example, the base of \textit{is}, \textit{am} and \textit{are} is \textit{be} which can only be extracted by lemmatization and not by stemming.
 
-\subsubsection{Part-of-the-speech (POS) tagging}
+\subsubsection{Part-Of-The-Speech (POS) Tagging}
 
 \textit{Part-of-the-speech (POS) tagging} is the process of annotating each word in the sentence with a \textit{part-of-the-speech tag}. The common examples of POS tags are \textit{noun} and \textit{verb}. This is an important step and is useful for subsequent syntactic parsing and word sense disambiguation \cite{nlpcourse}. 
 
@@ -67,7 +67,7 @@ Most NLP systems are a complex pipeline of NLP sub-tasks. For any processing to 
 \caption{Usual NLP pipeline.}\label{fig:NLPPipe}
 \end{figure}
 
-\subsection{NLP Semantic tasks}
+\subsection{NLP Semantic Tasks}
 
 Semantic tasks in NLP deal with extracting meaningful information from the text. Following are different types of semantic tasks:
 
@@ -75,7 +75,7 @@ Semantic tasks in NLP deal with extracting meaningful information from the text.
 
 Named entities are atomic elements in the text belonging to predefined categories \cite{ner1}, such as the names of persons, organizations, locations, etc. In simple words, \textit{named entity recognition (NER)} is the task of taking an unannotated block of text such as \textit{"Jim bought 300 shares of Acme Corp. in 2006."} and converting it into an annotated block like \textit{"$[Jim]_{Person}$ bought 300 shares of $[Acme Corp.]_{Organization}$ in $[2006]_{Time}$."} \cite{wiki:ner}.
 
-\subsubsection{Machine translation}
+\subsubsection{Machine Translation}
 % Search Engines
 % Helping the human translators
 
@@ -86,11 +86,11 @@ Named entities are atomic elements in the text belonging to predefined categorie
 
 \textit{Relationship extraction} is the process of identifying relationships between different named entities present in the sentence. For example, in the sentence \textit{"$TUM_{university}$ is located in $Munich_{location}$"}, \textit{TUM} and \textit{Munich} are connected by the relation \textit{located-in(TUM,Munich)}.
 
-\subsubsection{Coreference resolution}
+\subsubsection{Coreference Resolution}
 
 \textit{Coreference resolution} is the task of finding all expressions that refer to the same entity in the text. For example, in the sentence \textit{"Sally arrived, but nobody saw her."}, both \textit{her} and \textit{Sally} refer to the same entity.
 
-\subsubsection{Other semantic tasks}
+\subsubsection{Other Semantic Tasks}
 % Other tasks: 
 % 2. word sense disambiguation 
 %4. Question Answering 
@@ -108,7 +108,7 @@ Machine Learning algorithms are algorithms that can learn patterns from data. Ma
 
 Support vector machines (SVM) are supervised learning models that can be used for the task of classification and regression. SVMs are widely used for the task of classification, i.e., classifying the data into predefined classes/labels.
 
-\subsection{Mathematical formulation}
+\subsection{Mathematical Formulation}
 \begin{figure}
 \centering
 \begin{minipage}{.5\textwidth}
@@ -214,6 +214,6 @@ The process of building a maximum margin classifier using training samples is kn
 
 \textit{Training error} and \textit{Test error} are the metrics used for calculating the performance of classification on training samples and test samples, respectively. In case of low training error, it may happen that the hyperplane classifies all the training samples with very high accuracy but fails to classify testing samples correctly. In other words, the support vector machine model fits perfectly for training samples but does not generalize. This phenomenon of fitting only to the training samples is called \textit{Overfitting}.
 
-\subsection{Regularization parameter} \label{subsec:RegPar}
+\subsection{Regularization Parameter} \label{subsec:RegPar}
 
 One of the hyperparameters used in support vector machines is known as regularization parameter and denoted by $\mathbf{C}$. Regularization parameter controls the trade off between achieving a low \textit{training error} and achieving a low \textit{testing error}. It tells the SVM optimization how much it should avoid misclassifying each training example. In other words, using large values of $\mathbf{C}$ may fit the training data very well and can result in overfitting. On the other hand, small values of $\mathbf{C}$ may lead to lower performance on training set but better generalization.

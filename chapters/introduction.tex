@@ -1,10 +1,10 @@
 \chapter{Introduction}\label{chapter:introduction}
 
-\section{Explosion of biomedical data}
+\section{Explosion of Biomedical Data}
 
 In recent times, there has been a phenomenal rise in the amount of information available in the world. Since scientific articles remains the preferred way of publishing scientific research, there has also been a huge increase in the volume of scientific literature, particularly in the area of biomedical sciences. PubMed \cite{pubmed}, the database of biomedical articles, boasts of more than 24 million scientific articles and is growing rapidly. In 2014 alone, PubMed have added more than a million articles. Figure \ref{fig:PubMedTimeLine} shows the growth of PubMed database in recent years.
 
-\section{Need for automatic extraction of information}
+\section{Need for Automatic Extraction of Information}
 
 With huge amount of information available in the biomedical literature, it has become impossible for researchers to keep track of all the developments in the field. Given the textual nature of this scientific literature, text-mining techniques are helping researchers to extract relevant information from this gold mine without having to read each and every article. As a result, there has been a tremendous increase in research in the area of text-mining biomedical literature. These techniques are intended to help the researchers who cannot manually scavenge thousands of articles for information.
 
@@ -24,20 +24,20 @@ Conventionally, the best method to keep abreast of recent scientific advances is
 
 Therefore, text-mining methods have a large role to play in assisting researchers to extract relevant information from the information trove. As the text mining methods cannot be 100\% accurate, the information is always extracted with certain degree of confidence.
 
-\section{Subcellular localization of Proteins}
+\section{Subcellular Localization of Proteins}
 
 % Explain about why do we need to know about subcellular localization of proteins
 The subcellular localization of proteins is one of the most studied biochemical processes. Proteins play a vital role in the functioning of cell machinery and are therefore called the "building blocks of life". The creation of proteins consists of two main phases, viz. transcription and translation. The proteins are created in the cytoplasm by flow of genetic information from DNA (Deoxyribonucleic acid) to RNA (Ribonucleic acid) and from RNA to proteins. The genetic information present in the DNA is converted to RNA by a process known as transcription. Transcription takes place in the nucleus of the cell. The RNA strand so created, travels from nucleus to cytoplasm through the nuclear pores. In the cytoplasm, RNA strand is used to create a protein with the help of cellular machinery called as ribosomes. The process of converting RNA to a chain of amino acids called proteins is called translation. 
 
 Although the proteins are created in the cytoplasm, they do not necessarily perform their biological functions in the cytoplasm. A protein can perform its function anywhere in the cell (cytoplasm or cellular organelle) or outside the  cell. The biological function of proteins largely depend on their location and therefore, knowledge of the subcellular location of a protein is key to understanding its biological function. The subcellular location is a generic term used to indicate the location, even if the protein exits the cell and performs its  function outside the cell.
 
-\subsection{Important role in drug research}
+\subsection{Important Role in Drug Research}
 % 2. How automatic extraction of information will help in drug research
 
 Proteins play a very important role in proper functioning of the cell machinery and hence, an abnormality in their functioning can result in adverse effects, even leading to a disease. The study of proteins and their subcellular location is an important stage in the development of a drug. Drug researchers study the subcellular location of proteins, which can help them identify suitable drugs, vaccines or diagnostic treatments \cite{liu2007exploiting}. 
 
 
-\subsection{Current sources of information}
+\subsection{Current Sources of Information}
 % Explain about 
 %- Uniprot, Swissprot and Trembl. 
 %- Also talk about the procedure followed by PubMed annotators and how locations are mentioned for each protein
@@ -45,24 +45,24 @@ Proteins play a very important role in proper functioning of the cell machinery 
 
 Currently, important sources of information about subcellular location of proteins are knowledge bases like UniProtKB \cite{magrane2011uniprot}, manual curation from the literature, high-throughput microscopy-based screens and prediction from primary (protein) sequence.
 
-\subsection{Need of automatic extraction}
+\subsection{Automatic Extraction}
 
 Although knowledge bases like UniProtKB \cite{magrane2011uniprot} have considerable amount of information about proteins, including their subcellular location, it is not complete and can be supplemented \cite{goldberg2015linked}. UniProtKB consists of two sections, viz. Swiss-Prot and TrEMBL. TrEMBL contains automatically annotated information about a protein whereas Swiss-Prot contains the information which is manually reviewed by a curator. Every curator is in charge of certain proteins and he/she extracts the information manually by reading the literature. Obviously, this process is cumbersome and time-consuming. In addition, owing to the large amount of articles being published daily, it is impossible for these curators to update the information in the database constantly. This often results in some lag between the information present in knowledge bases and information in most recent literature.
 
 Automatic text-mining methods can help the manual curators as well as the researchers to keep them updated about the information that is not present in the knowledge bases. The extraction of information about subcellular locations of proteins can also help experimental biologists to verify this information experimentally. The information might also be useful to predict the location of other proteins, which have considerable sequence similarity with the protein whose information is extracted by text-mining.
 
-\subsection{Development of a new method}
+\subsection{Development of a New Method}
 
 In this thesis, I have developed a new method to extract the subcellular locations of proteins, automatically from the literature using text-mining techniques. This task involves extracting the semantic relationship between the entities, viz. protein and subcellular location, present in the text. Therefore, this process of extracting information is also called as relationship extraction. Throughout the rest of this document, the term "protein-subcellular location relation" is shortened  as "protein-location relation" for brevity.
 
 Section \ref{sec:existingWork} describes previous work done in this area. Chapter \ref{chapter:corpus} describes the process of data set annotation and the insights obtained during manual annotation. Chapter \ref{chapter:theory} explains the theoretical background of the methods described in Chapter \ref{chapter:methods}. The results of the method and the conclusions derived are discussed in Chapter \ref{chapter:results} and Chapter \ref{chapter:conclusion} respectively.
 
-\section{Related work}\label{sec:existingWork}
+\section{Related Work}\label{sec:existingWork}
 
 There has been little work done to solve the exact problem of protein-location relation extraction. However, there are some research groups that have done related work. This section presents an overview of the recent work done concerning this problem.
 
 %Literature Survey
-\subsection{Using syntactic trees for relation extraction - Liu et al.}
+\subsection{Using Syntactic Trees for Relation Extraction - Liu et al.}
 
 Liu et al. \cite{liu2007exploiting} proposed a method for extraction of protein-organism (PO) relations and protein-location (PL) relations from text using syntactic parse trees. The protein-organism (PO) and protein-location (PL) relations are then merged to create a ternary protein-organism-location (POL) relation. This is the single work that focused on the exact same problem that I tried to solve, i.e., protein-location relation extraction.
 
@@ -89,14 +89,14 @@ Figure \ref{fig:LiuFlow} shows the overall flow of information. Best results wer
 \caption{Results of combined prediction from models SRL \& TRK.}\label{tab:LiuRes}
 \end{table}
 
-\subsection{BioNLP shared task and localization events}
+\subsection{BioNLP Shared Task and Localization Events}
 % Explain what BioNLP event is and how localization is one of the 9 events that are meant to be extracted automatically
 
 The BioNLP shared task events were organized in 2009 \cite{kim2009overview}, 2011 and 2013 to gauge the progress of the biomedical text-mining community on various information extraction tasks. These events were organized like a contest where research teams across academia and industry were invited to submit prediction results for a given task. 
 
 The BioNLP event organizers provided an annotated corpus to the the text-mining community and invited solutions for the tasks. One of the tasks was shared task,  which involved extraction of the biological events present in the text. The data used for the shared task in BioNLP 2009 was a subset of the GENIA event corpus \cite{kim2008corpus}. The corpus was annotated for several biological events, one of which was \textit{Localization} and therefore, the methods employed in these BioNLP events can be an important source of study for the purpose of protein-location relation extraction.
 
-\subsubsection{Event extraction}
+\subsubsection{Event Extraction}
 
 \begin{figure}
 \centering
@@ -122,7 +122,7 @@ Figure \ref{fig:eventExample} shows two \textit{Regulation} events.
 
 \end{enumerate}
 
-\subsubsection{Difference between \textit{Localization} event extraction and protein-location relation extraction}
+\subsubsection{Difference between \textit{Localization} Event Extraction and Protein-Location Relation Extraction}
 
 Although the task of \textit{Localization} event extraction is quite similar to the task of protein-location relation extraction, there are subtle issues in the GENIA event corpus which disallow using the same corpus and the same methods for the task of protein-location relation extraction.
 
@@ -140,7 +140,7 @@ Following are some of those issues:
 
 Due to all these problems, I decided not to use the GENIA event corpus for my task. I, along with my team, decided to develop a corpus specifically tailored for the task of protein-location relation extraction to develop the method using it.
 
-\subsubsection{State of the art in BioNLP'09} \label{sec:JariBioNLP}
+\subsubsection{State-Of-The-Art in BioNLP'09} \label{sec:JariBioNLP}
 %Work of Björne et al
 
 The method developed by Björne et al. \cite{bjorne2009extracting} registered the-state-of-the-art performance in BioNLP Shared Task Event 2009. The method focused only on the events present in the same-sentence. As per their claim, about 95\% of the events are fully contained in a single sentence and therefore, it is sufficient \& relatively simpler to extract only same sentence events.
@@ -174,7 +174,7 @@ Following are the results of the method developed by Björne et al.:
 
 There were a total of nine events but only \textit{Localization} event results are shown for reference in Table \ref{tab:Jari}.
 
-\subsubsection{Using Markov Logic Networks for event extraction (Yoshikawa et al.)}
+\subsubsection{Using Markov Logic Networks for Event Extraction (Yoshikawa et al.)}
 
 Extending the results of Björne et al., Yoshikawa et al. \cite{yoshikawa2011coreference} used coreference resolution to extract events that span over multiple sentences in addition to extracting events from the same sentence. 
 
@@ -203,7 +203,7 @@ There are different channels or sources from which the information is collected.
 
 The \textit{automatic text mining} channel contributes the information extracted by a text-mining method. The text-mining method, which extracts the information from MEDLINE abstracts works on the supposition that, the more the protein and the cellular compartment is co-mentioned, the more likely the protein is localized to that compartment. This leads to the calculation of a score that determines the confidence of a protein being localized to a cellular compartment.
 
-\section{Need for a dedicated method}
+\section{Dedicated Text-Mining Method}
 %
 %- Explain about how localization event extraction tasks differ from our task
 %- Explain about how coreference resolution takes a lot of time and isn't really accurate
