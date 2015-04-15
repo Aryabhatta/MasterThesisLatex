@@ -64,7 +64,7 @@ A coarse skeleton sample of the corpus XML file can be shown in Fig. \ref{fig:XM
 \begin{figure}
 \centering
 \includegraphics[scale=0.4]{figures/XMLSchema2.png}
-\caption{Data format common to title and abstract node}\label{fig:XMLSchema2}
+\caption{Data format common to title and abstract node.}\label{fig:XMLSchema2}
 \end{figure}
 
 The \texttt{DATA FORMAT} shown in Fig. \ref{fig:XMLSchema2} represents the XML format used to store the data inside the title and the abstract node. The nested nodes are displayed with a tab indentation. The figure is representative and does not repeat the structures of the nodes for similar parent nodes. For example, even though only the node \texttt{sentence s1} shows the structure of internal nodes like \texttt{tokens}, essentially all the sentence nodes \texttt{sentence s2..sN} have the same structure of the internal nodes.
@@ -142,7 +142,7 @@ For the purpose of feature extraction, the data is also used in the form of a gr
 \begin{figure}
 \centering
 \includegraphics[scale=0.3]{figures/SameSentenceGraph.png}
-\caption{Graph representation of a sentence in \textit{SSModel}}\label{fig:SSGraph}
+\caption{Graph representation of a sentence in \textit{SSModel}.}\label{fig:SSGraph}
 \end{figure}
 
 The representation of a sentence as a graph is shown in Fig. \ref{fig:SSGraph}. The sentence \textit{"Discrete domains mediate the light-responsive nuclear and cytoplasmic localization of Arabidopsis COP1."} is tokenized and every token forms a node in the graph. A displayed node shows the text of its token in the first row and its part-of-speech (POS) tag and the token number joined by a hyphen in the second row. Tokens that are part of a protein entity are shown with a green background, tokens that are part of a location entity are shown with a magenta background and tokens that are part of organism entity are shown with a yellow background. As seen in the graph, \textit{"COP1"} is a protein entity, \textit{"Arabidopsis"} is an organism name and \textit{"nuclear"} and \textit{"cytoplasmic"} are the locations mentioned in the sentence. The nodes in the graph are connected by edges, which are the dependency
@@ -152,14 +152,12 @@ Also shown are dashed edges, which represent the protein-location relations. Obv
 
 \subsection{Graph representation for \textit{DSModel}}\label{sec:graphDSModel}
 
-%TODO add figure for multi sentences
-
 For \textit{DSModel}, the graph representation is a bit different compared to that in \textit{SSModel}. In \textit{DSModel}, pair of sentences are considered where every pair consists of the two neighboring sentences. Figure \ref{fig:DSGraph} shows an example of \textit{DSModel} graph representation. Similar to the graph representation in \textit{SSModel}, the sentence is tokenized and every token forms a node in the graph. The tokens that are part of protein entity are in green, those part of organism entity are in yellow and the tokens that are part of a location entity are in magenta. Since two sentences are considered at a time, the graphs of these sentences are concatenated together and considered as a combined sentence as shown in Fig. \ref{fig:DSGraph}.
 
 \begin{figure}
 \centering
 \includegraphics[scale=0.3]{figures/DiffSentenceGraph.png}
-\caption{Graph representation of a combined sentence in \textit{DSModel}}\label{fig:DSGraph}
+\caption{Graph representation of a combined sentence in \textit{DSModel}.}\label{fig:DSGraph}
 \end{figure}
 
 The edges in the graph are primarily dependency edges between the tokens in two sentences. In addition to the dependency edges, the graph is augmented with several other edges. The additional edges are:
@@ -208,7 +206,7 @@ A dependency chain of length 3 is considered for the dependency context. Incomin
 \begin{figure}
 \centering
 \includegraphics[scale=0.3]{figures/ShortestPath.png}
-\caption{Shortest Path from protein entity \textit{COP1} to location entity \textit{cytoplasmic}}\label{fig:shortPath}
+\caption{Shortest Path from protein entity \textit{COP1} to location entity \textit{cytoplasmic}.}\label{fig:shortPath}
 \end{figure}
 
 Many features are extracted depending on the dependency graph. Using the Floyd-Warshall algorithm, the shortest path between a protein entity and a location entity in a potential PL relation is calculated. For the purpose of extracting the shortest path, an undirected graph of dependencies is considered. Figure \ref{fig:shortPath} shows the shortest path from protein entity \textit{"COP1"} to location entity \textit{"cytoplasmic"}. The path is shown in bold. Note that an undirected graph is considered only for the purpose of extracting the shortest path. Most of the dependency-based features depend on this shortest path. While extracting the features, the original direction of the edges in the shortest path is also taken into consideration. The length of the shortest path contributes an integer-valued feature in addition to the binary feature for each length.
@@ -301,7 +299,7 @@ $SVM^{light}$ \cite{joachims1999making} has a specific way of representing the i
 \begin{figure}
 \centering
 \includegraphics[scale=0.6]{figures/CrossValidation.png}
-\caption{5-fold cross validation}\label{fig:crossVal}
+\caption{5-fold cross validation.}\label{fig:crossVal}
 \end{figure}
 
 A 5-fold cross validation is used where every fold consists of 20 documents (out of the 100 abstracts). In every round, 60\% of the total data is used for training, 20\% for development and 20\% for test. Since our corpus has 100 documents, 60 documents are used for training, 20 for development and 20 for testing in every round of cross validation. The training data is used to train the model using $SVM^{light}$. The development data is used for tuning the hyperparameters. For both \textit{SSModel} and \textit{DSModel}, regularization parameter $\mathbf{C}$ is the only hyperparameter to be tuned. Finally, unseen test data is used for calculating round performance results. The final performance of the model is the average of the performance for all 5 rounds. Figure \ref{fig:crossVal} illustrates the division of data for 5 rounds of cross validation.

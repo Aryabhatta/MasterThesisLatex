@@ -15,13 +15,13 @@ This section presents the results for same-sentence model (\textit{SSModel}) on 
 \begin{minipage}{.5\textwidth}
   \centering
   \includegraphics[width=.95\textwidth]{figures/SSInitialResultsNUniq.png}
-  \caption{\textit{SSModel}, non unique, initial}
+  \caption{\textit{SSModel}, non unique, initial.}
   \label{fig:SS_NU_Initial}
 \end{minipage}%
 \begin{minipage}{.5\textwidth}
   \centering
   \includegraphics[width=.95\textwidth]{figures/SSInitialResultsUniq.png}
-  \caption{\textit{SSModel}, unique, initial}
+  \caption{\textit{SSModel}, unique, initial.}
   \label{fig:SS_U_Initial}
 \end{minipage}
 \end{figure}
@@ -49,13 +49,13 @@ These methods are discussed in the following sections.
 \begin{minipage}{.5\textwidth}
   \centering
   \includegraphics[width=.95\textwidth]{figures/LeaveOneOutNUniq.png}
-  \caption{\textit{SSModel}, non u., LeaveOneOut}
+  \caption{\textit{SSModel}, non u., LeaveOneOut.}
   \label{fig:LeaveOO_NU}
 \end{minipage}%
 \begin{minipage}{.5\textwidth}
   \centering
   \includegraphics[width=.95\textwidth]{figures/LeaveOneOutUniq.png}
-  \caption{\textit{SSModel}, uniq., LeaveOneOut}
+  \caption{\textit{SSModel}, uniq., LeaveOneOut.}
   \label{fig:LeaveOO_U}
 \end{minipage}
 \end{figure}
@@ -74,13 +74,13 @@ The Feature Weight Ranking (FWR) approach, discussed in detail in Subsection \re
 \begin{minipage}{.5\textwidth}
   \centering
   \includegraphics[width=.95\textwidth]{figures/FWRWeightDist.png}
-  \caption{Feature weight distribution}
+  \caption{Feature weight distribution.}
   \label{fig:FWRWeightDist}
 \end{minipage}%
 \begin{minipage}{.5\textwidth}
   \centering
   \includegraphics[width=.95\textwidth]{figures/FWRPerformance.png}
-  \caption{FWR Performance comparison}
+  \caption{FWR Performance comparison.}
   \label{fig:FWRPerfComp}
 \end{minipage}
 \end{figure}
@@ -98,13 +98,13 @@ Information gain (IG) is widely for feature selection. The theoretical backgroun
 \begin{minipage}{.5\textwidth}
   \centering
   \includegraphics[width=.95\textwidth]{figures/IGDistr1.png}
-  \caption{IG distribution}
+  \caption{IG distribution.}
   \label{fig:IGDist}
 \end{minipage}%
 \begin{minipage}{.5\textwidth}
   \centering
   \includegraphics[width=.95\textwidth]{figures/IG5kSlabsComp.png}
-  \caption{IG models with 5k chunks}
+  \caption{IG models with 5k chunks.}
   \label{fig:IG5kComp}
 \end{minipage}
 \end{figure}
@@ -118,13 +118,13 @@ Further experiments were carried out using some of the features with best IG. Fo
 \begin{minipage}{.5\textwidth}
   \centering
   \includegraphics[width=.95\textwidth]{figures/IGFirst5k_NU.png}
-  \caption{IG non unique comparison}
+  \caption{IG non unique comparison.}
   \label{fig:IG_5k_NU}
 \end{minipage}%
 \begin{minipage}{.5\textwidth}
   \centering
   \includegraphics[width=.95\textwidth]{figures/IGFirst5k_U.png}
-  \caption{IG unique comparison}
+  \caption{IG unique comparison.}
   \label{fig:IG_5k_U}
 \end{minipage}
 \end{figure}
@@ -171,7 +171,7 @@ Figures \ref{fig:AvgIG} and \ref{fig:MinIG} show the variation of \textit{F scor
 \begin{figure}
 \centering
 \includegraphics[scale=0.6]{figures/6ModelsComparison.png}
-\caption{Comparison of selected models with initial model}\label{fig:6ModelsComp}
+\caption{Comparison of selected models with initial model.}\label{fig:6ModelsComp}
 \end{figure}
 
 As shown in Fig. \ref{fig:6ModelsComp}, $Avg_{55}$ has near to best performance with respect to non unique evaluation mode, best performance with respect to unique evaluation mode and the highest reduction in the number of features. The average number of feature for $Avg_{55}$ is around 13230 compared to 30900 in the initial model. Therefore, the $Avg_{55}$ model was selected as the best \textit{SSModel}.
@@ -194,13 +194,13 @@ Exhaustive hyperparameter search was conducted for the selected model $Avg_{55}$
 \begin{minipage}{.5\textwidth}
   \centering
   \includegraphics[width=.95\textwidth]{figures/CompDevTestResultsNonUniq.png}
-  \caption{Non unique mode results}
+  \caption{Non unique mode results.}
   \label{fig:SS_DevTest_NU}
 \end{minipage}%
 \begin{minipage}{.5\textwidth}
   \centering
   \includegraphics[width=.95\textwidth]{figures/CompDevTestResultsUniq.png}
-  \caption{Unique mode results}
+  \caption{Unique mode results.}
   \label{fig:SS_DevTest_U}
 \end{minipage}
 \end{figure}
@@ -234,7 +234,7 @@ The evaluation of performance of the \textit{DSModel} is, in a way, dependent on
 \begin{figure}
 \centering
 \includegraphics[scale=0.7]{figures/DSInitialResults.png}
-\caption{Initial results of \textit{DSModel}}\label{fig:DSInitial}
+\caption{Initial results of \textit{DSModel}.}\label{fig:DSInitial}
 \end{figure}
 
 Figure \ref{fig:DSInitial} shows the initial results of the \textit{DSModel}. These are the results prior to any experimentation for feature selection or hyperparameter search. The results are shown in the figure according to various evaluation criteria explained in the previous section. The original data, used for extraction of different-sentence relations, was totally imbalanced. The ratio of positive examples to negative examples was 1:10. It is difficult to train a model using such highly skewed data. Therefore, it was necessary to undersample \cite{akbani2004applying} the negative class to get some classification performance. The ratio of 1:5 was found optimal and all further experiments are carried out after undersampling the majority class (negative class).
@@ -254,7 +254,7 @@ The theoretical background for Leave-One-Out approach is discussed in Subsection
 \begin{figure}
 \centering
 \includegraphics[scale=0.8]{figures/DSLeaveOneOutComb.png}
-\caption{Effect of Leave-One-Out Analysis on \textit{DSModel}}\label{fig:DSLeaveOO}
+\caption{Effect of Leave-One-Out Analysis on \textit{DSModel}.}\label{fig:DSLeaveOO}
 \end{figure}
 
 Figure \ref{fig:DSLeaveOO} shows the effect of Leave-One-Out experimentation. The \textit{F score} for combined evaluation increased from 65.42 to 66.53. The total number of features used by initial model for 5 rounds of cross-validation was 310512 (62000 features per round of cross-validation on average). After Leave-One-Out experimentation, the total number of features for 5 rounds dropped to 201475 (average 40295 features per round), thereby reducing the number of features to a good extent.
@@ -266,7 +266,7 @@ The Feature Weight Ranking (FWR) approach is discussed in detail in Subsection \
 \begin{figure}
 \centering
 \includegraphics[scale=0.7]{figures/DSFWRResults.png}
-\caption{Effect of Feature Weight Ranking approach on \textit{DSModel}}\label{fig:DSFWR}
+\caption{Effect of Feature Weight Ranking approach on \textit{DSModel}.}\label{fig:DSFWR}
 \end{figure}
 
 Figure \ref{fig:DSFWR} shows the comparison between average \textit{F score} for combined evaluation mode. Initial model shows the performance before any experimentation. The model 1\_1k implies that 1000 highest weighted features from every round of cross validation are used for training the model. Similarly, the model 1\_20k implies that 20000 highest weighted features from every round of cross validation are used for training the model. As shown in Fig. \ref{fig:DSFWR}, the model 1\_5k register the best performance. However, the performance obtained is lower than the best performance obtained by LeaveOneOut experimentation and therefore, this approach was not further investigated. The weights of the features followed similar distribution as followed by the weights of the features for \textit{SSModel} in Fig. \ref{fig:FWRWeightDist}.
@@ -279,7 +279,7 @@ Information gain analysis is most widely used approach for the purpose of featur
 \begin{figure}
 \centering
 \includegraphics[scale=0.7]{figures/DSIGResults.png}
-\caption{Effect of Information Gain Analysis on \textit{DSModel}}\label{fig:DSIG}
+\caption{Effect of Information Gain Analysis on \textit{DSModel}.}\label{fig:DSIG}
 \end{figure}
 
 
@@ -311,13 +311,13 @@ These 5 criteria were used for conducting an exhaustive search. For every criter
 \begin{minipage}{.5\textwidth}
   \centering
   \includegraphics[width=.95\textwidth]{figures/DSAvgAnalysis.png}
-  \caption{Average analysis results}
+  \caption{Average analysis results.}
   \label{fig:DS_AvgAnalysis}
 \end{minipage}%
 \begin{minipage}{.5\textwidth}
   \centering
   \includegraphics[width=.95\textwidth]{figures/DSMinAnalysis.png}
-  \caption{Min IG analysis results}
+  \caption{Min IG analysis results.}
   \label{fig:DS_MinAnalysis}
 \end{minipage}
 \end{figure}
@@ -335,7 +335,7 @@ After rigorous feature selection and hyperparameter search, the optimal \textit{
 \begin{figure}
 \centering
 \includegraphics[scale=0.7]{figures/DSFinalResults.png}
-\caption{Final evaluation on test set}\label{fig:DSFinal}
+\caption{Final evaluation on test set.}\label{fig:DSFinal}
 \end{figure}
 
 Figure \ref{fig:DSFinal} shows the comparison between results on development set and test set. The \textit{F score} on development set is 66.73 while that on test set is 63.15.
@@ -351,13 +351,13 @@ As discussed in Section \ref{sec:full-text}, the full-text subcorpus in LocText 
 \begin{minipage}{.5\textwidth}
   \centering
   \includegraphics[width=.95\textwidth]{figures/3_FTOrigRatioResults.png}
-  \caption{Non unique evaluation results using original proportion}
+  \caption{Non unique evaluation results using original proportion.}
   \label{fig:FT_ResOrigNonUniq}
 \end{minipage}%
 \begin{minipage}{.5\textwidth}
   \centering
   \includegraphics[width=.95\textwidth]{figures/3_FTOrigRatioResults_Uniq.png}
-  \caption{Unique evaluation results using original proportion}
+  \caption{Unique evaluation results using original proportion.}
   \label{fig:FT_ResOrigUniq}
 \end{minipage}
 \end{figure}
@@ -387,16 +387,16 @@ Fig. \ref{fig:FT_ResOrigNonUniq} and Fig. \ref{fig:FT_ResOrigUniq} shows the eva
 \begin{subfigure}{.5\textwidth}
   \centering
   \includegraphics[width=.95\linewidth]{figures/4_FTSameRatioResults.png}
-  \caption{Non unique evaluation results}
+  \caption{Non unique evaluation results.}
   \label{fig:FT_ResUnderSampNonUniq}
 \end{subfigure}%
 \begin{subfigure}{.5\textwidth}
   \centering
   \includegraphics[width=.95\linewidth]{figures/4_FTSameRatioResults_Uniq.png}
-  \caption{Unique evaluation results}
+  \caption{Unique evaluation results.}
   \label{fig:FT_ResUnderSampUniq}
 \end{subfigure}
-\caption{Evaluation results after undersampling negative class}
+\caption{Evaluation results after undersampling negative class.}
 %\label{fig:test}
 \end{figure}
 
